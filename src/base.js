@@ -212,4 +212,23 @@ export default class BusinessElementsClientBase {
         this.authenticationToken = null;
       });
   }
+
+  /**
+   * Retrieves the current authentication for the authenticated account.
+   *
+   * @param  {Object} options         The options object.
+   * @param  {Object} options.headers The headers object option.
+   * @return {Promise<Object[], Error>}
+   */
+  currentAuthentication(options={}) {
+    const headers = this._getRequestOptions(options);
+    return this
+      .execute({
+        path: endpoint("authentication"),
+        headers: headers.headers
+      })
+      .then((response) => {
+        return response;
+      });
+  }
 }
