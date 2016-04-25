@@ -8,7 +8,9 @@ const ENDPOINTS = {
   root:                   () => "/",
   login:                  () => "/login",
   logout:                 () => "/logout",
-  authentication:         () => "/authentication"
+  authentication:         () => "/authentication",
+  login:                  () => "/login",
+  isEmailAvailable:       () => "/availability/email"
 };
 
 /**

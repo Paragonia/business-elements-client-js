@@ -67,7 +67,7 @@ export default class BusinessElementsClientBase {
      */
     this.http = new HTTP({requestMode: options.requestMode});
 
-  }  
+  }
 
   /**
    * The remote endpoint base URL.
@@ -230,5 +230,21 @@ export default class BusinessElementsClientBase {
       .then((response) => {
         return response;
       });
+  }
+
+  /**
+   * Checks if the given email address is available to be used for creating an account.
+   *
+   * @param  {String}   emailAddress    The account email address.
+   * @param  {Object}   options         The options object.
+   * @return {Promise<String, Error>} With the availability status
+   */
+  isEmailAvailable(emailAddress, options={}) {
+    const headers = this._getRequestOptions(options);
+    return this
+      .execute(requests.isEmailAvailable(emailAddress, headers), {raw:true})
+      .then((response) => {
+       return (response.status == 202);
+    });
   }
 }

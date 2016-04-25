@@ -40,7 +40,7 @@ describe("BusinessElementsClient", () => {
 
     it("should accept a headers option", () => {
       expect(new BusinessElementsClient(sampleRemote, {headers: {Foo: "Bar"}})
-              .defaultReqOptions.headers).eql({Foo: "Bar"});
+        .defaultReqOptions.headers).eql({Foo: "Bar"});
     });
 
     it("should propagate the requestMode option to the child HTTP instance", () => {
@@ -110,7 +110,7 @@ describe("BusinessElementsClient", () => {
 
     it("should retrieve authentication token", () => {
       sandbox.stub(root, "fetch")
-        .returns(fakeServerResponse(200, {}, { "Authentication-Token": authenticationToken }));
+        .returns(fakeServerResponse(200, {}, {"Authentication-Token": authenticationToken}));
 
       return api.login("test@example.com", "password")
         .should.eventually.become(authenticationToken);
@@ -118,7 +118,7 @@ describe("BusinessElementsClient", () => {
 
     it("should store authentication token", () => {
       sandbox.stub(root, "fetch")
-        .returns(fakeServerResponse(200, {}, { "Authentication-Token": authenticationToken }));
+        .returns(fakeServerResponse(200, {}, {"Authentication-Token": authenticationToken}));
 
       return api.login("test@example.com", "password").should.be.fulfilled.then(() => api.authenticationToken.should.equal(authenticationToken));
     });
@@ -140,5 +140,20 @@ describe("BusinessElementsClient", () => {
     });
   });
 
+  /** @test {BusinessElementsClient#isEmailAvailable} */
+  describe("#isEmailAvailable()", () => {
+
+    it("should return true for available email address", () => {
+      sandbox.stub(root, "fetch")
+        .returns(fakeServerResponse(202, {}, {}));
+
+      return api.isEmailAvailable("test@example.com")
+        .should.eventually.become(true);
+    });
+
+    it("should validate correct email input", () => {
+      expect(() => api.isEmailAvailable(null)).to.Throw(Error, /An email address is required/);
+    });
+  });
 
 });

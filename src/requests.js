@@ -37,3 +37,23 @@ export function logout(options = {}) {
     headers: {...headers}
   };
 }
+
+/**
+ * Check availability of email address
+ *
+ * @private
+ * */
+export function isEmailAvailable(emailAddress) {
+  if (!emailAddress) {
+    throw new Error("An email address is required.");
+  }
+
+  return {
+    method: "PUT",
+    path: endpoint("isEmailAvailable"),
+    body: {
+      emailAddress: emailAddress
+    }
+  };
+
+}
