@@ -1,6 +1,7 @@
 "use strict";
 
 import HTTP from "./http";
+import endpoint from "./endpoint";
 
 /**
  * HTTP client for the Business Elements API.

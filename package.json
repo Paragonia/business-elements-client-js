@@ -10,6 +10,7 @@
     "dist-prod": "browserify -s BusinessElementsClient -g uglifyify -e src/index.js -o dist/business-elements-client.min.js -t [ babelify --sourceMapRelative . ]",
     "test": "npm run test-nocover",
     "test-nocover": "babel-node node_modules/.bin/_mocha 'test/**/*_test.js'",
+    "test-integration": "babel-node node_modules/.bin/_mocha 'test/**/*_integration.js'",
     "lint": "eslint src test"
   },
   "repository": {

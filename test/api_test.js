@@ -3,18 +3,22 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import sinon from "sinon";
+import { fakeServerResponse } from "./test_utils.js";
 import BusinessElementsClient from "../src";
 
 chai.use(chaiAsPromised);
 chai.should();
 chai.config.includeStack = true;
 
+const FAKE_SERVER_URL = "http://api.fake-server";
+
 /** @test {BusinessElementsClient} */
 describe("BusinessElementsClient", () => {
-  let sandbox;
+  let sandbox, api;
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
+    api = new BusinessElementsClient(FAKE_SERVER_URL);
   });
 
   afterEach(() => {
@@ -45,4 +49,60 @@ describe("BusinessElementsClient", () => {
     });
 
   });
+
+  /** @test {BusinessElementsClient#fetchServerInfo} */
+  describe("#fetchServerInfo", () => {
+    const fakeServerInfo = {version: "0.0.1", build: "Sunday, April 24, 2016 11:54:17 AM UTC"};
+
+    it("should retrieve server settings on first request made", () => {
+      sandbox.stub(root, "fetch")
+        .returns(fakeServerResponse(200, fakeServerInfo));
+
+      return api.fetchServerInfo()
+        .should.eventually.become(fakeServerInfo);
+    });
+
+    it("should store server settings into the serverSettings property", () => {
+      api.serverSettings = {a: 1};
+      sandbox.stub(root, "fetch");
+
+      api.fetchServerInfo();
+    });
+
+    it("should not fetch server settings if they're cached already", () => {
+      api.serverInfo = fakeServerInfo;
+      sandbox.stub(root, "fetch");
+
+      api.fetchServerInfo();
+      sinon.assert.notCalled(fetch);
+    });
+  });
+
+  /** @test {BusinessElementsClient#fetchServerVersion} */
+  describe("#fetchServerVersion()", () => {
+    const fakeServerInfo = {version: "0.0.1"};
+
+    it("should retrieve server settings", () => {
+      sandbox.stub(root, "fetch")
+        .returns(fakeServerResponse(200, fakeServerInfo));
+
+      return api.fetchServerVersion()
+        .should.eventually.become("0.0.1");
+    });
+  });
+
+  /** @test {BusinessElementsClient#fetchServerBuildTime} */
+  describe("#fetchServerBuildTime()", () => {
+    const fakeServerInfo = {build: "Sunday, April 24, 2016 11:54:17 AM UTC"};
+
+    it("should retrieve server capabilities", () => {
+      sandbox.stub(root, "fetch")
+        .returns(fakeServerResponse(200, fakeServerInfo));
+
+      return api.fetchServerBuildTime()
+        .should.eventually.become("Sunday, April 24, 2016 11:54:17 AM UTC");
+    });
+  });
+
+
 });
