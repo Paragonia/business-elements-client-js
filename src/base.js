@@ -3,16 +3,10 @@
 import HTTP from "./http";
 
 /**
- * Currently supported protocol version.
- * @type {String}
- */
-export const SUPPORTED_PROTOCOL_VERSION = "v1";
-
-/**
  * HTTP client for the Business Elements API.
  *
  * @example
- * const client = new BusinessElementsClient("https://api2.businesselements.org/v1");
+ * const client = new BusinessElementsClient("https://api.business-elements.com");
  */
 export default class BusinessElementsClientBase {
 
@@ -69,7 +63,7 @@ export default class BusinessElementsClientBase {
   }  
 
   /**
-   * The remote endpoint base URL. Setting the value will also extract and validate the version.
+   * The remote endpoint base URL.
    * @type {String}
    */
   get remote() {
@@ -80,25 +74,7 @@ export default class BusinessElementsClientBase {
    * @ignore
    */
   set remote(url) {
-    let version;
-    try {
-      version = url.match(/\/(v\d+)\/?$/)[1];
-    } catch (err) {
-      throw new Error("The remote URL must contain the version: " + url);
-    }
-    if (version !== SUPPORTED_PROTOCOL_VERSION) {
-      throw new Error(`Unsupported protocol version: ${version}`);
-    }
     this._remote = url;
-    this._version = version;
-  }
-
-  /**
-   * The current server protocol version, eg. `v1`.
-   * @type {String}
-   */
-  get version() {
-    return this._version;
   }
 
   /**
@@ -121,5 +97,42 @@ export default class BusinessElementsClientBase {
         ...options.headers
       },
     };
+  }
+
+  /**
+   * Retrieves server information and store locally. This operation is
+   * usually performed a single time during the instance life cycle.
+   *
+   * @return {Promise<Object, Error>}
+   */
+  fetchServerInfo() {
+    if (this.serverInfo) {
+      return Promise.resolve(this.serverInfo);
+    }
+    return this.http.request(this.remote + endpoint("root"), {
+      headers: this.defaultReqOptions.headers
+    })
+      .then(({json}) => {
+        this.serverInfo = json;
+        return this.serverInfo;
+      });
+  }
+
+  /**
+   * Retrieves Business elements server version.
+   *
+   * @return {Promise<String, Error>}
+   */
+  fetchServerVersion() {
+    return this.fetchServerInfo().then(({version}) => version);
+  }
+
+  /**
+   * Retrieves Business elements server build time.
+   *
+   * @return {Promise<String, Error>}
+   */
+  fetchServerBuildTime() {
+    return this.fetchServerInfo().then(({build}) => build);
   }
 }
