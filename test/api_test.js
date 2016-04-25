@@ -27,7 +27,7 @@ describe("BusinessElementsClient", () => {
 
   /** @test {BusinessElementsClient#constructor} */
   describe("#constructor", () => {
-    const sampleRemote = `https://api.business-elements.com`;
+    const sampleRemote = "https://api.business-elements.com";
 
     it("should check that `remote` is a string", () => {
       expect(() => new BusinessElementsClient(42))
