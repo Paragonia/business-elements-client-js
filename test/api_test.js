@@ -46,9 +46,20 @@ describe("BusinessElementsClient", () => {
       expect(new BusinessElementsClient(sampleRemote).version).eql(SPV);
     });
 
+    it("should accept a headers option", () => {
+      expect(new BusinessElementsClient(sampleRemote, {headers: {Foo: "Bar"}})
+              .defaultReqOptions.headers).eql({Foo: "Bar"});
+    });
+
     it("should validate protocol version", () => {
       expect(() => new BusinessElementsClient("http://test/v999"))
         .to.Throw(Error, /^Unsupported protocol version/);
     });
+
+    it("should propagate the requestMode option to the child HTTP instance", () => {
+      const requestMode = "no-cors";
+      expect(new BusinessElementsClient(sampleRemote, {requestMode}).http.requestMode).eql(requestMode);
+    });
+
   });
 });

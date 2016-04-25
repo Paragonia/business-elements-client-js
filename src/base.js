@@ -1,5 +1,7 @@
 "use strict";
 
+import HTTP from "./http";
+
 /**
  * Currently supported protocol version.
  * @type {String}
@@ -18,8 +20,12 @@ export default class BusinessElementsClientBase {
    * Constructor.
    *
    * @param  {String} remote  The remote URL.
+   * @param  {Object}  options The options object.
+   * @param  {Object}  options.headers     The key-value headers to pass to each request (default: `{}`).
+   * @param  {String}  options.tenant      The default tenant to use (default: `"default"`)
+   * @param  {String}  options.requestMode The HTTP request mode (from ES6 fetch spec).
    */
-  constructor(remote) {
+  constructor(remote, options={}) {
     if (typeof(remote) !== "string" || !remote.length) {
       throw new Error("Invalid remote URL: " + remote);
     }
@@ -28,10 +34,38 @@ export default class BusinessElementsClientBase {
     }
 
     /**
+     * Default request options container.
+     * @private
+     * @type {Object}
+     */
+    this.defaultReqOptions = {
+      bucket:  options.bucket  || "default",
+      headers: options.headers || {},
+      safe:    !!options.safe,
+    };
+
+    this._options = options;
+
+    /**
      * The remote server base URL.
      * @type {String}
      */
     this.remote = remote;
+
+    /**
+     * Current server information.
+     * @ignore
+     * @type {Object|null}
+     */
+    this.serverInfo = null;
+
+    /**
+     * The HTTP instance.
+     * @ignore
+     * @type {HTTP}
+     */
+    this.http = new HTTP({requestMode: options.requestMode});
+
   }  
 
   /**
@@ -65,5 +99,27 @@ export default class BusinessElementsClientBase {
    */
   get version() {
     return this._version;
+  }
+
+  /**
+   * Generates a request options object, deeply merging the client configured defaults with the ones provided as argument.
+   *
+   * Note: Headers won't be overridden but merged with instance default ones.
+   *
+   * @private
+   * @param    {Object} options The request options.
+   * @return   {Object}
+   * @property {Object} headers The extended headers object option.
+   */
+  _getRequestOptions(options={}) {
+    return {
+      ...this.defaultReqOptions,
+      ...options,
+      // Note: headers should never be overridden but extended
+      headers: {
+        ...this.defaultReqOptions.headers,
+        ...options.headers
+      },
+    };
   }
 }
