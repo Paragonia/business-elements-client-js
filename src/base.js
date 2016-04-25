@@ -2,6 +2,7 @@
 
 import HTTP from "./http";
 import endpoint from "./endpoint";
+import * as requests from "./requests";
 
 /**
  * HTTP client for the Business Elements API.
@@ -53,6 +54,13 @@ export default class BusinessElementsClientBase {
      * @type {Object|null}
      */
     this.serverInfo = null;
+
+    /**
+     * Current authentication token.
+     * @ignore
+     * @type {String|null}
+     */
+    this.authenticationToken = null;
 
     /**
      * The HTTP instance.
@@ -135,5 +143,53 @@ export default class BusinessElementsClientBase {
    */
   fetchServerBuildTime() {
     return this.fetchServerInfo().then(({build}) => build);
+  }
+
+  /**
+   * Retrieves Business Elements server settings.
+   *
+   * @return {Promise<Object, Error>}
+   */
+  fetchServerSettings() {
+    return this.fetchServerInfo().then(({settings}) => settings);
+  }
+
+  /**
+   * Executes an atomic HTTP request.
+   *
+   * @private
+   * @param  {Object}  request     The request object.
+   * @param  {Object}  options     The options object.
+   * @param  {Boolean} options.raw Resolve with full response object, including json body and headers (Default: `false`, so only the json body is retrieved).
+   * @return {Promise<Object, Error>}
+   */
+  execute(request, options={raw: false}) {
+    const promise = this.fetchServerSettings()
+      .then(_ => {
+        return this.http.request(this.remote + request.path, {
+          ...request,
+          body: JSON.stringify(request.body)
+        });
+      });
+    return options.raw ? promise : promise.then(({json}) => json);
+  }
+
+  /**
+   * Authenticates the account on the server.
+   *
+   * The generated authentication token is stored in the instance and will be send with each subsequent request.
+   *
+   * @param  {String}   emailAddress    The account email address.
+   * @param  {String}   password        The account password.
+   * @param  {Object}   options         The options object.
+   * @return {Promise<String, Error>} With the authentication token.
+   */
+  login(emailAddress, password, options={}) {
+    const reqOptions = this._getRequestOptions(options);
+    return this.execute(requests.login(emailAddress, password, reqOptions), {raw:true})
+      .then((response) => {
+        this.authenticationToken = response.headers.get("Authentication-Token");
+        return this.authenticationToken;
+      });
   }
 }

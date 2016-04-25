@@ -104,5 +104,26 @@ describe("BusinessElementsClient", () => {
     });
   });
 
+  /** @test {BusinessElementsClient#login} */
+  describe("#login()", () => {
+    const authenticationToken = "0000000000000000-0000000000000000-0000000000000000-0000000000000000";
+
+    it("should retrieve authentication token", () => {
+      sandbox.stub(root, "fetch")
+        .returns(fakeServerResponse(200, {}, { "Authentication-Token": authenticationToken }));
+
+      return api.login("test@example.com", "password")
+        .should.eventually.become(authenticationToken);
+    });
+
+    it("should store authentication token", () => {
+      sandbox.stub(root, "fetch")
+        .returns(fakeServerResponse(200, {}, { "Authentication-Token": authenticationToken }));
+
+      return api.login("test@example.com", "password").should.be.fulfilled.then(() => api.authenticationToken.should.equal(authenticationToken));
+    });
+
+  });
+
 
 });

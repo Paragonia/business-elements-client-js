@@ -1,9 +1,12 @@
+"use strict";
+
 /**
  * Endpoints templates.
  * @type {Object}
  */
 const ENDPOINTS = {
-  root:                   () => "/"
+  root:                   () => "/",
+  login:                  () => "/login"
 };
 
 /**

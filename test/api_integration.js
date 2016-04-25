@@ -10,7 +10,7 @@ chai.use(chaiAsPromised);
 chai.should();
 chai.config.includeStack = true;
 
-const TEST_BUSINESS_ELEMENTS_SERVER = "http://api.business-elements.com";
+const TEST_BUSINESS_ELEMENTS_SERVER = "https://api.business-elements.com";
 
 describe("Integration tests", function() {
   let sandbox, api;
@@ -37,4 +37,14 @@ describe("Integration tests", function() {
       });
     });
   });
+
+  describe("Account", () => {
+
+    describe("Authentication", () => {
+      it("should login account", () => {
+        return api.login("test@example.com", "password").should.be.fulfilled;
+      });
+    });
+  });
+
 });
