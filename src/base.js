@@ -35,9 +35,7 @@ export default class BusinessElementsClientBase {
      * @type {Object}
      */
     this.defaultReqOptions = {
-      bucket:  options.bucket  || "default",
-      headers: options.headers || {},
-      safe:    !!options.safe,
+      headers: options.headers || {}
     };
 
     this._options = options;
@@ -97,7 +95,7 @@ export default class BusinessElementsClientBase {
    * @property {Object} headers The extended headers object option.
    */
   _getRequestOptions(options={}) {
-    return {
+    const requestOptions = {
       ...this.defaultReqOptions,
       ...options,
       // Note: headers should never be overridden but extended
@@ -106,6 +104,12 @@ export default class BusinessElementsClientBase {
         ...options.headers
       },
     };
+
+    if (this.authenticationToken) {
+      requestOptions.headers["Authentication-Token"] = this.authenticationToken;
+    }
+
+    return requestOptions;
   }
 
   /**
@@ -190,6 +194,22 @@ export default class BusinessElementsClientBase {
       .then((response) => {
         this.authenticationToken = response.headers.get("Authentication-Token");
         return this.authenticationToken;
+      });
+  }
+
+  /**
+   * Logs out the account on the server.
+   *
+   * When the account is logged out the authentication token is invalidated.
+   *
+   * @param  {Object}   options         The options object.
+   * @return {Promise<undefined, Error>}
+   */
+  logout(options={}) {
+    const reqOptions = this._getRequestOptions(options);
+    return this.execute(requests.logout(reqOptions))
+      .then((response) => {
+        this.authenticationToken = null;
       });
   }
 }

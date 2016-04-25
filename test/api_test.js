@@ -1,6 +1,6 @@
 "use strict";
 
-import chai, { expect } from "chai";
+import chai, { expect, assert } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import sinon from "sinon";
 import { fakeServerResponse } from "./test_utils.js";
@@ -122,7 +122,22 @@ describe("BusinessElementsClient", () => {
 
       return api.login("test@example.com", "password").should.be.fulfilled.then(() => api.authenticationToken.should.equal(authenticationToken));
     });
+  });
 
+  /** @test {BusinessElementsClient#logout} */
+  describe("#logout()", () => {
+    const authenticationToken = "0000000000000000-0000000000000000-0000000000000000-0000000000000000";
+
+    it("should clear authentication token", () => {
+      api.authenticationToken = authenticationToken;
+
+      sandbox.stub(root, "fetch")
+        .returns(fakeServerResponse(204, {}));
+
+      return api.logout().should.be.fulfilled.then(() => {
+        assert.isNull(api.authenticationToken);
+      });
+    });
   });
 
 

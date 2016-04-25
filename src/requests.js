@@ -23,3 +23,17 @@ export function login(emailAddress, password, options = {}) {
     }
   };
 }
+
+/**
+ * @private
+ */
+export function logout(options = {}) {
+
+  const { headers } = {...options};
+
+  return {
+    method: "POST",
+    path: endpoint("logout"),
+    headers: {...headers}
+  };
+}

@@ -17,6 +17,9 @@ describe("Integration tests", function() {
 
   this.timeout(12500);
 
+  const emailAddress = "test@example.com";
+  const password = "password";
+
   function createClient(options={}) {
     return new Api(TEST_BUSINESS_ELEMENTS_SERVER, options);
   }
@@ -42,7 +45,14 @@ describe("Integration tests", function() {
 
     describe("Authentication", () => {
       it("should login account", () => {
-        return api.login("test@example.com", "password").should.be.fulfilled;
+        return api.login(emailAddress, password).should.be.fulfilled;
+      });
+
+      it("should logout account", () => {
+        return api.login(emailAddress, password)
+          .then(() => {
+            return api.logout().should.be.fulfilled;
+          });
       });
     });
   });

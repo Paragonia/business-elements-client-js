@@ -13,8 +13,7 @@ export default class HTTP {
    */
   static get DEFAULT_REQUEST_HEADERS() {
     return {
-      "Accept":       "application/json",
-      "Content-Type": "application/json",
+      "Accept": "application/json"
     };
   }
 
@@ -71,8 +70,13 @@ export default class HTTP {
    */
   request(url, options={headers:{}}) {
     let response, status, statusText, headers, hasTimedout;
+
     // Ensure default request headers are always set
     options.headers = Object.assign({}, HTTP.DEFAULT_REQUEST_HEADERS, options.headers);
+    if (options.body) {
+      // Add Content-Type when request body is present
+      options.headers = Object.assign({}, {"Content-Type": "application/json"}, options.headers);
+    }
     options.mode = this.requestMode;
     return new Promise((resolve, reject) => {
       const _timeoutId = setTimeout(() => {
