@@ -85,4 +85,18 @@ export default class Tenant {
     return this.client
       .execute(requests.createUser(emailAddress, password, reqOptions));
   }
+
+  /**
+   * Activates the specified user.
+   *
+   * @param  {String}   userId           Id of the user to activate.
+   * @param  {String}   activationCode   Required to activate the user.
+   * @param  {Object}   [options]        The options object.
+   * @return {Promise<Object, Error>}
+   */
+  activateUser(userId, activationCode, options = {}) {
+    const reqOptions = this._getTenantOptions(options);
+    return this.client
+      .execute(requests.activateUser(userId, activationCode, reqOptions));
+  }
 }

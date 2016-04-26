@@ -51,8 +51,6 @@ describe("Tenant", () => {
     beforeEach(() => {
       sandbox.stub(root, "fetch").returns(fakeServerResponse(201, {}, {}));
       sandbox.spy(requests, "createUser");
-      // sandbox.stub(client, "execute").returns(Promise.resolve());
-
     });
 
     it("should execute expected request without password", () => {
@@ -76,4 +74,30 @@ describe("Tenant", () => {
     });
 
   });
+
+  /** @test {Tenant#activateUser} */
+  describe("#activateUser", () => {
+    beforeEach(() => {
+      sandbox.stub(root, "fetch").returns(fakeServerResponse(201, {}, {}));
+      sandbox.spy(requests, "activateUser");
+    });
+
+    it("should execute expected request", () => {
+      tenant.activateUser("cb97a61a-32ca-408c-afb6-b9f11abdf881", "12345678");
+
+      sinon.assert.calledWithMatch(requests.activateUser, "cb97a61a-32ca-408c-afb6-b9f11abdf881", "12345678", {
+        headers: { "tenant": "example.com" }
+      });
+    });
+
+    it("should require a user id", () => {
+      expect(() => tenant.activateUser(null)).to.Throw(Error, /A user id is required./);
+    });
+
+    it("should require an activation code", () => {
+      expect(() => tenant.activateUser("cb97a61a-32ca-408c-afb6-b9f11abdf881", null)).to.Throw(Error, /An activation code is required./);
+    });
+
+  });
+
 });

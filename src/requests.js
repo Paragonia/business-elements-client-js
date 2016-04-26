@@ -17,10 +17,7 @@ export function login(emailAddress, password, options = {}) {
   return {
     method: "POST",
     path: endpoint("authentications"),
-    body: {
-      emailAddress: emailAddress,
-      password: password
-    }
+    body: { emailAddress, password: password }
   };
 }
 
@@ -54,9 +51,7 @@ export function isEmailAvailable(emailAddress, options = {}) {
     method: "POST",
     path: endpoint("userEmailAddressRequest"),
     headers: {...headers},
-    body: {
-      emailAddress: emailAddress
-    }
+    body: { emailAddress }
   };
 }
 
@@ -74,10 +69,29 @@ export function createUser(emailAddress, password, options = {}) {
     method: "POST",
     path: endpoint("users"),
     headers: {...headers},
-    body: {
-      emailAddress: emailAddress,
-      password: password
-    }
+    body: { emailAddress, password }
+  };
+}
+
+/**
+ * @private
+ */
+export function activateUser(userId, activationCode, options = {}) {
+  if (!userId) {
+    throw new Error("A user id is required.");
+  }
+
+  if (!activationCode) {
+    throw new Error("An activation code is required.");
+  }
+
+  const { headers } = {...options};
+
+  return {
+    method: "POST",
+    path: endpoint("userActivation"),
+    headers: {...headers},
+    body: { userId, activationCode }
   };
 }
 
