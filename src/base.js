@@ -3,6 +3,7 @@
 import HTTP from "./http";
 import endpoint from "./endpoint";
 import * as requests from "./requests";
+import Tenant from "./tenant";
 
 /**
  * HTTP client for the Business Elements API.
@@ -233,18 +234,14 @@ export default class BusinessElementsClientBase {
   }
 
   /**
-   * Checks if the given email address is available to be used for creating an account.
+   * Retrieve a tenant object to perform operations on it.
    *
-   * @param  {String}   emailAddress    The account email address.
-   * @param  {Object}   options         The options object.
-   * @return {Promise<Boolean, Error>} With the availability status
+   * @param  {String}  domainName    The tenant domain name.
+   * @param  {Object}  options       The request options.
+   * @return {Tenant}
    */
-  isEmailAvailable(emailAddress, options = {}) {
-    const headers = this._getRequestOptions(options);
-    return this
-      .execute(requests.isEmailAvailable(emailAddress, headers), {raw: true})
-      .then((response) => {
-        return (response.status === 202);
-      });
+  tenant(domainName, options={}) {
+    const tenantOptions = this._getRequestOptions(options);
+    return new Tenant(this, domainName, tenantOptions);
   }
 }

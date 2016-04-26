@@ -139,21 +139,4 @@ describe("BusinessElementsClient", () => {
       });
     });
   });
-
-  /** @test {BusinessElementsClient#isEmailAvailable} */
-  describe("#isEmailAvailable()", () => {
-
-    it("should return true for available email address", () => {
-      sandbox.stub(root, "fetch")
-        .returns(fakeServerResponse(202, {}, {}));
-
-      return api.isEmailAvailable("test@example.com")
-        .should.eventually.become(true);
-    });
-
-    it("should validate correct email input", () => {
-      expect(() => api.isEmailAvailable(null)).to.Throw(Error, /An email address is required/);
-    });
-  });
-
 });
