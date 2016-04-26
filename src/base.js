@@ -138,7 +138,7 @@ export default class BusinessElementsClientBase {
    * @return {Promise<String, Error>}
    */
   fetchServerVersion() {
-    return this.fetchServerInfo().then(({version}) => version);
+    return this.fetchServerInfo().then(({platform}) => platform.version);
   }
 
   /**
@@ -147,7 +147,7 @@ export default class BusinessElementsClientBase {
    * @return {Promise<String, Error>}
    */
   fetchServerBuildTime() {
-    return this.fetchServerInfo().then(({build}) => build);
+    return this.fetchServerInfo().then(({build}) => build.millis);
   }
 
   /**
