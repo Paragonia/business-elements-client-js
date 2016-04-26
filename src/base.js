@@ -237,14 +237,14 @@ export default class BusinessElementsClientBase {
    *
    * @param  {String}   emailAddress    The account email address.
    * @param  {Object}   options         The options object.
-   * @return {Promise<String, Error>} With the availability status
+   * @return {Promise<Boolean, Error>} With the availability status
    */
-  isEmailAvailable(emailAddress, options={}) {
+  isEmailAvailable(emailAddress, options = {}) {
     const headers = this._getRequestOptions(options);
     return this
-      .execute(requests.isEmailAvailable(emailAddress, headers), {raw:true})
+      .execute(requests.isEmailAvailable(emailAddress, headers), {raw: true})
       .then((response) => {
-       return (response.status == 202);
-    });
+        return (response.status === 202);
+      });
   }
 }
