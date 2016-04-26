@@ -17,7 +17,7 @@ describe("Integration tests", function() {
 
   this.timeout(12500);
 
-  const emailAddress = "test@example.com";
+  const emailAddress = "dan@product-foundry.com";
   const password = "password";
 
   function createClient(options={}) {

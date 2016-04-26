@@ -15,8 +15,8 @@ export function login(emailAddress, password, options = {}) {
   }
 
   return {
-    method: "POST",
-    path: endpoint("login"),
+    method: "PUT",
+    path: endpoint("authentication"),
     body: {
       emailAddress: emailAddress,
       password: password
@@ -32,8 +32,8 @@ export function logout(options = {}) {
   const { headers } = {...options};
 
   return {
-    method: "POST",
-    path: endpoint("logout"),
+    method: "DELETE",
+    path: endpoint("authentication"),
     headers: {...headers}
   };
 }
