@@ -1,4 +1,4 @@
-import * as requests from "./requests";
+import Users from "./users";
 
 /**
  * Abstract representation of a selected tenant.
@@ -30,7 +30,6 @@ export default class Tenant {
      * @type {Object}
      */
     this.options = options;
-
   }
 
   /**
@@ -54,49 +53,12 @@ export default class Tenant {
   }
 
   /**
-   * Checks if the given email address is available to be used for creating a user.
+   * Gets the resource for accessing users
    *
-   * @param  {String}   emailAddress    The email address to check.
    * @param  {Object}   [options]       The options object.
-   * @return {Promise<Boolean, Error>}  Indicating if the user email is available.
+   * @return {Users}
    */
-  isEmailAvailable(emailAddress, options = {}) {
-    const headers = this._getTenantOptions(options);
-    return this.client
-      .execute(requests.isEmailAvailable(emailAddress, headers))
-      .then((response) => {
-        return true;
-      })
-      .catch ((error) => {
-        return false;
-      });
-  }
-
-  /**
-   * Creates the user with the specified credentials.
-   *
-   * @param  {String}   emailAddress     The email address for the user.
-   * @param  {String}   [password]       The password for the user.
-   * @param  {Object}   [options]        The options object.
-   * @return {Promise<Object, Error>}
-   */
-  createUser(emailAddress, password, options = {}) {
-    const reqOptions = this._getTenantOptions(options);
-    return this.client
-      .execute(requests.createUser(emailAddress, password, reqOptions));
-  }
-
-  /**
-   * Activates the specified user.
-   *
-   * @param  {String}   userId           Id of the user to activate.
-   * @param  {String}   activationCode   Required to activate the user.
-   * @param  {Object}   [options]        The options object.
-   * @return {Promise<Object, Error>}
-   */
-  activateUser(userId, activationCode, options = {}) {
-    const reqOptions = this._getTenantOptions(options);
-    return this.client
-      .execute(requests.activateUser(userId, activationCode, reqOptions));
+  users(options={}) {
+    return new Users(this.client, this._getTenantOptions(options));
   }
 }
