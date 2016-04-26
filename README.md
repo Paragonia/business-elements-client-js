@@ -18,19 +18,19 @@ A JavaScript HTTP Client for the [Business Elements](https://api.business-elemen
 In nodejs:
 
 ```
-$ npm install business-elements-client --save
+$ npm install business-elements --save
 ```
 
 Then (ES6):
 
 ```js
-import BusinessElementsClient from "business-elements-client";
+import BusinessElementsClient from "business-elements";
 ```
 
 Or (ES5):
 
 ```js
-var BusinessElementsClient = require("business-elements-client").default;
+var BusinessElementsClient = require("business-elements").default;
 ```
 
 Note that this HTTP client can be transparently used server side or in a regular browser page.
