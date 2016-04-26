@@ -50,4 +50,6 @@ export default class Project {
       headers
     };
   }
+
+  // TODO [AK] List resources
 }

@@ -1,3 +1,4 @@
+import Projects from "./projects";
 import Users from "./users";
 
 /**
@@ -53,7 +54,17 @@ export default class Tenant {
   }
 
   /**
-   * Gets the resource for accessing users
+   * Provides access to tenant projects.
+   *
+   * @param  {Object}   [options]       The options object.
+   * @return {Projects}
+   */
+  projects(options={}) {
+    return new Projects(this.client, this._getTenantOptions(options));
+  }
+
+  /**
+   * Provides access to tenant users.
    *
    * @param  {Object}   [options]       The options object.
    * @return {Users}

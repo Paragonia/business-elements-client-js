@@ -14,7 +14,7 @@ chai.config.includeStack = true;
 
 const FAKE_SERVER_URL = "http://api.fake-server";
 
-/** @test {Tenant} */
+/** @test {Users} */
 describe("Users", () => {
   let sandbox, client, tenant, users;
 

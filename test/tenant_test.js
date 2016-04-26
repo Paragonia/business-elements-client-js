@@ -26,6 +26,14 @@ describe("Tenant", () => {
     sandbox.restore();
   });
 
+  /** @test {Tenant#projects} */
+  describe("#projects()", () => {
+
+    it("should return projects", () => {
+      return tenant.projects().should.exist;
+    });
+  });
+
   /** @test {Tenant#users} */
   describe("#users()", () => {
 
