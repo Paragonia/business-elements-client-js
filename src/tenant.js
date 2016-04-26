@@ -57,7 +57,7 @@ export default class Tenant {
    * Checks if the given email address is available to be used for creating a user.
    *
    * @param  {String}   emailAddress    The email address to check.
-   * @param  {Object}   options         The options object.
+   * @param  {Object}   [options]       The options object.
    * @return {Promise<Boolean, Error>}  Indicating if the user email is available.
    */
   isEmailAvailable(emailAddress, options = {}) {
@@ -70,5 +70,19 @@ export default class Tenant {
       .catch ((error) => {
         return false;
       });
+  }
+
+  /**
+   * Creates the user with the specified credentials.
+   *
+   * @param  {String}   emailAddress     The email address for the user.
+   * @param  {String}   [password]       The password for the user.
+   * @param  {Object}   [options]        The options object.
+   * @return {Promise<Object, Error>}
+   */
+  createUser(emailAddress, password, options = {}) {
+    const reqOptions = this._getTenantOptions(options);
+    return this.client
+      .execute(requests.createUser(emailAddress, password, reqOptions));
   }
 }

@@ -7,7 +7,8 @@
 const ENDPOINTS = {
   root:                   () => "/",
   authentication:         () => "/authentication",
-  isEmailAvailable:       () => "/availability/email"
+  isEmailAvailable:       () => "/availability/email",
+  users:                  () => "/users"
 };
 
 /**

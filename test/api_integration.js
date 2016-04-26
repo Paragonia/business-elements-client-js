@@ -17,7 +17,7 @@ describe("Integration tests", function() {
 
   this.timeout(12500);
 
-  const emailAddress = "dan@product-foundry.com";
+  const emailAddress = "test@example.com";
   const password = "password";
 
   function createClient(options={}) {
@@ -64,4 +64,13 @@ describe("Integration tests", function() {
     });
   });
 
+  describe("User", () => {
+
+    describe("Creation", () => {
+      it("should succeed", () => {
+        const tenant = api.tenant("clay.work");
+        return tenant.createUser(emailAddress, password).should.be.fulfilled;
+      });
+    });
+  });
 });

@@ -43,17 +43,41 @@ export function logout(options = {}) {
  *
  * @private
  * */
-export function isEmailAvailable(emailAddress) {
+export function isEmailAvailable(emailAddress, options = {}) {
   if (!emailAddress) {
     throw new Error("An email address is required.");
   }
 
+  const { headers } = {...options};
+
   return {
     method: "PUT",
     path: endpoint("isEmailAvailable"),
+    headers: {...headers},
     body: {
       emailAddress: emailAddress
     }
   };
-
 }
+
+/**
+ * @private
+ */
+export function createUser(emailAddress, password, options = {}) {
+  if (!emailAddress) {
+    throw new Error("An email address is required.");
+  }
+
+  const { headers } = {...options};
+
+  return {
+    method: "POST",
+    path: endpoint("users"),
+    headers: {...headers},
+    body: {
+      emailAddress: emailAddress,
+      password: password
+    }
+  };
+}
+
