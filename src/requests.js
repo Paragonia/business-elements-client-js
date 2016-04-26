@@ -15,8 +15,8 @@ export function login(emailAddress, password, options = {}) {
   }
 
   return {
-    method: "PUT",
-    path: endpoint("authentication"),
+    method: "POST",
+    path: endpoint("authentications"),
     body: {
       emailAddress: emailAddress,
       password: password
@@ -33,7 +33,7 @@ export function logout(options = {}) {
 
   return {
     method: "DELETE",
-    path: endpoint("authentication"),
+    path: endpoint("currentAuthentication"),
     headers: {...headers}
   };
 }
@@ -51,8 +51,8 @@ export function isEmailAvailable(emailAddress, options = {}) {
   const { headers } = {...options};
 
   return {
-    method: "PUT",
-    path: endpoint("isEmailAvailable"),
+    method: "POST",
+    path: endpoint("userEmailAddressRequest"),
     headers: {...headers},
     body: {
       emailAddress: emailAddress

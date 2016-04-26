@@ -5,10 +5,28 @@
  * @type {Object}
  */
 const ENDPOINTS = {
-  root:                   () => "/",
-  authentication:         () => "/authentication",
-  isEmailAvailable:       () => "/availability/email",
-  users:                  () => "/users"
+  root:                     () => "/",
+
+  // Authentication
+
+  authentications:          () => "/authentications",
+  authentication:         (id) => `/authentications/${id}`,
+  currentAuthentication:    () => "/authentications/current",
+
+  // Users
+
+  users:                    () => "/users",
+  user:                   (id) => `/users/${id}`,
+  userPasswordResetRequest: () => "/users/password_reset_request",
+  userPasswordReset:        () => "/users/password_reset",
+  userEmailAddressRequest:  () => "/users/email_address_request",
+  userActivation:           () => "/users/activation",
+  me:                       () => "/users/me",
+
+  // Projects
+
+  projects:                 () => "/projects",
+  project:                (id) => `/projects/${id}`
 };
 
 /**
