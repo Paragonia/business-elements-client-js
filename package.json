@@ -1,17 +1,19 @@
 {
   "name": "business-elements-client",
-  "version": "0.0.1-SNAPSHOT",
+  "version": "0.0.1",
   "description": "JavaScript HTTP client for the Business Elements API.",
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src --out-dir lib",
-    "dist": "mkdir -p dist && rm -f dist/*.* && npm run dist-dev && npm run dist-prod",
+    "dist": "mkdir -p dist && rm -f dist/*.* && npm run dist-dev && npm run dist-noshim && npm run dist-prod",
     "dist-dev": "browserify -s BusinessElementsClient -d -e src/index.js -o dist/business-elements-client.js -t [ babelify --sourceMapRelative . ]",
+    "dist-noshim": "browserify -s BusinessElementsClient -g uglifyify --ignore isomorphic-fetch --ignore babel-polyfill -e src/index.js -o dist/business-elements-client.noshim.js -t [ babelify --sourceMapRelative . ]",
     "dist-prod": "browserify -s BusinessElementsClient -g uglifyify -e src/index.js -o dist/business-elements-client.min.js -t [ babelify --sourceMapRelative . ]",
     "test": "npm run lint && npm run test-nocover",
     "test-nocover": "babel-node node_modules/.bin/_mocha 'test/**/*_test.js'",
     "test-integration": "babel-node node_modules/.bin/_mocha 'test/**/*_integration.js'",
-    "lint": "eslint src test"
+    "lint": "eslint src test",
+    "prepublish": "npm run build && npm run test && npm run dist"
   },
   "repository": {
     "type": "git",
