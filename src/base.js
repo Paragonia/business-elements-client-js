@@ -144,10 +144,10 @@ export default class BusinessElementsClientBase {
   /**
    * Retrieves Business elements server build time.
    *
-   * @return {Promise<String, Error>}
+   * @return {Promise<Long, Error>}
    */
   fetchServerBuildTime() {
-    return this.fetchServerInfo().then(({build}) => build.millis);
+    return this.fetchServerInfo().then(({platform}) => platform.build.millis);
   }
 
   /**

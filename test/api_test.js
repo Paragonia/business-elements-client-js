@@ -80,7 +80,7 @@ describe("BusinessElementsClient", () => {
 
   /** @test {BusinessElementsClient#fetchServerVersion} */
   describe("#fetchServerVersion()", () => {
-    const fakeServerInfo = {version: "0.0.1"};
+    const fakeServerInfo = { platform: { version: "0.0.1"}};
 
     it("should retrieve server settings", () => {
       sandbox.stub(root, "fetch")
@@ -93,14 +93,14 @@ describe("BusinessElementsClient", () => {
 
   /** @test {BusinessElementsClient#fetchServerBuildTime} */
   describe("#fetchServerBuildTime()", () => {
-    const fakeServerInfo = {build: "Sunday, April 24, 2016 11:54:17 AM UTC"};
+    const fakeServerInfo = { platform: { build: { millis: 1461625928740 }}};
 
     it("should retrieve server capabilities", () => {
       sandbox.stub(root, "fetch")
         .returns(fakeServerResponse(200, fakeServerInfo));
 
       return api.fetchServerBuildTime()
-        .should.eventually.become("Sunday, April 24, 2016 11:54:17 AM UTC");
+        .should.eventually.become(1461625928740);
     });
   });
 
