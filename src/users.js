@@ -71,7 +71,7 @@ export default class Users {
    * @param  {Object}   [options]        The options object.
    * @return {Promise<Object, Error>}
    */
-  createUser(emailAddress, password, options = {}) {
+  create(emailAddress, password, options = {}) {
     const reqOptions = this._getUsersOptions(options);
     return this.client
       .execute(requests.createUser(emailAddress, password, reqOptions));
@@ -85,7 +85,7 @@ export default class Users {
    * @param  {Object}   [options]        The options object.
    * @return {Promise<Object, Error>}
    */
-  activateUser(userId, activationCode, options = {}) {
+  activate(userId, activationCode, options = {}) {
     const reqOptions = this._getUsersOptions(options);
     return this.client
       .execute(requests.activateUser(userId, activationCode, reqOptions));

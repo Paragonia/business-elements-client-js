@@ -47,15 +47,15 @@ describe("Users", () => {
     });
   });
 
-  /** @test {Users#createUser} */
-  describe("#createUser", () => {
+  /** @test {Users#createÏ} */
+  describe("#create", () => {
     beforeEach(() => {
       sandbox.stub(root, "fetch").returns(fakeServerResponse(201, {}, {}));
       sandbox.spy(requests, "createUser");
     });
 
     it("should execute expected request without password", () => {
-      users.createUser("test@example.com");
+      users.create("test@example.com");
 
       sinon.assert.calledWithMatch(requests.createUser, "test@example.com", undefined, {
         headers: { "tenant": "example.com" }
@@ -63,7 +63,7 @@ describe("Users", () => {
     });
 
     it("should execute expected request with password", () => {
-      users.createUser("test@example.com", "password");
+      users.create("test@example.com", "password");
 
       sinon.assert.calledWithMatch(requests.createUser, "test@example.com", "password", {
         headers: { "tenant": "example.com" }
@@ -71,20 +71,20 @@ describe("Users", () => {
     });
 
     it("should require correct email input", () => {
-      expect(() => users.createUser(null)).to.Throw(Error, /An email address is required/);
+      expect(() => users.create(null)).to.Throw(Error, /An email address is required/);
     });
 
   });
 
-  /** @test {Users#activateUser} */
-  describe("#activateUser", () => {
+  /** @test {Users#activate} */
+  describe("#activate", () => {
     beforeEach(() => {
       sandbox.stub(root, "fetch").returns(fakeServerResponse(201, {}, {}));
       sandbox.spy(requests, "activateUser");
     });
 
     it("should execute expected request", () => {
-      users.activateUser("cb97a61a-32ca-408c-afb6-b9f11abdf881", "12345678");
+      users.activate("cb97a61a-32ca-408c-afb6-b9f11abdf881", "12345678");
 
       sinon.assert.calledWithMatch(requests.activateUser, "cb97a61a-32ca-408c-afb6-b9f11abdf881", "12345678", {
         headers: { "tenant": "example.com" }
@@ -92,11 +92,11 @@ describe("Users", () => {
     });
 
     it("should require a user id", () => {
-      expect(() => users.activateUser(null)).to.Throw(Error, /A user id is required./);
+      expect(() => users.activate(null)).to.Throw(Error, /A user id is required./);
     });
 
     it("should require an activation code", () => {
-      expect(() => users.activateUser("cb97a61a-32ca-408c-afb6-b9f11abdf881", null)).to.Throw(Error, /An activation code is required./);
+      expect(() => users.activate("cb97a61a-32ca-408c-afb6-b9f11abdf881", null)).to.Throw(Error, /An activation code is required./);
     });
 
   });
