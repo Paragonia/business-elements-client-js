@@ -1,3 +1,7 @@
+"use strict";
+
+import endpoint from "./endpoint";
+
 /**
  * Abstract representation of a project.
  *
@@ -51,5 +55,16 @@ export default class Project {
     };
   }
 
-  // TODO [AK] List resources
+  /**
+   * Retrieves project.
+   *
+   * @param  {Object} options         The options object.
+   * @return {Promise<Object, Error>}
+   */
+  get(options={}) {
+    return this.client.execute({
+      path: endpoint("project", this.projectId),
+      ...this._getProjectOptions(options)
+    });
+  }
 }

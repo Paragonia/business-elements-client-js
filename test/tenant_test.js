@@ -4,7 +4,6 @@ import chai from "chai";
 import chaiAsPromised from "chai-as-promised";
 import sinon from "sinon";
 import BusinessElementsClient from "../src";
-import Tenant from "../src/tenant";
 
 chai.use(chaiAsPromised);
 chai.should();
@@ -19,7 +18,7 @@ describe("Tenant", () => {
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
     client = new BusinessElementsClient(FAKE_SERVER_URL);
-    tenant = new Tenant(client, "example.com");
+    tenant = client.tenant("example.com");
   });
 
   afterEach(() => {

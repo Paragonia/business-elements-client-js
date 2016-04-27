@@ -1,4 +1,7 @@
+"use strict";
+
 import endpoint from "./endpoint";
+import Project from "./project";
 
 /**
  * Abstract representation of a selected tenant.
@@ -51,7 +54,7 @@ export default class Projects {
    * @param  {Object} options.headers The headers object option.
    * @return {Promise<Array<Object>, Error>}
    */
-  listProjects(options={}) {
+  list(options={}) {
     return this.client.execute({
       path: endpoint("projects"),
       ...this._getProjectsOptions(options)
@@ -59,16 +62,13 @@ export default class Projects {
   }
 
   /**
-   * Retrieves a project from the current tenant.
+   * Retreive a project object to perform operations on it.
    *
-   * @param  {String} id              The id of the project to retrieve.
+   * @param  {String} id              The id of the project.
    * @param  {Object} options         The options object.
-   * @return {Promise<Object, Error>}
+   * @return {Project}
    */
-  getProjects(id, options) {
-    return this.client.execute({
-      path: endpoint("project", id),
-      ...this._getProjectsOptions(options)
-    });
+  project(id, options) {
+    return new Project(this.client, id, this._getProjectsOptions(options));
   }
 }

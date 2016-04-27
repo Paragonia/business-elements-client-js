@@ -1,3 +1,5 @@
+"use strict";
+
 import * as requests from "./requests";
 
 /**

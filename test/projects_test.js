@@ -4,7 +4,6 @@ import chai from "chai";
 import chaiAsPromised from "chai-as-promised";
 import sinon from "sinon";
 import BusinessElementsClient from "../src";
-import Tenant from "../src/tenant";
 
 chai.use(chaiAsPromised);
 chai.should();
@@ -14,21 +13,20 @@ const FAKE_SERVER_URL = "http://api.fake-server";
 
 /** @test {Projects} */
 describe("Projects", () => {
-  let sandbox, client, tenant, projects;
+  let sandbox, client, projects;
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
     client = new BusinessElementsClient(FAKE_SERVER_URL);
-    tenant = new Tenant(client, "example.com");
-    projects = tenant.projects();
+    projects = client.tenant("example.com").projects();
   });
 
   afterEach(() => {
     sandbox.restore();
   });
 
-  /** @test {Bucket#listProjects} */
-  describe("#listProjects()", () => {
+  /** @test {Projects#list} */
+  describe("#list()", () => {
     const data = [{id: "a"}, {id: "b"}];
 
     beforeEach(() => {
@@ -36,7 +34,7 @@ describe("Projects", () => {
     });
 
     it("should list tenant projects", () => {
-      projects.listProjects();
+      projects.list();
 
       sinon.assert.calledWithMatch(client.execute, {
         path: "/projects"
@@ -44,7 +42,28 @@ describe("Projects", () => {
     });
 
     it("should return the list of projects", () => {
-      return projects.listProjects().should.become(data);
+      return projects.list().should.become(data);
+    });
+  });
+
+  /** @test {Projects#list} */
+  describe("#list()", () => {
+    const data = [{id: "a"}, {id: "b"}];
+
+    beforeEach(() => {
+      sandbox.stub(client, "execute").returns(Promise.resolve(data));
+    });
+
+    it("should list tenant projects", () => {
+      projects.list();
+
+      sinon.assert.calledWithMatch(client.execute, {
+        path: "/projects"
+      });
+    });
+
+    it("should return the list of projects", () => {
+      return projects.list().should.become(data);
     });
   });
 

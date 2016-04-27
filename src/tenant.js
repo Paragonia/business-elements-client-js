@@ -1,3 +1,5 @@
+"use strict";
+
 import Projects from "./projects";
 import Users from "./users";
 

@@ -7,6 +7,7 @@ import { fakeServerResponse } from "./test_utils.js";
 import BusinessElementsClient from "../src";
 import * as requests from "../src/requests";
 import Tenant from "../src/tenant";
+import uuid from "uuid";
 
 chai.use(chaiAsPromised);
 chai.should();
@@ -78,15 +79,18 @@ describe("Users", () => {
 
   /** @test {Users#activate} */
   describe("#activate", () => {
+
+    const userId = uuid.v4();
+
     beforeEach(() => {
       sandbox.stub(root, "fetch").returns(fakeServerResponse(201, {}, {}));
       sandbox.spy(requests, "activateUser");
     });
 
     it("should execute expected request", () => {
-      users.activate("cb97a61a-32ca-408c-afb6-b9f11abdf881", "12345678");
+      users.activate(userId, "12345678");
 
-      sinon.assert.calledWithMatch(requests.activateUser, "cb97a61a-32ca-408c-afb6-b9f11abdf881", "12345678", {
+      sinon.assert.calledWithMatch(requests.activateUser, userId, "12345678", {
         headers: { "tenant": "example.com" }
       });
     });
@@ -96,7 +100,7 @@ describe("Users", () => {
     });
 
     it("should require an activation code", () => {
-      expect(() => users.activate("cb97a61a-32ca-408c-afb6-b9f11abdf881", null)).to.Throw(Error, /An activation code is required./);
+      expect(() => users.activate(userId, null)).to.Throw(Error, /An activation code is required./);
     });
 
   });
