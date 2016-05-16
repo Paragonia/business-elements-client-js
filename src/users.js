@@ -92,4 +92,15 @@ export default class Users {
     return this.client
       .execute(requests.activateUser(userId, activationCode, reqOptions));
   }
+
+  /**
+   * Returns current user information.
+   *
+   * @param  {Object}   [options]        The options object.
+   * @returns {Promise.<Object, Error>}
+     */
+  me(options = {}){
+    const reqOptions = this._getUsersOptions(options);
+    return this.client.execute(requests.me(reqOptions));
+  }
 }

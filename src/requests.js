@@ -94,4 +94,16 @@ export function activateUser(userId, activationCode, options = {}) {
     body: { userId, activationCode }
   };
 }
+/**
+ * @private
+ */
+export function me(options = {}) {
+  const { headers } = {...options};
+
+  return {
+    method: "GET",
+    headers: {...headers},
+    path: endpoint("me")
+  };
+}
 
