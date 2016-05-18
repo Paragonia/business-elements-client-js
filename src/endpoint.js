@@ -13,6 +13,10 @@ const ENDPOINTS = {
   authentication:         (id) => `/authentications/${id}`,
   currentAuthentication:    () => "/authentications/current",
 
+  // Tenant
+
+  currentTenant:            () => "/tenants/current",
+
   // Users
 
   users:                    () => "/users",

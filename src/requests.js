@@ -17,7 +17,7 @@ export function login(emailAddress, password, options = {}) {
   return {
     method: "POST",
     path: endpoint("authentications"),
-    body: { emailAddress, password: password }
+    body: {emailAddress, password: password}
   };
 }
 
@@ -26,7 +26,7 @@ export function login(emailAddress, password, options = {}) {
  */
 export function logout(options = {}) {
 
-  const { headers } = {...options};
+  const {headers} = {...options};
 
   return {
     method: "DELETE",
@@ -45,13 +45,13 @@ export function isEmailAvailable(emailAddress, options = {}) {
     throw new Error("An email address is required.");
   }
 
-  const { headers } = {...options};
+  const {headers} = {...options};
 
   return {
     method: "POST",
     path: endpoint("userEmailAddressRequest"),
     headers: {...headers},
-    body: { emailAddress }
+    body: {emailAddress}
   };
 }
 
@@ -63,13 +63,13 @@ export function createUser(emailAddress, password, options = {}) {
     throw new Error("An email address is required.");
   }
 
-  const { headers } = {...options};
+  const {headers} = {...options};
 
   return {
     method: "POST",
     path: endpoint("users"),
     headers: {...headers},
-    body: { emailAddress, password }
+    body: {emailAddress, password}
   };
 }
 
@@ -85,25 +85,36 @@ export function activateUser(userId, activationCode, options = {}) {
     throw new Error("An activation code is required.");
   }
 
-  const { headers } = {...options};
+  const {headers} = {...options};
 
   return {
     method: "POST",
     path: endpoint("userActivation"),
     headers: {...headers},
-    body: { userId, activationCode }
+    body: {userId, activationCode}
   };
 }
+
 /**
  * @private
  */
 export function me(options = {}) {
-  const { headers } = {...options};
+  const {headers} = {...options};
 
   return {
     method: "GET",
     headers: {...headers},
     path: endpoint("me")
+  };
+}
+
+export function currentTenant(options = {}) {
+  const {headers} = {...options};
+  
+  return {
+    method: "GET",
+    headers: {...headers},
+    path: endpoint("currentTenant")
   };
 }
 
