@@ -42,3 +42,11 @@ A client instance is created using the `BusinessElementsClient` constructor, pas
 ```js
 const client = new BusinessElementsClient("https://api.business-elements.com");
 ```
+
+## Global usage
+
+It is also possible to load the client from a global variable:
+
+```js
+var client = new BusinessElementsClient.default("https://api.business-elements.com");
+```
