@@ -90,7 +90,7 @@ export default class Users {
   activate(userId, activationCode, options = {}) {
     const reqOptions = this._getUsersOptions(options);
     return this.client
-      .execute(requests.activateUser(userId, activationCode, reqOptions));
+      .execute(requests.activateUser(userId, activationCode, reqOptions), reqOptions);
   }
 
   /**
