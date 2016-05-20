@@ -110,11 +110,47 @@ export function me(options = {}) {
 
 export function currentTenant(options = {}) {
   const {headers} = {...options};
-  
+
   return {
     method: "GET",
     headers: {...headers},
     path: endpoint("currentTenant")
+  };
+}
+
+export function passwordResetRequest(emailAddress, options = {}) {
+  if (!emailAddress) {
+    throw new Error("A user email is required.");
+  }
+
+  const {headers} = {...options};
+
+  return {
+    method: "POST",
+    headers: {...headers},
+    path: endpoint("userPasswordResetRequest"),
+    body: {emailAddress}
+  };
+}
+
+export function passwordReset(userId, passwordResetCode, password, options = {}) {
+  if (!userId) {
+    throw new Error("A user email is required.");
+  }
+  if (!passwordResetCode) {
+    throw new Error("A user email is required.");
+  }
+  if (!password) {
+    throw new Error("A user email is required.");
+  }
+
+  const {headers} = {...options};
+
+  return {
+    method: "POST",
+    headers: {...headers},
+    path: endpoint("userPasswordReset"),
+    body: {userId, passwordResetCode, password}
   };
 }
 

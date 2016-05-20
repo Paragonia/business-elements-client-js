@@ -164,11 +164,12 @@ export default class BusinessElementsClientBase {
    *
    * @private
    * @param  {Object}  request     The request object.
+   * @param  {boolean} raw
    * @param  {Object}  options     The options object.
    * @param  {Boolean} options.raw Resolve with full response object, including json body and headers (Default: `false`, so only the json body is retrieved).
    * @return {Promise<Object, Error>}
    */
-  execute(request, options={raw: false}) {
+  execute(request, raw= false) {
     const promise = this.fetchServerSettings()
       .then(_ => {
         return this.http.request(this.remote + request.path, {
@@ -176,7 +177,7 @@ export default class BusinessElementsClientBase {
           body: JSON.stringify(request.body)
         });
       });
-    return options.raw ? promise : promise.then(({json}) => json);
+    return raw ? promise : promise.then(({json}) => json);
   }
 
   /**
@@ -191,7 +192,7 @@ export default class BusinessElementsClientBase {
    */
   login(emailAddress, password, options={}) {
     const reqOptions = this._getRequestOptions(options);
-    return this.execute(requests.login(emailAddress, password, reqOptions), {raw:true})
+    return this.execute(requests.login(emailAddress, password, reqOptions), true)
       .then((response) => {
         this.authenticationToken = response.headers.get("Authentication-Token");
         return this.authenticationToken;

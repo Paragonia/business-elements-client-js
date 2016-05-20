@@ -13,7 +13,7 @@ export default class Users {
    * @param  {BusinessElementsClient} client     The client instance.
    * @param  {Object}      options.headers       The headers object option.
    */
-  constructor(client, options={}) {
+  constructor(client, options = {}) {
     /**
      * @ignore
      */
@@ -34,7 +34,7 @@ export default class Users {
    * @param  {Object} options The options to merge.
    * @return {Object}         The merged options.
    */
-  _getUsersOptions(options={}) {
+  _getUsersOptions(options = {}) {
     const headers = {
       ...this.options && this.options.headers,
       ...options.headers
@@ -60,7 +60,7 @@ export default class Users {
       .then((response) => {
         return true;
       })
-      .catch ((error) => {
+      .catch((error) => {
         return false;
       });
   }
@@ -82,15 +82,16 @@ export default class Users {
   /**
    * Activates the specified user.
    *
+   * @param  {boolean}  raw              Specifies the response type
    * @param  {String}   userId           Id of the user to activate.
    * @param  {String}   activationCode   Required to activate the user.
    * @param  {Object}   [options]        The options object.
    * @return {Promise<Object, Error>}
    */
-  activate(userId, activationCode, options = {}) {
+  activate(userId, activationCode, raw = false, options = {}) {
     const reqOptions = this._getUsersOptions(options);
     return this.client
-      .execute(requests.activateUser(userId, activationCode, reqOptions), reqOptions);
+      .execute(requests.activateUser(userId, activationCode, reqOptions), raw);
   }
 
   /**
@@ -98,9 +99,38 @@ export default class Users {
    *
    * @param  {Object}   [options]        The options object.
    * @returns {Promise.<Object, Error>}
-     */
-  me(options = {}){
+   */
+  me(options = {}) {
     const reqOptions = this._getUsersOptions(options);
     return this.client.execute(requests.me(reqOptions));
+  }
+
+  /**
+   * Makes a password reset request
+   *
+   * @param  {boolean}  raw              Specifies the response type
+   * @param emailAddress
+   * @param options
+   * @returns {Promise.<Object, Error>}
+   */
+  passwordResetRequest(emailAddress, raw = false, options = {}) {
+    const reqOptions = this._getUsersOptions(options);
+    return this.client.execute(requests.passwordResetRequest(emailAddress, reqOptions), reqOptions);
+  }
+
+  /**
+   * Resets the user password to the given value
+   *
+   * @param  {boolean}  raw              Specifies the response type (json body or promise)
+   * @param userId
+   * @param passwordResetCode
+   * @param password
+   * @param raw
+   * @param options
+   * @returns {Promise.<Object, Error>}
+   */
+  passwordReset(userId, passwordResetCode, password, raw = false, options = {}) {
+    const reqOptions = this._getUsersOptions(options);
+    return this.client.execute(requests.passwordReset(userId, passwordResetCode, password, reqOptions), raw);
   }
 }
