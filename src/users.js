@@ -91,8 +91,11 @@ export default class Users {
    */
   activate(userId, activationCode, options = {}) {
     const reqOptions = this._getUsersOptions(options);
-    return this.client
-      .execute(requests.activateUser(userId, activationCode, reqOptions), options.raw);
+    return this.client.execute(requests.activateUser(userId, activationCode, reqOptions), options.raw)
+      .then(function (response) {
+        this.authenticationToken = response.headers.get("Authentication-Token");
+        return this.authenticationToken;
+      });
   }
 
   /**
@@ -132,6 +135,10 @@ export default class Users {
    */
   passwordReset(userId, passwordResetCode, password, options = {}) {
     const reqOptions = this._getUsersOptions(options);
-    return this.client.execute(requests.passwordReset(userId, passwordResetCode, password, reqOptions), options.raw);
+    return this.client.execute(requests.passwordReset(userId, passwordResetCode, password, reqOptions), true)
+      .then(function (response) {
+        this.authenticationToken = response.headers.get("Authentication-Token");
+        return this.authenticationToken;
+      });
   }
 }
