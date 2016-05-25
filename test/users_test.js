@@ -1,9 +1,9 @@
 "use strict";
 
-import chai, { expect } from "chai";
+import chai, {expect} from "chai";
 import chaiAsPromised from "chai-as-promised";
 import sinon from "sinon";
-import { fakeServerResponse } from "./test_utils.js";
+import {fakeServerResponse} from "./test_utils.js";
 import BusinessElementsClient from "../src";
 import * as requests from "../src/requests";
 import Tenant from "../src/tenant";
@@ -59,7 +59,7 @@ describe("Users", () => {
       users.create("test@example.com");
 
       sinon.assert.calledWithMatch(requests.createUser, "test@example.com", undefined, {
-        headers: { "tenant": "example.com" }
+        headers: {"tenant": "example.com"}
       });
     });
 
@@ -67,7 +67,7 @@ describe("Users", () => {
       users.create("test@example.com", "password");
 
       sinon.assert.calledWithMatch(requests.createUser, "test@example.com", "password", {
-        headers: { "tenant": "example.com" }
+        headers: {"tenant": "example.com"}
       });
     });
 
@@ -91,7 +91,7 @@ describe("Users", () => {
       users.activate(userId, "12345678");
 
       sinon.assert.calledWithMatch(requests.activateUser, userId, "12345678", {
-        headers: { "tenant": "example.com" }
+        headers: {"tenant": "example.com"}
       });
     });
 
@@ -104,5 +104,64 @@ describe("Users", () => {
     });
 
   });
+
+  /** @test {Users#me} */
+  describe("#me", () => {
+    beforeEach(()=> {
+      sandbox.spy(requests, "me");
+    });
+
+    it("should execute expected request", () => {
+      users.me();
+      sinon.assert.calledWithMatch(requests.me, {});
+    });
+  });
+
+  /** @test {Users#resetPasswordRequest} */
+  describe("#passwordResetRequest", () => {
+    beforeEach(()=> {
+      sandbox.stub(root, "fetch").returns(fakeServerResponse(201, {}, {}));
+      sandbox.spy(requests, "passwordResetRequest");
+    });
+
+    it("should execute expected request", () => {
+      users.passwordResetRequest("email@domain.com");
+      sinon.assert.calledWithMatch(requests.passwordResetRequest, "email@domain.com", {
+        headers: {"tenant": "example.com"}
+      });
+    });
+
+    it("should require user email", () => {
+      expect(() => users.passwordResetRequest(null)).to.Throw(Error, /A user email is required./);
+    });
+  });
+
+  /** @test {Users#resetPassword} */
+  describe("#passwordReset", () => {
+    beforeEach(()=> {
+      sandbox.stub(root, "fetch").returns(fakeServerResponse(201, {}, {}));
+      sandbox.spy(requests, "passwordReset");
+    });
+
+    it("should execute expected request", () => {
+      users.passwordReset("uid", "code", "password");
+      sinon.assert.calledWithMatch(requests.passwordReset, "uid", "code", "password", {
+        headers: {"tenant": "example.com"}
+      });
+    });
+
+    it("should require user id", () => {
+      expect(() => users.passwordReset(null)).to.Throw(Error, /A user id is required./);
+    });
+
+    it("should require password activation code", () => {
+      expect(() => users.passwordReset("uid")).to.Throw(Error, /A password reset code is required./);
+    });
+
+    it("should require password", () => {
+      expect(() => users.passwordReset("uid", "code")).to.Throw(Error, /A password is required./);
+    });
+  });
+
 
 });
