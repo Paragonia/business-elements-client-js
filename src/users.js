@@ -56,7 +56,7 @@ export default class Users {
   isEmailAvailable(emailAddress, options = {}) {
     const headers = this._getUsersOptions(options);
     return this.client
-      .execute(requests.isEmailAvailable(emailAddress, headers))
+      .execute(requests.isEmailAvailable(emailAddress, headers), true)
       .then((response) => {
         return true;
       })
@@ -69,6 +69,7 @@ export default class Users {
    * Creates the user with the specified credentials.
    *
    * @param  {String}   emailAddress     The email address for the user.
+   * @param  {boolean}   raw
    * @param  {String}   [password]       The password for the user.
    * @param  {Object}   [options]        The options object.
    * @return {Promise<Object, Error>}
@@ -76,7 +77,7 @@ export default class Users {
   create(emailAddress, password, options = {}) {
     const reqOptions = this._getUsersOptions(options);
     return this.client
-      .execute(requests.createUser(emailAddress, password, reqOptions));
+      .execute(requests.createUser(emailAddress, password, reqOptions), options.raw);
   }
 
   /**
@@ -88,10 +89,10 @@ export default class Users {
    * @param  {Object}   [options]        The options object.
    * @return {Promise<Object, Error>}
    */
-  activate(userId, activationCode, raw = false, options = {}) {
+  activate(userId, activationCode, options = {}) {
     const reqOptions = this._getUsersOptions(options);
     return this.client
-      .execute(requests.activateUser(userId, activationCode, reqOptions), raw);
+      .execute(requests.activateUser(userId, activationCode, reqOptions), options.raw);
   }
 
   /**
@@ -113,9 +114,9 @@ export default class Users {
    * @param options
    * @returns {Promise.<Object, Error>}
    */
-  passwordResetRequest(emailAddress, raw = false, options = {}) {
+  passwordResetRequest(emailAddress, options = {}) {
     const reqOptions = this._getUsersOptions(options);
-    return this.client.execute(requests.passwordResetRequest(emailAddress, reqOptions), reqOptions);
+    return this.client.execute(requests.passwordResetRequest(emailAddress, reqOptions), options.raw);
   }
 
   /**
@@ -129,8 +130,8 @@ export default class Users {
    * @param options
    * @returns {Promise.<Object, Error>}
    */
-  passwordReset(userId, passwordResetCode, password, raw = false, options = {}) {
+  passwordReset(userId, passwordResetCode, password, options = {}) {
     const reqOptions = this._getUsersOptions(options);
-    return this.client.execute(requests.passwordReset(userId, passwordResetCode, password, reqOptions), raw);
+    return this.client.execute(requests.passwordReset(userId, passwordResetCode, password, reqOptions), options.raw);
   }
 }

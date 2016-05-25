@@ -169,7 +169,7 @@ export default class BusinessElementsClientBase {
    * @param  {Boolean} options.raw Resolve with full response object, including json body and headers (Default: `false`, so only the json body is retrieved).
    * @return {Promise<Object, Error>}
    */
-  execute(request, raw= false) {
+  execute(request, raw = false) {
     const promise = this.fetchServerSettings()
       .then(_ => {
         return this.http.request(this.remote + request.path, {

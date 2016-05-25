@@ -46,12 +46,13 @@ export default class Tenants {
 
   /**
    * Returns current tenant
-   * 
+   *
    * @param options
    * @returns {Promise.<Object, Error>}
-     */
+   */
   currentTenant(options = {}) {
-    return this.client.execute(requests.currentTenant(options));
+    const reqOptions = this._getTenantOptions(options);
+    return this.client.execute(requests.currentTenant(reqOptions), false);
   }
 
 }

@@ -135,13 +135,13 @@ export function passwordResetRequest(emailAddress, options = {}) {
 
 export function passwordReset(userId, passwordResetCode, password, options = {}) {
   if (!userId) {
-    throw new Error("A user email is required.");
+    throw new Error("A user id is required.");
   }
   if (!passwordResetCode) {
-    throw new Error("A user email is required.");
+    throw new Error("A password reset code is required.");
   }
   if (!password) {
-    throw new Error("A user email is required.");
+    throw new Error("A password is required.");
   }
 
   const {headers} = {...options};
