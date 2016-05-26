@@ -102,7 +102,7 @@ export default class Users {
    */
   me(options = {}) {
     const reqOptions = this._getUsersOptions(options);
-    return this.client.execute(requests.me(reqOptions));
+    return this.client.execute(requests.me(reqOptions), reqOptions.raw);
   }
 
   /**
