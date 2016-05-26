@@ -131,6 +131,6 @@ export default class Users {
    */
   passwordReset(userId, passwordResetCode, password, options = {}) {
     const reqOptions = this._getUsersOptions(options);
-    return this.client.execute(requests.passwordReset(userId, passwordResetCode, password, reqOptions), reqOptions.raw)
+    return this.client.execute(requests.passwordReset(userId, passwordResetCode, password, reqOptions), reqOptions.raw);
   }
 }
