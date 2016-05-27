@@ -142,7 +142,7 @@ export default class Users {
    */
   listAuthentications(options = {}) {
     const reqOptions = this._getUsersOptions(options);
-    return this.client.execute(requests.listAuthentications(reqOptions));
+    return this.client.execute(requests.listAuthentications(reqOptions), reqOptions.raw);
   }
 
   /**

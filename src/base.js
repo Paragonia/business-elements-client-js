@@ -164,9 +164,8 @@ export default class BusinessElementsClientBase {
    *
    * @private
    * @param  {Object}  request     The request object.
-   * @param  {boolean} raw
+   * @param  {boolean} raw         Resolve with full response object, including json body and headers (Default: `false`, so only the json body is retrieved).
    * @param  {Object}  options     The options object.
-   * @param  {Boolean} options.raw Resolve with full response object, including json body and headers (Default: `false`, so only the json body is retrieved).
    * @return {Promise<Object, Error>}
    */
   execute(request, raw = false) {
