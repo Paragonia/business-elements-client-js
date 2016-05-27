@@ -141,4 +141,26 @@ export default class Users {
         return this.authenticationToken;
       });
   }
+
+  /**
+   * Returns current user authentications.
+   *
+   * @param  {Object}   [options]        The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  listAuthentications(options = {}) {
+    const reqOptions = this._getUsersOptions(options);
+    return this.client.execute(requests.listAuthentications(reqOptions));
+  }
+
+  /**
+   * Delete specified authentication.
+   *
+   * @param  {Object}   [options]        The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  deleteAuthentication(authenticationId, options = {}) {
+    const reqOptions = this._getUsersOptions(options);
+    return this.client.execute(requests.deleteAuthentication(authenticationId, reqOptions));
+  }
 }

@@ -35,6 +35,30 @@ export function logout(options = {}) {
   };
 }
 
+export function listAuthentications(options = {}) {
+  const {headers} = {...options};
+
+  return {
+    method: "GET",
+    headers: {...headers},
+    path: endpoint("authentications")
+  };
+}
+
+export function deleteAuthentication(authenticationId, options = {}) {
+  if (!authenticationId) {
+    throw new Error("An authentication Id is required.");
+  }
+
+  const {headers} = {...options};
+
+  return {
+    method: "DELETE",
+    headers: {...headers},
+    path: endpoint("authentication", authenticationId)
+  };
+}
+
 /**
  * Check availability of email address
  *
