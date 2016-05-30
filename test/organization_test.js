@@ -12,39 +12,39 @@ chai.config.includeStack = true;
 
 const FAKE_SERVER_URL = "http://api.fake-server";
 
-/** @test {Project} */
-describe("Project", () => {
-  let sandbox, client, projectId, project;
+/** @test {Organization} */
+describe("Organization", () => {
+  let sandbox, client, organizationId, organization;
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
     client = new BusinessElementsClient(FAKE_SERVER_URL);
-    projectId = uuid.v4();
-    project = client.tenant("example.com").projects().project(projectId);
+    organizationId = uuid.v4();
+    organization = client.tenant("example.com").organizations().organization(organizationId);
   });
 
   afterEach(() => {
     sandbox.restore();
   });
 
-  /** @test {Project#get} */
+  /** @test {Organization#get} */
   describe("#get()", () => {
-    const data = {id: projectId};
+    const data = {id: organizationId};
 
     beforeEach(() => {
       sandbox.stub(client, "execute").returns(Promise.resolve(data));
     });
 
-    it("should get project", () => {
-      project.get();
+    it("should get organization", () => {
+      organization.get();
 
       sinon.assert.calledWithMatch(client.execute, {
-        path: `/projects/${projectId}`
+        path: `/organizations/${organizationId}`
       });
     });
 
-    it("should return the list of projects", () => {
-      return project.get().should.become(data);
+    it("should return the list of organizations", () => {
+      return organization.get().should.become(data);
     });
   });
 

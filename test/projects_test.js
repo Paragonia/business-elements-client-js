@@ -46,25 +46,4 @@ describe("Projects", () => {
     });
   });
 
-  /** @test {Projects#list} */
-  describe("#list()", () => {
-    const data = [{id: "a"}, {id: "b"}];
-
-    beforeEach(() => {
-      sandbox.stub(client, "execute").returns(Promise.resolve(data));
-    });
-
-    it("should list tenant projects", () => {
-      projects.list();
-
-      sinon.assert.calledWithMatch(client.execute, {
-        path: "/projects"
-      });
-    });
-
-    it("should return the list of projects", () => {
-      return projects.list().should.become(data);
-    });
-  });
-
 });

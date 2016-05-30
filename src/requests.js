@@ -178,3 +178,18 @@ export function passwordReset(userId, passwordResetCode, password, options = {})
   };
 }
 
+/**
+ * @private
+ */
+export function createOrganization(name, options = {}) {
+  const {headers} = {...options};
+
+  return {
+    method: "POST",
+    path: endpoint("organizations"),
+    headers: {...headers},
+    body: {name}
+  };
+}
+
+

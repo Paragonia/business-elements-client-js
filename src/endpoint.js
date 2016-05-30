@@ -30,7 +30,12 @@ const ENDPOINTS = {
   // Projects
 
   projects:                 () => "/projects",
-  project:                (id) => `/projects/${id}`
+  project:                (id) => `/projects/${id}`,
+
+  // Organizations
+
+  organizations:            () => "/organizations",
+  organization:           (id) => `/organizations/${id}`
 };
 
 /**

@@ -69,7 +69,6 @@ export default class Users {
    * Creates the user with the specified credentials.
    *
    * @param  {String}   emailAddress     The email address for the user.
-   * @param  {boolean}   raw
    * @param  {String}   [password]       The password for the user.
    * @param  {Object}   [options]        The options object.
    * @return {Promise<Object, Error>}
