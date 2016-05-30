@@ -1,5 +1,6 @@
 "use strict";
 
+import Organizations from "./organizations";
 import Projects from "./projects";
 import Users from "./users";
 
@@ -53,6 +54,16 @@ export default class Tenant {
       ...options,
       headers
     };
+  }
+
+  /**
+   * Provides access to tenant organizations.
+   *
+   * @param  {Object}   [options]       The options object.
+   * @return {Organizations}
+   */
+  organizations(options={}) {
+    return new Organizations(this.client, this._getTenantOptions(options));
   }
 
   /**
