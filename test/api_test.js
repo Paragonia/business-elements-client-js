@@ -104,24 +104,19 @@ describe("BusinessElementsClient", () => {
     });
   });
 
-  //TODO rewrite this test to support promise retrieval
-  // /** @test {BusinessElementsClient#login} */
-  // describe("#login()", () => {
-  //   const authenticationToken = "0000000000000000-0000000000000000-0000000000000000-0000000000000000";
-  //
-  //   it("should retrieve authentication token", () => {
-  //     sandbox.stub(root, "fetch").returns(fakeServerResponse(200, {}, {"Authentication-Token": authenticationToken}));
-  //
-  //     return api.login("test@example.com", "password")
-  //       .should.eventually.become(authenticationToken);
-  //   });
-  //
-  //   it("should store authentication token", () => {
-  //     sandbox.stub(root, "fetch").returns(fakeServerResponse(200, {}, {"Authentication-Token": authenticationToken}));
-  //
-  //     return api.login("test@example.com", "password").should.be.fulfilled.then(() => api.authenticationToken.should.equal(authenticationToken));
-  //   });
-  // });
+  /** @test {BusinessElementsClient#login} */
+  describe("#login()", () => {
+    const authenticationToken = "0000000000000000-0000000000000000-0000000000000000-0000000000000000";
+
+    it("should retrieve authentication token", () => {
+      sandbox.stub(root, "fetch").returns(fakeServerResponse(200, {}, {"Authentication-Token": authenticationToken}));
+      
+      let options = {raw: true};
+      return api.login("test@example.com", "password", options).then(function(response){
+        return response.headers.get("Authentication-Token");
+      }).should.eventually.become(authenticationToken);
+    });
+  });
 
   /** @test {BusinessElementsClient#logout} */
   describe("#logout()", () => {
