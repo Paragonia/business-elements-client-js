@@ -221,7 +221,7 @@ export default class BusinessElementsClientBase {
     const headers = this._getRequestOptions(options);
     return this
       .execute({
-        path: endpoint("authentication"),
+        path: endpoint("currentAuthentication"),
         headers: headers.headers
       })
       .then((response) => {

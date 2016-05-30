@@ -10,15 +10,16 @@ chai.use(chaiAsPromised);
 chai.should();
 chai.config.includeStack = true;
 
-const TEST_BUSINESS_ELEMENTS_SERVER = "https://api.business-elements.com";
+const TEST_BUSINESS_ELEMENTS_SERVER = "http://localhost:9000";
 
 describe("Integration tests", function() {
   let sandbox, api;
 
-  this.timeout(12500);
+  this.timeout(30000);
 
-  const emailAddress = "test@example.com";
-  const password = "password";
+  const emailAddress = "admin@product-foundry.com";
+  const password = "admin";
+  const tenantName = "clay.work";
 
   function createClient(options={}) {
     return new Api(TEST_BUSINESS_ELEMENTS_SERVER, options);
@@ -68,8 +69,8 @@ describe("Integration tests", function() {
 
     describe("Creation", () => {
       it("should succeed", () => {
-        const tenant = api.tenant("clay.work");
-        return tenant.createUser(emailAddress, password).should.be.fulfilled;
+        const tenant = api.tenant(tenantName);
+        return tenant.users().create("test@example.com", password).should.be.fulfilled;
       });
     });
   });
@@ -78,8 +79,8 @@ describe("Integration tests", function() {
 
     describe("Creation", () => {
       it("should succeed", () => {
-        const tenant = api.tenant("clay.work");
-        return tenant.createOrganization("Mu cool organization").should.be.fulfilled;
+        const tenant = api.tenant(tenantName);
+        return tenant.organizations().create("My cool organization").should.be.fulfilled;
       });
     });
   });
