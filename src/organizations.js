@@ -2,6 +2,7 @@
 
 import endpoint from "./endpoint";
 import Organization from "./organization";
+import * as requests from "./requests";
 
 /**
  * Abstract representation of a selected tenant.
@@ -70,5 +71,17 @@ export default class Organizations {
    */
   organization(id, options) {
     return new Organization(this.client, id, this._getOrganizationsOptions(options));
+  }
+
+  /**
+   * Creates the organization with the specified properties.
+   *
+   * @param  {String}   name     The name of the organization.
+   * @return {Promise<Object, Error>}
+   */
+  create(name, options = {}) {
+    const reqOptions = this._getOrganizationsOptions(options);
+    return this.client
+      .execute(requests.createOrganization(name, reqOptions));
   }
 }

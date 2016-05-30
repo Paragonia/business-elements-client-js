@@ -73,4 +73,15 @@ describe("Integration tests", function() {
       });
     });
   });
+
+  describe("Organizations", () => {
+
+    describe("Creation", () => {
+      it("should succeed", () => {
+        const tenant = api.tenant("clay.work");
+        return tenant.createOrganization("Mu cool organization").should.be.fulfilled;
+      });
+    });
+  });
+
 });

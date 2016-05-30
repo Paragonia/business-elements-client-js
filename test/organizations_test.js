@@ -3,7 +3,9 @@
 import chai from "chai";
 import chaiAsPromised from "chai-as-promised";
 import sinon from "sinon";
+import {fakeServerResponse} from "./test_utils.js";
 import BusinessElementsClient from "../src";
+import * as requests from "../src/requests";
 
 chai.use(chaiAsPromised);
 chai.should();
@@ -45,5 +47,27 @@ describe("Organizations", () => {
       return organizations.list().should.become(data);
     });
   });
+
+  /** @test {Organizations#createÏ} */
+  describe("#create", () => {
+    beforeEach(() => {
+      sandbox.stub(root, "fetch").returns(fakeServerResponse(201, {}, {}));
+      sandbox.spy(requests, "createOrganization");
+    });
+
+    it("should execute minimal request", () => {
+      organizations.create("My cool organization");
+
+      sinon.assert.calledWithMatch(requests.createOrganization, "My cool organization");
+    });
+
+    it("should execute complete request", () => {
+      organizations.create();
+
+      sinon.assert.calledWithMatch(requests.createOrganization, undefined);
+    });
+
+  });
+
 
 });
