@@ -111,7 +111,7 @@ describe("BusinessElementsClient", () => {
     it("should retrieve authentication token", () => {
       sandbox.stub(root, "fetch").returns(fakeServerResponse(200, {}, {"Authentication-Token": authenticationToken}));
       
-      let options = {raw: true};
+      const options = {raw: true};
       return api.login("test@example.com", "password", options).then(function(response){
         return response.headers.get("Authentication-Token");
       }).should.eventually.become(authenticationToken);
