@@ -204,10 +204,7 @@ export default class BusinessElementsClientBase {
    */
   logout(options={}) {
     const reqOptions = this._getRequestOptions(options);
-    return this.execute(requests.logout(reqOptions))
-      .then((response) => {
-        this.authenticationToken = null;
-      });
+    return this.execute(requests.logout(reqOptions), reqOptions.raw);
   }
 
   /**

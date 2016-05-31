@@ -1,9 +1,10 @@
 "use strict";
 
-import chai, {expect, assert} from "chai";
+import chai, {expect} from "chai";
 import chaiAsPromised from "chai-as-promised";
 import sinon from "sinon";
 import {fakeServerResponse} from "./test_utils.js";
+import * as requests from "../src/requests";
 import BusinessElementsClient from "../src";
 
 chai.use(chaiAsPromised);
@@ -110,9 +111,9 @@ describe("BusinessElementsClient", () => {
 
     it("should retrieve authentication token", () => {
       sandbox.stub(root, "fetch").returns(fakeServerResponse(200, {}, {"Authentication-Token": authenticationToken}));
-      
+
       const options = {raw: true};
-      return api.login("test@example.com", "password", options).then(function(response){
+      return api.login("test@example.com", "password", options).then(function (response) {
         return response.headers.get("Authentication-Token");
       }).should.eventually.become(authenticationToken);
     });
@@ -123,14 +124,13 @@ describe("BusinessElementsClient", () => {
     const authenticationToken = "0000000000000000-0000000000000000-0000000000000000-0000000000000000";
 
     it("should clear authentication token", () => {
-      api.authenticationToken = authenticationToken;
+      sandbox.spy(requests, "logout");
 
-      sandbox.stub(root, "fetch")
-        .returns(fakeServerResponse(204, {}));
+      let options = {headers: {"Authentication-token": authenticationToken}};
 
-      return api.logout().should.be.fulfilled.then(() => {
-        assert.isNull(api.authenticationToken);
-      });
+      api.logout(options);
+      sinon.assert.calledWithMatch(requests.logout, options);
+
     });
   });
 });
