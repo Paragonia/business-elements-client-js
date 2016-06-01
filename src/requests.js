@@ -178,6 +178,21 @@ export function passwordReset(userId, passwordResetCode, password, options = {})
   };
 }
 
+export function checkRegistrationStatus(emailAddress, options = {}) {
+  if (!emailAddress) {
+    throw new Error("A user email is required.");
+  }
+
+  const {headers} = {...options};
+
+  return {
+    method: "POST",
+    headers: {...headers},
+    path: endpoint("checkRegistrationStatus"),
+    body: {emailAddress}
+  };
+}
+
 /**
  * @private
  */
@@ -191,5 +206,3 @@ export function createOrganization(name, options = {}) {
     body: {name}
   };
 }
-
-

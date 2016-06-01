@@ -26,6 +26,7 @@ const ENDPOINTS = {
   userEmailAddressRequest:  () => "/users/email_address_request",
   userActivation:           () => "/users/activation",
   me:                       () => "/users/me",
+  checkRegistrationStatus:  () => "/users/registration_check",
 
   // Projects
 

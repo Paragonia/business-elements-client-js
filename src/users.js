@@ -107,7 +107,6 @@ export default class Users {
   /**
    * Makes a password reset request
    *
-   * @param  {boolean}  raw              Specifies the response type
    * @param emailAddress
    * @param options
    * @returns {Promise.<Object, Error>}
@@ -120,11 +119,9 @@ export default class Users {
   /**
    * Resets the user password to the given value
    *
-   * @param  {boolean}  raw              Specifies the response type (json body or promise)
    * @param userId
    * @param passwordResetCode
    * @param password
-   * @param raw
    * @param options
    * @returns {Promise.<Object, Error>}
    */
@@ -147,11 +144,24 @@ export default class Users {
   /**
    * Delete specified authentication.
    *
+   * @param authenticationId
    * @param  {Object}   [options]        The options object.
    * @returns {Promise.<Object, Error>}
    */
   deleteAuthentication(authenticationId, options = {}) {
     const reqOptions = this._getUsersOptions(options);
     return this.client.execute(requests.deleteAuthentication(authenticationId, reqOptions));
+  }
+
+  /**
+   * Returns email registration status  (NotRegistered, ActivationRequired, NotAuthenticatable, Active).
+   *
+   * @param emailAddress
+   * @param options
+   * @returns {Promise.<Object, Error>}
+     */
+  checkRegistrationStatus(emailAddress, options = {}) {
+    const reqOptions = this._getUsersOptions(options);
+    return this.client.execute(requests.checkRegistrationStatus(emailAddress, reqOptions), reqOptions.raw);
   }
 }

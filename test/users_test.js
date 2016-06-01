@@ -163,5 +163,23 @@ describe("Users", () => {
     });
   });
 
+  /** @test {Users#checkRegistrationStatus} */
+  describe("#checkRegistrationStatus", () => {
+    beforeEach(()=> {
+      sandbox.stub(root, "fetch").returns(fakeServerResponse(200, {status: "NotRegistered"}, {}));
+    });
+
+    it("should execute expected request", () => {
+      const options = {raw: true};
+      return users.checkRegistrationStatus("test@example.com", options).then(function (response) {
+        return response.json;
+      }).should.eventually.become({status: "NotRegistered"});
+    });
+
+    it("should require user email", () => {
+      expect(() => users.checkRegistrationStatus(null)).to.Throw(Error, /A user email is required./);
+    });
+  });
+
 
 });
