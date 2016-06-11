@@ -43,7 +43,7 @@ describe("Organization", () => {
       });
     });
 
-    it("should return the list of organizations", () => {
+    it("should return organization data", () => {
       return organization.get().should.become(data);
     });
   });

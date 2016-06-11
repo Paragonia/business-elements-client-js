@@ -6,7 +6,6 @@ import Users from "./users";
 
 /**
  * Abstract representation of a selected tenant.
- *
  */
 export default class Tenant {
   /**
@@ -14,9 +13,8 @@ export default class Tenant {
    *
    * @param  {BusinessElementsClientBase} client The client instance.
    * @param  {String}      domainName            The tenant domain name.
-   * @param  {Object}      options.headers       The headers object option.
    */
-  constructor(client, domainName, options={}) {
+  constructor(client, domainName) {
     /**
      * @ignore
      */
@@ -29,60 +27,72 @@ export default class Tenant {
     this.domainName = domainName;
 
     /**
-     * The default options object.
-     * @ignore
+     * Options that need to be added for every tenant request
+     * @private
      * @type {Object}
      */
-    this.options = options;
+    this._tenantOptions = {
+      headers: {
+        tenant: this.domainName
+      }
+    };
   }
 
   /**
-   * Merges passed request options with default tenant ones, if any.
+   * Merges passed options with tenant options.
    *
-   * @private
    * @param  {Object} options The options to merge.
    * @return {Object}         The merged options.
    */
-  _getTenantOptions(options={}) {
-    const headers = {
-      ...this.options && this.options.headers,
-      ...options.headers,
-      tenant: this.domainName
-    };
+  createTenantOptions(options) {
     return {
-      ...this.options,
+      ...this._tenantOptions,
       ...options,
-      headers
+      headers: {
+        ...this._tenantOptions.headers,
+        ...options.headers
+      }
     };
+  }
+
+  /**
+   * Executes an atomic HTTP request for a tenant.
+   *
+   * This will delegate to the client with all tenant options merged.
+   *
+   * @param  {Object}  request     The request object.
+   * @param  {Object}  options     Optional options will be merged into the request, allowing the user to override any request option.
+   * @param  {boolean} [raw]       Resolve with full response object, including json body and headers (Default: `false`, so only the json body is retrieved).
+   * @return {Promise<Object, Error>}
+   */
+  execute(request, options, raw = false) {
+    return this.client.execute(request, this.createTenantOptions(options), raw);
   }
 
   /**
    * Provides access to tenant organizations.
    *
-   * @param  {Object}   [options]       The options object.
    * @return {Organizations}
    */
-  organizations(options={}) {
-    return new Organizations(this.client, this._getTenantOptions(options));
+  organizations() {
+    return new Organizations(this);
   }
 
   /**
    * Provides access to tenant projects.
    *
-   * @param  {Object}   [options]       The options object.
    * @return {Projects}
    */
-  projects(options={}) {
-    return new Projects(this.client, this._getTenantOptions(options));
+  projects() {
+    return new Projects(this);
   }
 
   /**
    * Provides access to tenant users.
    *
-   * @param  {Object}   [options]       The options object.
    * @return {Users}
    */
-  users(options={}) {
-    return new Users(this.client, this._getTenantOptions(options));
+  users() {
+    return new Users(this);
   }
 }

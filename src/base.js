@@ -98,21 +98,19 @@ export default class BusinessElementsClientBase {
    * @property {Object} headers The extended headers object option.
    */
   getRequestOptions(options={}) {
-    const requestOptions = {
+
+    const authenticationTokenHeaders = this.authenticationToken ? { "Authentication-Token": this.authenticationToken } : {};
+
+    return {
       ...this.defaultReqOptions,
       ...options,
       // Note: headers should never be overridden but extended
       headers: {
+        ...authenticationTokenHeaders,
         ...this.defaultReqOptions.headers,
         ...options.headers
       }
     };
-
-    if (this.authenticationToken) {
-      requestOptions.headers["Authentication-Token"] = this.authenticationToken;
-    }
-
-    return requestOptions;
   }
 
   /**
@@ -164,21 +162,26 @@ export default class BusinessElementsClientBase {
   /**
    * Executes an atomic HTTP request.
    *
-   * @private
    * @param  {Object}  request     The request object.
-   * @param  {Object}  [options]   Optional options will be merged into the request, allowing the user to override any request option.
+   * @param  {Object}  options     Optional options will be merged into the request, allowing the user to override any request option.
    * @param  {boolean} [raw]       Resolve with full response object, including json body and headers (Default: `false`, so only the json body is retrieved).
    * @return {Promise<Object, Error>}
    */
-  execute(request, options = {}, raw = false) {
+  execute(request, options, raw = false) {
 
-    const requestOptions = {
+    const requestOptions = this.getRequestOptions(options);
+
+    const completeRequest = {
       ...request,
       body: JSON.stringify(request.body),
-      ...options
+      ...requestOptions,
+      headers: {
+        ...request.headers,
+        ...requestOptions.headers
+      }
     };
 
-    const promise = this.http.request(`${this.remote}${request.path}`, requestOptions);
+    const promise = this.http.request(`${this.remote}${completeRequest.path}`, completeRequest);
 
     return raw ? promise : promise.then(({json}) => json);
   }
@@ -194,8 +197,7 @@ export default class BusinessElementsClientBase {
    * @return {Promise<String, Error>} With the authentication token.
    */
   login(emailAddress, password, options={}) {
-    const reqOptions = this.getRequestOptions(options);
-    return this.execute(requests.login(emailAddress, password, reqOptions), options, true)
+    return this.execute(requests.login(emailAddress, password), options, true)
       .then((response) => {
         this.authenticationToken = response.headers.get("Authentication-Token");
         return this.authenticationToken;
@@ -211,24 +213,23 @@ export default class BusinessElementsClientBase {
    * @return {Promise<undefined, Error>}
    */
   logout(options={}) {
-    const reqOptions = this.getRequestOptions(options);
-    return this.execute(requests.logout(reqOptions));
+    return this.execute(requests.logout(), options)
+      .then(() => {
+        this.authenticationToken = undefined;
+      });
   }
 
   /**
    * Retrieves the current authentication for the authenticated account.
    *
    * @param  {Object} options         The options object.
-   * @param  {Object} options.headers The headers object option.
    * @return {Promise<Object[], Error>}
    */
   currentAuthentication(options={}) {
-    const headers = this.getRequestOptions(options);
     return this
       .execute({
-        path: endpoint("currentAuthentication"),
-        headers: headers.headers
-      })
+        path: endpoint("currentAuthentication")
+      }, options)
       .then((response) => {
         return response;
       });
@@ -238,11 +239,9 @@ export default class BusinessElementsClientBase {
    * Retrieve a tenant object to perform operations on it.
    *
    * @param  {String}  domainName    The tenant domain name.
-   * @param  {Object}  options       The request options.
    * @return {Tenant}
    */
-  tenant(domainName, options={}) {
-    const tenantOptions = this.getRequestOptions(options);
-    return new Tenant(this, domainName, tenantOptions);
+  tenant(domainName) {
+    return new Tenant(this, domainName);
   }
 }

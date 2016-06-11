@@ -4,55 +4,28 @@ import endpoint from "./endpoint";
 
 /**
  * Abstract representation of a project.
- *
  */
 export default class Project {
 
   /**
    * Constructor.
    *
-   * @param  {BusinessElementsClient} client     The client instance.
-   * @param  {String}      projectId             The project id.
-   * @param  {Object}      options.headers       The headers object option.
+   * @param  {Tenant} tenant     The tenant instance.
+   * @param  {String} projectId  The project id.
    */
-  constructor(client, projectId, options={}) {
+  constructor(tenant, projectId) {
+
     /**
-     * @ignore
+     * The tenant.
+     * @type {Tenant}
      */
-    this.client = client;
+    this.tenant = tenant;
 
     /**
      * The project id.
      * @type {String}
      */
     this.projectId = projectId;
-
-    /**
-     * The default options object.
-     * @ignore
-     * @type {Object}
-     */
-    this.options = options;
-
-  }
-
-  /**
-   * Merges passed request options with default project ones, if any.
-   *
-   * @private
-   * @param  {Object} options The options to merge.
-   * @return {Object}         The merged options.
-   */
-  _getProjectOptions(options={}) {
-    const headers = {
-      ...this.options && this.options.headers,
-      ...options.headers
-    };
-    return {
-      ...this.options,
-      ...options,
-      headers
-    };
   }
 
   /**
@@ -62,9 +35,11 @@ export default class Project {
    * @return {Promise<Object, Error>}
    */
   get(options={}) {
-    return this.client.execute({
-      path: endpoint("project", this.projectId),
-      ...this._getProjectOptions(options)
-    });
+    return this.tenant.execute(
+      {
+        path: endpoint("project", this.projectId)
+      },
+      options
+    );
   }
 }

@@ -5,7 +5,7 @@ import endpoint from "./endpoint";
 /**
  * @private
  */
-export function login(emailAddress, password, options = {}) {
+export function login(emailAddress, password) {
   if (!emailAddress) {
     throw new Error("An email address is required.");
   }
@@ -24,37 +24,28 @@ export function login(emailAddress, password, options = {}) {
 /**
  * @private
  */
-export function logout(options = {}) {
-
-  const {headers} = {...options};
+export function logout() {
 
   return {
     method: "DELETE",
-    path: endpoint("currentAuthentication"),
-    headers: {...headers}
+    path: endpoint("currentAuthentication")
   };
 }
 
-export function listAuthentications(options = {}) {
-  const {headers} = {...options};
-
+export function listAuthentications() {
   return {
     method: "GET",
-    headers: {...headers},
     path: endpoint("authentications")
   };
 }
 
-export function deleteAuthentication(authenticationId, options = {}) {
+export function deleteAuthentication(authenticationId) {
   if (!authenticationId) {
     throw new Error("An authentication Id is required.");
   }
 
-  const {headers} = {...options};
-
   return {
     method: "DELETE",
-    headers: {...headers},
     path: endpoint("authentication", authenticationId)
   };
 }
@@ -64,17 +55,14 @@ export function deleteAuthentication(authenticationId, options = {}) {
  *
  * @private
  * */
-export function isEmailAvailable(emailAddress, options = {}) {
+export function isEmailAvailable(emailAddress) {
   if (!emailAddress) {
     throw new Error("An email address is required.");
   }
 
-  const {headers} = {...options};
-
   return {
     method: "POST",
     path: endpoint("userEmailAddressRequest"),
-    headers: {...headers},
     body: {emailAddress}
   };
 }
@@ -82,17 +70,14 @@ export function isEmailAvailable(emailAddress, options = {}) {
 /**
  * @private
  */
-export function createUser(emailAddress, password, options = {}) {
+export function createUser(emailAddress, password) {
   if (!emailAddress) {
     throw new Error("An email address is required.");
   }
 
-  const {headers} = {...options};
-
   return {
     method: "POST",
     path: endpoint("users"),
-    headers: {...headers},
     body: {emailAddress, password}
   };
 }
@@ -100,7 +85,7 @@ export function createUser(emailAddress, password, options = {}) {
 /**
  * @private
  */
-export function activateUser(userId, activationCode, options = {}) {
+export function activateUser(userId, activationCode) {
   if (!userId) {
     throw new Error("A user id is required.");
   }
@@ -109,12 +94,9 @@ export function activateUser(userId, activationCode, options = {}) {
     throw new Error("An activation code is required.");
   }
 
-  const {headers} = {...options};
-
   return {
     method: "POST",
     path: endpoint("userActivation"),
-    headers: {...headers},
     body: {userId, activationCode}
   };
 }
@@ -122,42 +104,33 @@ export function activateUser(userId, activationCode, options = {}) {
 /**
  * @private
  */
-export function me(options = {}) {
-  const {headers} = {...options};
-
+export function me() {
   return {
     method: "GET",
-    headers: {...headers},
     path: endpoint("me")
   };
 }
 
-export function currentTenant(options = {}) {
-  const {headers} = {...options};
-
+export function currentTenant() {
   return {
     method: "GET",
-    headers: {...headers},
     path: endpoint("currentTenant")
   };
 }
 
-export function passwordResetRequest(emailAddress, options = {}) {
+export function passwordResetRequest(emailAddress) {
   if (!emailAddress) {
     throw new Error("A user email is required.");
   }
 
-  const {headers} = {...options};
-
   return {
     method: "POST",
-    headers: {...headers},
     path: endpoint("userPasswordResetRequest"),
     body: {emailAddress}
   };
 }
 
-export function passwordReset(userId, passwordResetCode, password, options = {}) {
+export function passwordReset(userId, passwordResetCode, password) {
   if (!userId) {
     throw new Error("A user id is required.");
   }
@@ -168,26 +141,20 @@ export function passwordReset(userId, passwordResetCode, password, options = {})
     throw new Error("A password is required.");
   }
 
-  const {headers} = {...options};
-
   return {
     method: "POST",
-    headers: {...headers},
     path: endpoint("userPasswordReset"),
     body: {userId, passwordResetCode, password}
   };
 }
 
-export function checkRegistrationStatus(emailAddress, options = {}) {
+export function checkRegistrationStatus(emailAddress) {
   if (!emailAddress) {
     throw new Error("A user email is required.");
   }
 
-  const {headers} = {...options};
-
   return {
     method: "POST",
-    headers: {...headers},
     path: endpoint("checkRegistrationStatus"),
     body: {emailAddress}
   };
@@ -196,13 +163,10 @@ export function checkRegistrationStatus(emailAddress, options = {}) {
 /**
  * @private
  */
-export function createOrganization(name, options = {}) {
-  const {headers} = {...options};
-
+export function createOrganization(name) {
   return {
     method: "POST",
     path: endpoint("organizations"),
-    headers: {...headers},
     body: {name}
   };
 }

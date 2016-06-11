@@ -43,7 +43,7 @@ describe("Project", () => {
       });
     });
 
-    it("should return the list of projects", () => {
+    it("should return project data", () => {
       return project.get().should.become(data);
     });
   });

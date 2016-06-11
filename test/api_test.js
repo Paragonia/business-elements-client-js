@@ -125,16 +125,13 @@ describe("BusinessElementsClient", () => {
 
   /** @test {BusinessElementsClient#logout} */
   describe("#logout()", () => {
-    const authenticationToken = "0000000000000000-0000000000000000-0000000000000000-0000000000000000";
 
-    it("should clear authentication token", () => {
+    it("should be called", () => {
       sandbox.spy(requests, "logout");
 
-      const options = {headers: {"Authentication-token": authenticationToken}};
-
-      api.logout(options);
-      sinon.assert.calledWithMatch(requests.logout, options);
-
+      api.logout();
+      sinon.assert.calledWithMatch(requests.logout);
     });
+
   });
 });
