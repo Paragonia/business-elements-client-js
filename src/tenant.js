@@ -12,7 +12,7 @@ export default class Tenant {
   /**
    * Constructor.
    *
-   * @param  {BusinessElementsClient} client     The client instance.
+   * @param  {BusinessElementsClientBase} client The client instance.
    * @param  {String}      domainName            The tenant domain name.
    * @param  {Object}      options.headers       The headers object option.
    */

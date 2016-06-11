@@ -19,16 +19,11 @@ export default class BusinessElementsClientBase {
    * @param  {String} remote  The remote URL.
    * @param  {Object}  options The options object.
    * @param  {Object}  options.headers     The key-value headers to pass to each request (default: `{}`).
-   * @param  {String}  options.tenant      The default tenant to use (default: `"default"`)
    * @param  {String}  options.requestMode The HTTP request mode (from ES6 fetch spec).
    */
   constructor(remote, options={}) {
-    if (typeof(remote) !== "string" || !remote.length) {
-      throw new Error("Invalid remote URL: " + remote);
-    }
-    if (remote[remote.length-1] === "/") {
-      remote = remote.slice(0, -1);
-    }
+
+    this.remote = remote;
 
     /**
      * Default request options container.
@@ -39,10 +34,9 @@ export default class BusinessElementsClientBase {
       headers: options.headers || {}
     };
 
-    this._options = options;
-
     /**
      * The remote server base URL.
+     * @ignore
      * @type {String}
      */
     this.remote = remote;
@@ -67,7 +61,6 @@ export default class BusinessElementsClientBase {
      * @type {HTTP}
      */
     this.http = new HTTP({requestMode: options.requestMode});
-
   }
 
   /**
@@ -79,10 +72,20 @@ export default class BusinessElementsClientBase {
   }
 
   /**
-   * @ignore
+   * Sets the remote url. Trailing slashes will be removed.
+   *
+   * @param {String} url the remote url to set.
    */
   set remote(url) {
+    if (typeof(url) !== "string" || !url.length) {
+      throw new Error("Invalid remote URL: " + url);
+    }
+
     this._remote = url;
+
+    if (this._remote[this._remote.length-1] === "/") {
+      this._remote = this._remote.slice(0, -1);
+    }
   }
 
   /**
@@ -90,12 +93,11 @@ export default class BusinessElementsClientBase {
    *
    * Note: Headers won't be overridden but merged with instance default ones.
    *
-   * @private
    * @param    {Object} options The request options.
    * @return   {Object}
    * @property {Object} headers The extended headers object option.
    */
-  _getRequestOptions(options={}) {
+  getRequestOptions(options={}) {
     const requestOptions = {
       ...this.defaultReqOptions,
       ...options,
@@ -103,7 +105,7 @@ export default class BusinessElementsClientBase {
       headers: {
         ...this.defaultReqOptions.headers,
         ...options.headers
-      },
+      }
     };
 
     if (this.authenticationToken) {
@@ -144,7 +146,7 @@ export default class BusinessElementsClientBase {
   /**
    * Retrieves Business elements server build time.
    *
-   * @return {Promise<Long, Error>}
+   * @return {Promise<Number, Error>}
    */
   fetchServerBuildTime() {
     return this.fetchServerInfo().then(({platform}) => platform.build.millis);
@@ -190,7 +192,7 @@ export default class BusinessElementsClientBase {
    * @return {Promise<String, Error>} With the authentication token.
    */
   login(emailAddress, password, options={}) {
-    const reqOptions = this._getRequestOptions(options);
+    const reqOptions = this.getRequestOptions(options);
     return this.execute(requests.login(emailAddress, password, reqOptions), reqOptions.raw);
   }
 
@@ -203,7 +205,7 @@ export default class BusinessElementsClientBase {
    * @return {Promise<undefined, Error>}
    */
   logout(options={}) {
-    const reqOptions = this._getRequestOptions(options);
+    const reqOptions = this.getRequestOptions(options);
     return this.execute(requests.logout(reqOptions), reqOptions.raw);
   }
 
@@ -215,7 +217,7 @@ export default class BusinessElementsClientBase {
    * @return {Promise<Object[], Error>}
    */
   currentAuthentication(options={}) {
-    const headers = this._getRequestOptions(options);
+    const headers = this.getRequestOptions(options);
     return this
       .execute({
         path: endpoint("currentAuthentication"),
@@ -234,7 +236,7 @@ export default class BusinessElementsClientBase {
    * @return {Tenant}
    */
   tenant(domainName, options={}) {
-    const tenantOptions = this._getRequestOptions(options);
+    const tenantOptions = this.getRequestOptions(options);
     return new Tenant(this, domainName, tenantOptions);
   }
 }
