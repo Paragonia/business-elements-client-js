@@ -192,7 +192,11 @@ export default class BusinessElementsClientBase {
    */
   login(emailAddress, password, options={}) {
     const reqOptions = this.getRequestOptions(options);
-    return this.execute(requests.login(emailAddress, password, reqOptions), true);
+    return this.execute(requests.login(emailAddress, password, reqOptions), true)
+      .then((response) => {
+        this.authenticationToken = response.headers.get("Authentication-Token");
+        return this.authenticationToken;
+      });
   }
 
   /**

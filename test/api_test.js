@@ -112,10 +112,14 @@ describe("BusinessElementsClient", () => {
     it("should retrieve authentication token", () => {
       sandbox.stub(root, "fetch").returns(fakeServerResponse(200, {}, {"Authentication-Token": authenticationToken}));
 
-      const options = {raw: true};
-      return api.login("test@example.com", "password", options).then(function (response) {
-        return response.headers.get("Authentication-Token");
-      }).should.eventually.become(authenticationToken);
+      return api.login("test@example.com", "password")
+        .should.eventually.become(authenticationToken);
+    });
+
+    it("should store authentication token", () => {
+      sandbox.stub(root, "fetch").returns(fakeServerResponse(200, {}, {"Authentication-Token": authenticationToken}));
+
+      return api.login("test@example.com", "password").should.be.fulfilled.then(() => api.authenticationToken.should.equal(authenticationToken));
     });
   });
 
@@ -126,7 +130,7 @@ describe("BusinessElementsClient", () => {
     it("should clear authentication token", () => {
       sandbox.spy(requests, "logout");
 
-      let options = {headers: {"Authentication-token": authenticationToken}};
+      const options = {headers: {"Authentication-token": authenticationToken}};
 
       api.logout(options);
       sinon.assert.calledWithMatch(requests.logout, options);
