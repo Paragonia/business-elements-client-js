@@ -166,14 +166,19 @@ export default class BusinessElementsClientBase {
    *
    * @private
    * @param  {Object}  request     The request object.
-   * @param  {boolean} raw         Resolve with full response object, including json body and headers (Default: `false`, so only the json body is retrieved).
+   * @param  {Object}  [options]   Optional options will be merged into the request, allowing the user to override any request option.
+   * @param  {boolean} [raw]       Resolve with full response object, including json body and headers (Default: `false`, so only the json body is retrieved).
    * @return {Promise<Object, Error>}
    */
-  execute(request, raw = false) {
-    const promise = this.http.request(this.remote + request.path, {
+  execute(request, options = {}, raw = false) {
+
+    const requestOptions = {
       ...request,
-      body: JSON.stringify(request.body)
-    });
+      body: JSON.stringify(request.body),
+      ...options
+    };
+
+    const promise = this.http.request(`${this.remote}${request.path}`, requestOptions);
 
     return raw ? promise : promise.then(({json}) => json);
   }
@@ -190,7 +195,7 @@ export default class BusinessElementsClientBase {
    */
   login(emailAddress, password, options={}) {
     const reqOptions = this.getRequestOptions(options);
-    return this.execute(requests.login(emailAddress, password, reqOptions), true)
+    return this.execute(requests.login(emailAddress, password, reqOptions), options, true)
       .then((response) => {
         this.authenticationToken = response.headers.get("Authentication-Token");
         return this.authenticationToken;
