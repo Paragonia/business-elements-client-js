@@ -220,17 +220,21 @@ export default class BusinessElementsClientBase {
   }
 
   /**
-   * Retrieves the current authentication for the authenticated account.
+   * Checks the authentication for the specified authentication token.
    *
-   * @param  {Object} options         The options object.
+   * If the authentication is valid, the token is stored.
+   *
+   * @param  {String} authenticationToken The authentication token to check.
+   * @param  {Object} options             The options object.
    * @return {Promise<Object[], Error>}
    */
-  currentAuthentication(options={}) {
+  checkAuthenticationToken(authenticationToken, options={}) {
     return this
       .execute({
         path: endpoint("currentAuthentication")
       }, options)
       .then((response) => {
+        this.authenticationToken = authenticationToken;
         return response;
       });
   }

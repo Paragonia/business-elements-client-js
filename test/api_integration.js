@@ -55,13 +55,6 @@ describe("Integration tests", function() {
             return api.logout().should.be.fulfilled;
           });
       });
-
-      it("should get current authentication", () => {
-        return api.login(emailAddress, password)
-          .then(() => {
-            return api.currentAuthentication().should.be.fulfilled;
-          });
-      });
     });
   });
 
