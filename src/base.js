@@ -83,7 +83,7 @@ export default class BusinessElementsClientBase {
 
     this._remote = url;
 
-    if (this._remote[this._remote.length-1] === "/") {
+    if (this._remote[this._remote.length - 1] === "/") {
       this._remote = this._remote.slice(0, -1);
     }
   }
@@ -170,13 +170,11 @@ export default class BusinessElementsClientBase {
    * @return {Promise<Object, Error>}
    */
   execute(request, raw = false) {
-    const promise = this.fetchServerSettings()
-      .then(_ => {
-        return this.http.request(this.remote + request.path, {
-          ...request,
-          body: JSON.stringify(request.body)
-        });
-      });
+    const promise = this.http.request(this.remote + request.path, {
+      ...request,
+      body: JSON.stringify(request.body)
+    });
+
     return raw ? promise : promise.then(({json}) => json);
   }
 
