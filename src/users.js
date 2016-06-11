@@ -75,7 +75,7 @@ export default class Users {
    */
   create(emailAddress, password, options = {}) {
     const reqOptions = this._getUsersOptions(options);
-    return this.client.execute(requests.createUser(emailAddress, password, reqOptions), reqOptions.raw);
+    return this.client.execute(requests.createUser(emailAddress, password, reqOptions));
   }
 
   /**
@@ -89,7 +89,7 @@ export default class Users {
    */
   activate(userId, activationCode, options = {}) {
     const reqOptions = this._getUsersOptions(options);
-    return this.client.execute(requests.activateUser(userId, activationCode, reqOptions), reqOptions.raw);
+    return this.client.execute(requests.activateUser(userId, activationCode, reqOptions));
 
   }
 
@@ -101,7 +101,7 @@ export default class Users {
    */
   me(options = {}) {
     const reqOptions = this._getUsersOptions(options);
-    return this.client.execute(requests.me(reqOptions), reqOptions.raw);
+    return this.client.execute(requests.me(reqOptions));
   }
 
   /**
@@ -113,7 +113,7 @@ export default class Users {
    */
   passwordResetRequest(emailAddress, options = {}) {
     const reqOptions = this._getUsersOptions(options);
-    return this.client.execute(requests.passwordResetRequest(emailAddress, reqOptions), reqOptions.raw);
+    return this.client.execute(requests.passwordResetRequest(emailAddress, reqOptions));
   }
 
   /**
@@ -127,7 +127,7 @@ export default class Users {
    */
   passwordReset(userId, passwordResetCode, password, options = {}) {
     const reqOptions = this._getUsersOptions(options);
-    return this.client.execute(requests.passwordReset(userId, passwordResetCode, password, reqOptions), reqOptions.raw);
+    return this.client.execute(requests.passwordReset(userId, passwordResetCode, password, reqOptions));
   }
 
   /**
@@ -138,7 +138,7 @@ export default class Users {
    */
   listAuthentications(options = {}) {
     const reqOptions = this._getUsersOptions(options);
-    return this.client.execute(requests.listAuthentications(reqOptions), reqOptions.raw);
+    return this.client.execute(requests.listAuthentications(reqOptions));
   }
 
   /**
@@ -162,6 +162,6 @@ export default class Users {
      */
   checkRegistrationStatus(emailAddress, options = {}) {
     const reqOptions = this._getUsersOptions(options);
-    return this.client.execute(requests.checkRegistrationStatus(emailAddress, reqOptions), reqOptions.raw);
+    return this.client.execute(requests.checkRegistrationStatus(emailAddress, reqOptions));
   }
 }

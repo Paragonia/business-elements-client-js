@@ -170,10 +170,7 @@ describe("Users", () => {
     });
 
     it("should execute expected request", () => {
-      const options = {raw: true};
-      return users.checkRegistrationStatus("test@example.com", options).then(function (response) {
-        return response.json;
-      }).should.eventually.become({status: "NotRegistered"});
+      return users.checkRegistrationStatus("test@example.com", {}).should.eventually.become({status: "NotRegistered"});
     });
 
     it("should require user email", () => {

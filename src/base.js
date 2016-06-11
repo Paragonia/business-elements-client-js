@@ -167,7 +167,6 @@ export default class BusinessElementsClientBase {
    * @private
    * @param  {Object}  request     The request object.
    * @param  {boolean} raw         Resolve with full response object, including json body and headers (Default: `false`, so only the json body is retrieved).
-   * @param  {Object}  options     The options object.
    * @return {Promise<Object, Error>}
    */
   execute(request, raw = false) {
@@ -193,7 +192,7 @@ export default class BusinessElementsClientBase {
    */
   login(emailAddress, password, options={}) {
     const reqOptions = this.getRequestOptions(options);
-    return this.execute(requests.login(emailAddress, password, reqOptions), reqOptions.raw);
+    return this.execute(requests.login(emailAddress, password, reqOptions), true);
   }
 
   /**
@@ -206,7 +205,7 @@ export default class BusinessElementsClientBase {
    */
   logout(options={}) {
     const reqOptions = this.getRequestOptions(options);
-    return this.execute(requests.logout(reqOptions), reqOptions.raw);
+    return this.execute(requests.logout(reqOptions));
   }
 
   /**
