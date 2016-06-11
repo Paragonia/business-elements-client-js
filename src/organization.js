@@ -3,56 +3,29 @@
 import endpoint from "./endpoint";
 
 /**
- * Abstract representation of an organization.
- *
+ * Abstract representation of a selected organization.
  */
 export default class Organization {
 
   /**
    * Constructor.
    *
-   * @param  {BusinessElementsClient} client     The client instance.
-   * @param  {String}      organizationId        The organization id.
-   * @param  {Object}      options.headers       The headers object option.
+   * @param  {Tenant} tenant                The tenant instance.
+   * @param  {String} organizationId        The organization id.
    */
-  constructor(client, organizationId, options={}) {
+  constructor(tenant, organizationId) {
+
     /**
-     * @ignore
+     * The tenant.
+     * @type {Tenant}
      */
-    this.client = client;
+    this.tenant = tenant;
 
     /**
      * The organization id.
      * @type {String}
      */
     this.organizationId = organizationId;
-
-    /**
-     * The default options object.
-     * @ignore
-     * @type {Object}
-     */
-    this.options = options;
-
-  }
-
-  /**
-   * Merges passed request options with default organization ones, if any.
-   *
-   * @private
-   * @param  {Object} options The options to merge.
-   * @return {Object}         The merged options.
-   */
-  _getOrganizationOptions(options={}) {
-    const headers = {
-      ...this.options && this.options.headers,
-      ...options.headers
-    };
-    return {
-      ...this.options,
-      ...options,
-      headers
-    };
   }
 
   /**
@@ -62,9 +35,11 @@ export default class Organization {
    * @return {Promise<Object, Error>}
    */
   get(options={}) {
-    return this.client.execute({
-      path: endpoint("organization", this.organizationId),
-      ...this._getOrganizationOptions(options)
-    });
+    return this.tenant.execute(
+      {
+        path: endpoint("organization", this.organizationId)
+      },
+      options
+    );
   }
 }

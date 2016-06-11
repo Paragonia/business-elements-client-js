@@ -19,16 +19,11 @@ export default class BusinessElementsClientBase {
    * @param  {String} remote  The remote URL.
    * @param  {Object}  options The options object.
    * @param  {Object}  options.headers     The key-value headers to pass to each request (default: `{}`).
-   * @param  {String}  options.tenant      The default tenant to use (default: `"default"`)
    * @param  {String}  options.requestMode The HTTP request mode (from ES6 fetch spec).
    */
   constructor(remote, options={}) {
-    if (typeof(remote) !== "string" || !remote.length) {
-      throw new Error("Invalid remote URL: " + remote);
-    }
-    if (remote[remote.length-1] === "/") {
-      remote = remote.slice(0, -1);
-    }
+
+    this.remote = remote;
 
     /**
      * Default request options container.
@@ -39,10 +34,9 @@ export default class BusinessElementsClientBase {
       headers: options.headers || {}
     };
 
-    this._options = options;
-
     /**
      * The remote server base URL.
+     * @ignore
      * @type {String}
      */
     this.remote = remote;
@@ -67,7 +61,6 @@ export default class BusinessElementsClientBase {
      * @type {HTTP}
      */
     this.http = new HTTP({requestMode: options.requestMode});
-
   }
 
   /**
@@ -79,10 +72,20 @@ export default class BusinessElementsClientBase {
   }
 
   /**
-   * @ignore
+   * Sets the remote url. Trailing slashes will be removed.
+   *
+   * @param {String} url the remote url to set.
    */
   set remote(url) {
+    if (typeof(url) !== "string" || !url.length) {
+      throw new Error("Invalid remote URL: " + url);
+    }
+
     this._remote = url;
+
+    if (this._remote[this._remote.length - 1] === "/") {
+      this._remote = this._remote.slice(0, -1);
+    }
   }
 
   /**
@@ -90,27 +93,24 @@ export default class BusinessElementsClientBase {
    *
    * Note: Headers won't be overridden but merged with instance default ones.
    *
-   * @private
    * @param    {Object} options The request options.
    * @return   {Object}
    * @property {Object} headers The extended headers object option.
    */
-  _getRequestOptions(options={}) {
-    const requestOptions = {
+  getRequestOptions(options={}) {
+
+    const authenticationTokenHeaders = this.authenticationToken ? { "Authentication-Token": this.authenticationToken } : {};
+
+    return {
       ...this.defaultReqOptions,
       ...options,
       // Note: headers should never be overridden but extended
       headers: {
+        ...authenticationTokenHeaders,
         ...this.defaultReqOptions.headers,
         ...options.headers
-      },
+      }
     };
-
-    if (this.authenticationToken) {
-      requestOptions.headers["Authentication-Token"] = this.authenticationToken;
-    }
-
-    return requestOptions;
   }
 
   /**
@@ -144,7 +144,7 @@ export default class BusinessElementsClientBase {
   /**
    * Retrieves Business elements server build time.
    *
-   * @return {Promise<Long, Error>}
+   * @return {Promise<Number, Error>}
    */
   fetchServerBuildTime() {
     return this.fetchServerInfo().then(({platform}) => platform.build.millis);
@@ -162,20 +162,27 @@ export default class BusinessElementsClientBase {
   /**
    * Executes an atomic HTTP request.
    *
-   * @private
    * @param  {Object}  request     The request object.
-   * @param  {boolean} raw         Resolve with full response object, including json body and headers (Default: `false`, so only the json body is retrieved).
-   * @param  {Object}  options     The options object.
+   * @param  {Object}  options     Optional options will be merged into the request, allowing the user to override any request option.
+   * @param  {boolean} [raw]       Resolve with full response object, including json body and headers (Default: `false`, so only the json body is retrieved).
    * @return {Promise<Object, Error>}
    */
-  execute(request, raw = false) {
-    const promise = this.fetchServerSettings()
-      .then(_ => {
-        return this.http.request(this.remote + request.path, {
-          ...request,
-          body: JSON.stringify(request.body)
-        });
-      });
+  execute(request, options, raw = false) {
+
+    const requestOptions = this.getRequestOptions(options);
+
+    const completeRequest = {
+      ...request,
+      body: JSON.stringify(request.body),
+      ...requestOptions,
+      headers: {
+        ...request.headers,
+        ...requestOptions.headers
+      }
+    };
+
+    const promise = this.http.request(`${this.remote}${completeRequest.path}`, completeRequest);
+
     return raw ? promise : promise.then(({json}) => json);
   }
 
@@ -190,8 +197,11 @@ export default class BusinessElementsClientBase {
    * @return {Promise<String, Error>} With the authentication token.
    */
   login(emailAddress, password, options={}) {
-    const reqOptions = this._getRequestOptions(options);
-    return this.execute(requests.login(emailAddress, password, reqOptions), reqOptions.raw);
+    return this.execute(requests.login(emailAddress, password), options, true)
+      .then((response) => {
+        this.authenticationToken = response.headers.get("Authentication-Token");
+        return this.authenticationToken;
+      });
   }
 
   /**
@@ -203,25 +213,28 @@ export default class BusinessElementsClientBase {
    * @return {Promise<undefined, Error>}
    */
   logout(options={}) {
-    const reqOptions = this._getRequestOptions(options);
-    return this.execute(requests.logout(reqOptions), reqOptions.raw);
+    return this.execute(requests.logout(), options)
+      .then(() => {
+        this.authenticationToken = undefined;
+      });
   }
 
   /**
-   * Retrieves the current authentication for the authenticated account.
+   * Checks the authentication for the specified authentication token.
    *
-   * @param  {Object} options         The options object.
-   * @param  {Object} options.headers The headers object option.
+   * If the authentication is valid, the token is stored.
+   *
+   * @param  {String} authenticationToken The authentication token to check.
+   * @param  {Object} options             The options object.
    * @return {Promise<Object[], Error>}
    */
-  currentAuthentication(options={}) {
-    const headers = this._getRequestOptions(options);
+  checkAuthenticationToken(authenticationToken, options={}) {
     return this
       .execute({
-        path: endpoint("currentAuthentication"),
-        headers: headers.headers
-      })
+        path: endpoint("currentAuthentication")
+      }, options)
       .then((response) => {
+        this.authenticationToken = authenticationToken;
         return response;
       });
   }
@@ -230,11 +243,9 @@ export default class BusinessElementsClientBase {
    * Retrieve a tenant object to perform operations on it.
    *
    * @param  {String}  domainName    The tenant domain name.
-   * @param  {Object}  options       The request options.
    * @return {Tenant}
    */
-  tenant(domainName, options={}) {
-    const tenantOptions = this._getRequestOptions(options);
-    return new Tenant(this, domainName, tenantOptions);
+  tenant(domainName) {
+    return new Tenant(this, domainName);
   }
 }

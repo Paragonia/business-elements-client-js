@@ -69,7 +69,7 @@ export default class HTTP {
    * @return {Promise}
    */
   request(url, options={headers:{}}) {
-    let response, status, statusText, headers, hasTimedout;
+    let response, status, statusText, headers, isTimeout;
 
     // Ensure default request headers are always set
     options.headers = Object.assign({}, HTTP.DEFAULT_REQUEST_HEADERS, options.headers);
@@ -78,18 +78,19 @@ export default class HTTP {
       options.headers = Object.assign({}, {"Content-Type": "application/json"}, options.headers);
     }
     options.mode = this.requestMode;
+
     return new Promise((resolve, reject) => {
       const _timeoutId = setTimeout(() => {
-        hasTimedout = true;
+        isTimeout = true;
         reject(new Error("Request timeout."));
       }, this.timeout);
       fetch(url, options) .then(res => {
-        if (!hasTimedout) {
+        if (!isTimeout) {
           clearTimeout(_timeoutId);
           resolve(res);
         }
       }).catch(err => {
-        if (!hasTimedout) {
+        if (!isTimeout) {
           clearTimeout(_timeoutId);
           reject(err);
         }

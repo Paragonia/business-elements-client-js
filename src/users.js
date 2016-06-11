@@ -3,47 +3,22 @@
 import * as requests from "./requests";
 
 /**
- * Abstract representation of a selected tenant.
- *
+ * Abstract representation of users.
  */
 export default class Users {
+
   /**
    * Constructor.
    *
-   * @param  {BusinessElementsClient} client     The client instance.
-   * @param  {Object}      options.headers       The headers object option.
+   * @param  {Tenant} tenant The tenant instance.
    */
-  constructor(client, options = {}) {
-    /**
-     * @ignore
-     */
-    this.client = client;
+  constructor(tenant) {
 
     /**
-     * The default options object.
-     * @ignore
-     * @type {Object}
+     * The tenant.
+     * @type {Tenant}
      */
-    this.options = options;
-  }
-
-  /**
-   * Merges passed request options with default users ones, if any.
-   *
-   * @private
-   * @param  {Object} options The options to merge.
-   * @return {Object}         The merged options.
-   */
-  _getUsersOptions(options = {}) {
-    const headers = {
-      ...this.options && this.options.headers,
-      ...options.headers
-    };
-    return {
-      ...this.options,
-      ...options,
-      headers
-    };
+    this.tenant = tenant;
   }
 
   /**
@@ -54,13 +29,12 @@ export default class Users {
    * @return {Promise<Boolean, Error>}  Indicating if the user email is available.
    */
   isEmailAvailable(emailAddress, options = {}) {
-    const headers = this._getUsersOptions(options);
-    return this.client
-      .execute(requests.isEmailAvailable(emailAddress, headers), true)
-      .then((response) => {
+    return this.tenant
+      .execute(requests.isEmailAvailable(emailAddress), options)
+      .then(() => {
         return true;
       })
-      .catch((error) => {
+      .catch(() => {
         return false;
       });
   }
@@ -74,22 +48,19 @@ export default class Users {
    * @return {Promise<Object, Error>}
    */
   create(emailAddress, password, options = {}) {
-    const reqOptions = this._getUsersOptions(options);
-    return this.client.execute(requests.createUser(emailAddress, password, reqOptions), reqOptions.raw);
+    return this.tenant.execute(requests.createUser(emailAddress, password), options);
   }
 
   /**
    * Activates the specified user.
    *
-   * @param  {boolean}  raw              Specifies the response type
    * @param  {String}   userId           Id of the user to activate.
    * @param  {String}   activationCode   Required to activate the user.
    * @param  {Object}   [options]        The options object.
    * @return {Promise<Object, Error>}
    */
   activate(userId, activationCode, options = {}) {
-    const reqOptions = this._getUsersOptions(options);
-    return this.client.execute(requests.activateUser(userId, activationCode, reqOptions), reqOptions.raw);
+    return this.tenant.execute(requests.activateUser(userId, activationCode), options);
 
   }
 
@@ -100,8 +71,7 @@ export default class Users {
    * @returns {Promise.<Object, Error>}
    */
   me(options = {}) {
-    const reqOptions = this._getUsersOptions(options);
-    return this.client.execute(requests.me(reqOptions), reqOptions.raw);
+    return this.tenant.execute(requests.me(), options);
   }
 
   /**
@@ -112,8 +82,7 @@ export default class Users {
    * @returns {Promise.<Object, Error>}
    */
   passwordResetRequest(emailAddress, options = {}) {
-    const reqOptions = this._getUsersOptions(options);
-    return this.client.execute(requests.passwordResetRequest(emailAddress, reqOptions), reqOptions.raw);
+    return this.tenant.execute(requests.passwordResetRequest(emailAddress), options);
   }
 
   /**
@@ -126,8 +95,7 @@ export default class Users {
    * @returns {Promise.<Object, Error>}
    */
   passwordReset(userId, passwordResetCode, password, options = {}) {
-    const reqOptions = this._getUsersOptions(options);
-    return this.client.execute(requests.passwordReset(userId, passwordResetCode, password, reqOptions), reqOptions.raw);
+    return this.tenant.execute(requests.passwordReset(userId, passwordResetCode, password), options);
   }
 
   /**
@@ -137,8 +105,7 @@ export default class Users {
    * @returns {Promise.<Object, Error>}
    */
   listAuthentications(options = {}) {
-    const reqOptions = this._getUsersOptions(options);
-    return this.client.execute(requests.listAuthentications(reqOptions), reqOptions.raw);
+    return this.tenant.execute(requests.listAuthentications(), options);
   }
 
   /**
@@ -149,19 +116,17 @@ export default class Users {
    * @returns {Promise.<Object, Error>}
    */
   deleteAuthentication(authenticationId, options = {}) {
-    const reqOptions = this._getUsersOptions(options);
-    return this.client.execute(requests.deleteAuthentication(authenticationId, reqOptions));
+    return this.tenant.execute(requests.deleteAuthentication(authenticationId), options);
   }
 
   /**
    * Returns email registration status  (NotRegistered, ActivationRequired, NotAuthenticatable, Active).
    *
    * @param emailAddress
-   * @param options
+   * @param  {Object}   [options]       The options object.
    * @returns {Promise.<Object, Error>}
-     */
+   */
   checkRegistrationStatus(emailAddress, options = {}) {
-    const reqOptions = this._getUsersOptions(options);
-    return this.client.execute(requests.checkRegistrationStatus(emailAddress, reqOptions), reqOptions.raw);
+    return this.tenant.execute(requests.checkRegistrationStatus(emailAddress), options);
   }
 }

@@ -58,17 +58,13 @@ describe("Users", () => {
     it("should execute expected request without password", () => {
       users.create("test@example.com");
 
-      sinon.assert.calledWithMatch(requests.createUser, "test@example.com", undefined, {
-        headers: {"tenant": "example.com"}
-      });
+      sinon.assert.calledWithMatch(requests.createUser, "test@example.com", undefined);
     });
 
     it("should execute expected request with password", () => {
       users.create("test@example.com", "password");
 
-      sinon.assert.calledWithMatch(requests.createUser, "test@example.com", "password", {
-        headers: {"tenant": "example.com"}
-      });
+      sinon.assert.calledWithMatch(requests.createUser, "test@example.com", "password");
     });
 
     it("should require correct email input", () => {
@@ -90,9 +86,7 @@ describe("Users", () => {
     it("should execute expected request", () => {
       users.activate(userId, "12345678");
 
-      sinon.assert.calledWithMatch(requests.activateUser, userId, "12345678", {
-        headers: {"tenant": "example.com"}
-      });
+      sinon.assert.calledWithMatch(requests.activateUser, userId, "12345678");
     });
 
     it("should require a user id", () => {
@@ -113,7 +107,7 @@ describe("Users", () => {
 
     it("should execute expected request", () => {
       users.me();
-      sinon.assert.calledWithMatch(requests.me, {});
+      sinon.assert.calledWithMatch(requests.me);
     });
   });
 
@@ -126,9 +120,7 @@ describe("Users", () => {
 
     it("should execute expected request", () => {
       users.passwordResetRequest("email@domain.com");
-      sinon.assert.calledWithMatch(requests.passwordResetRequest, "email@domain.com", {
-        headers: {"tenant": "example.com"}
-      });
+      sinon.assert.calledWithMatch(requests.passwordResetRequest, "email@domain.com");
     });
 
     it("should require user email", () => {
@@ -145,9 +137,7 @@ describe("Users", () => {
 
     it("should execute expected request", () => {
       users.passwordReset("uid", "code", "password");
-      sinon.assert.calledWithMatch(requests.passwordReset, "uid", "code", "password", {
-        headers: {"tenant": "example.com"}
-      });
+      sinon.assert.calledWithMatch(requests.passwordReset, "uid", "code", "password");
     });
 
     it("should require user id", () => {
@@ -170,10 +160,7 @@ describe("Users", () => {
     });
 
     it("should execute expected request", () => {
-      const options = {raw: true};
-      return users.checkRegistrationStatus("test@example.com", options).then(function (response) {
-        return response.json;
-      }).should.eventually.become({status: "NotRegistered"});
+      return users.checkRegistrationStatus("test@example.com", {}).should.eventually.become({status: "NotRegistered"});
     });
 
     it("should require user email", () => {

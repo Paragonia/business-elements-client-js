@@ -33,7 +33,7 @@ describe("Tenants", () => {
     it("should return current tenant", () => {
       sandbox.spy(requests, "currentTenant");
       tenants.currentTenant();
-      expect(requests.currentTenant()).to.eql({ method: "GET", headers: {}, path: "/tenants/current" });
+      expect(requests.currentTenant()).to.eql({ method: "GET", path: "/tenants/current" });
     });
   });
 });

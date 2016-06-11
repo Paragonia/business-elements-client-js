@@ -4,71 +4,46 @@ import endpoint from "./endpoint";
 import Project from "./project";
 
 /**
- * Abstract representation of a selected tenant.
- *
+ * Abstract representation of projects.
  */
 export default class Projects {
+
   /**
    * Constructor.
    *
-   * @param  {BusinessElementsClient} client     The client instance.
-   * @param  {Object}      options.headers       The headers object option.
+   * @param  {Tenant} tenant The tenant instance.
    */
-  constructor(client, options={}) {
-    /**
-     * @ignore
-     */
-    this.client = client;
+  constructor(tenant) {
 
     /**
-     * The default options object.
-     * @ignore
-     * @type {Object}
+     * The tenant.
+     * @type {Tenant}
      */
-    this.options = options;
-  }
-
-  /**
-   * Merges passed request options with default users ones, if any.
-   *
-   * @private
-   * @param  {Object} options The options to merge.
-   * @return {Object}         The merged options.
-   */
-  _getProjectsOptions(options={}) {
-    const headers = {
-      ...this.options && this.options.headers,
-      ...options.headers
-    };
-    return {
-      ...this.options,
-      ...options,
-      headers
-    };
+    this.tenant = tenant;
   }
 
   /**
    * Retrieves the list of projects in the current tenant.
    *
    * @param  {Object} options         The options object.
-   * @param  {Object} options.headers The headers object option.
    * @return {Promise<Array<Object>, Error>}
    */
   list(options={}) {
-    return this.client.execute({
-      path: endpoint("projects"),
-      ...this._getProjectsOptions(options)
-    });
+    return this.tenant.execute(
+      {
+        path: endpoint("projects")
+      },
+      options
+    );
   }
 
   /**
-   * Retreive a project object to perform operations on it.
+   * Retrieve a project object to perform operations on it.
    *
-   * @param  {String} id              The id of the project.
-   * @param  {Object} options         The options object.
+   * @param  {String} id The id of the project.
    * @return {Project}
    */
-  project(id, options) {
-    return new Project(this.client, id, this._getProjectsOptions(options));
+  project(id) {
+    return new Project(this.tenant, id);
   }
 }
