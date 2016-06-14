@@ -30,14 +30,7 @@ export default class Projects {
    * @return {Promise<Array<Object>, Error>}
    */
   list(options={}) {
-    return this.tenant.execute(
-      {
-        path: endpoint("projects")
-      },
-      options
-    ).then((projects) => {
-      return { projects }
-    });
+    return this.tenant.execute({ path: endpoint("projects")}, options);
   }
 
   /**
