@@ -57,11 +57,15 @@ export default class Users {
    * @param  {String}   userId           Id of the user to activate.
    * @param  {String}   activationCode   Required to activate the user.
    * @param  {Object}   [options]        The options object.
-   * @return {Promise<Object, Error>}
+   * @return {Promise<String, Error>}    With the authentication token.
    */
   activate(userId, activationCode, options = {}) {
-    return this.tenant.execute(requests.activateUser(userId, activationCode), options);
-
+    return this.tenant
+      .execute(requests.activateUser(userId, activationCode), options, true)
+      .then((response) => {
+        this.tenant.client.authenticationToken = response.headers.get("Authentication-Token");
+        return this.authenticationToken;
+      });
   }
 
   /**
@@ -92,10 +96,15 @@ export default class Users {
    * @param passwordResetCode
    * @param password
    * @param options
-   * @returns {Promise.<Object, Error>}
+   * @return {Promise<String, Error>} With the authentication token.
    */
   passwordReset(userId, passwordResetCode, password, options = {}) {
-    return this.tenant.execute(requests.passwordReset(userId, passwordResetCode, password), options);
+    return this.tenant
+      .execute(requests.passwordReset(userId, passwordResetCode, password), options, true)
+      .then((response) => {
+        this.tenant.client.authenticationToken = response.headers.get("Authentication-Token");
+        return this.authenticationToken;
+      });
   }
 
   /**
