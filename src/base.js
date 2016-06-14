@@ -3,6 +3,7 @@
 import HTTP from "./http";
 import endpoint from "./endpoint";
 import * as requests from "./requests";
+import * as optionUtils from "./options";
 import Tenant from "./tenant";
 
 /**
@@ -232,10 +233,12 @@ export default class BusinessElementsClientBase {
     return this
       .execute({
         path: endpoint("currentAuthentication")
-      }, options)
-      .then((response) => {
+      },
+        optionUtils.join({ "Authentication-Token": authenticationToken }, options)
+      )
+      .then(() => {
         this.authenticationToken = authenticationToken;
-        return response;
+        return authenticationToken;
       });
   }
 

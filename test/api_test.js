@@ -123,6 +123,29 @@ describe("BusinessElementsClient", () => {
     });
   });
 
+  /** @test {BusinessElementsClient#checkAuthenticationToken} */
+  describe("#checkAuthenticationToken()", () => {
+    const authenticationToken = "0000000000000000-0000000000000000-0000000000000000-0000000000000000";
+
+    it("should check authentication token", () => {
+      sandbox.stub(api, "execute").returns(fakeServerResponse(200, {}, {"Authentication-Token": authenticationToken}));
+
+      const result = api.checkAuthenticationToken(authenticationToken);
+
+      sinon.assert.calledWithMatch(api.execute, {
+        path: "/authentications/current"
+      });
+
+      return result.should.eventually.become(authenticationToken);
+    });
+
+    it("should store authentication token", () => {
+      sandbox.stub(root, "fetch").returns(fakeServerResponse(200, {}, {"Authentication-Token": authenticationToken}));
+
+      return api.checkAuthenticationToken(authenticationToken).should.be.fulfilled.then(() => api.authenticationToken.should.equal(authenticationToken));
+    });
+  });
+
   /** @test {BusinessElementsClient#logout} */
   describe("#logout()", () => {
 
