@@ -1,6 +1,7 @@
 "use strict";
 
 import endpoint from "./endpoint";
+import * as requests from "./requests";
 
 /**
  * Abstract representation of a project.
@@ -39,6 +40,13 @@ export default class Project {
       {
         path: endpoint("project", this.projectId)
       },
+      options
+    );
+  }
+
+  remove(options={}) {
+    return this.tenant.execute(
+      requests.deleteProject(this.projectId),
       options
     );
   }

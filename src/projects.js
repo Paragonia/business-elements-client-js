@@ -2,6 +2,7 @@
 
 import endpoint from "./endpoint";
 import Project from "./project";
+import * as requests from "./requests";
 
 /**
  * Abstract representation of projects.
@@ -34,7 +35,9 @@ export default class Projects {
         path: endpoint("projects")
       },
       options
-    );
+    ).then((projects) => {
+      return { projects }
+    });
   }
 
   /**
@@ -45,5 +48,19 @@ export default class Projects {
    */
   project(id) {
     return new Project(this.tenant, id);
+  }
+
+  /**
+   * Creates the project with the specified properties.
+   *
+   * @param  {String}  name           The name of the project.
+   * @param  {Object} options         The options object.
+   * @return {Promise<Object, Error>}
+   */
+  create(name, options = {}) {
+    return this.tenant.execute(
+      requests.createProject(name),
+      options
+    );
   }
 }

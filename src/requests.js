@@ -170,3 +170,20 @@ export function createOrganization(name) {
     body: {name}
   };
 }
+
+// Projects
+
+export function createProject(name) {
+  return {
+    method: "POST",
+    path: endpoint("projects"),
+    body: {name}
+  };
+}
+
+export function deleteProject(id) {
+  return {
+    method: "DELETE",
+    path: endpoint("project")(id)
+  }
+}
