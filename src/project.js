@@ -44,7 +44,28 @@ export default class Project {
     );
   }
 
-  remove(options={}) {
+  /**
+   * Updates current project
+   *
+   * @param {String} name                 Project name
+   * @param {String} visibility           Project visibility (can be "public" or "members")
+   * @param  {Object} options             The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  update(name, visibility, options = {}) {
+    return this.tenant.execute(
+      requests.updateProject(this.projectId, name, visibility),
+      options
+    );
+  }
+
+  /**
+   * Delete current project
+   * 
+   * @param  {Object} options             The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  remove(options = {}) {
     return this.tenant.execute(
       requests.deleteProject(this.projectId),
       options

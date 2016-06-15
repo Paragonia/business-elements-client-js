@@ -181,9 +181,17 @@ export function createProject(name) {
   };
 }
 
+export function updateProject(id, name, visibility) {
+  return {
+    method: "PUT",
+    path: endpoint("project", id),
+    body: {name, visibility}
+  };
+}
+
 export function deleteProject(id) {
   return {
     method: "DELETE",
-    path: endpoint("project")(id)
-  }
+    path: endpoint("project", (id))
+  };
 }
