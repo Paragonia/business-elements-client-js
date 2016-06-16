@@ -173,19 +173,19 @@ export function createOrganization(name) {
 
 // Projects
 
-export function createProject(name) {
+export function createProject(name, description) {
   return {
     method: "POST",
     path: endpoint("projects"),
-    body: {name}
+    body: {name, description}
   };
 }
 
-export function updateProject(id, name, visibility) {
+export function editProject(id, name, description) {
   return {
     method: "PUT",
     path: endpoint("project", id),
-    body: {name, visibility}
+    body: {name, description}
   };
 }
 

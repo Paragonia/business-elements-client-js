@@ -48,13 +48,13 @@ export default class Project {
    * Updates current project
    *
    * @param {String} name                 Project name
-   * @param {String} visibility           Project visibility (can be "public" or "members")
+   * @param {String} description          Project description
    * @param  {Object} options             The options object.
    * @returns {Promise.<Object, Error>}
    */
-  update(name, visibility, options = {}) {
+  edit(name, description, options = {}) {
     return this.tenant.execute(
-      requests.updateProject(this.projectId, name, visibility),
+      requests.editProject(this.projectId, name, description),
       options
     );
   }

@@ -29,12 +29,16 @@ export default class Projects {
    * @param  {Object} options         The options object.
    * @return {Promise<Array<Object>, Error>}
    */
-  list(options={}) {
-    return this.tenant.execute({ path: endpoint("projects")}, options)
+  list(options = {}) {
+    return this.tenant.execute({path: endpoint("projects")}, options)
       .then((response) => {
-        return {
-          projects: response["_embedded"]["be:project"]
+        let projects = [];
+        if (response["_embedded"]) {
+          projects = {
+            projects: response["_embedded"]["be:project"]
+          };
         }
+        return projects;
       });
   }
 
@@ -51,13 +55,14 @@ export default class Projects {
   /**
    * Creates the project with the specified properties.
    *
-   * @param  {String}  name           The name of the project.
-   * @param  {Object} options         The options object.
+   * @param  {String}  name         The name of the project.
+   * @param {String} description    The description of the project
+   * @param  {Object} options       The options object.
    * @return {Promise<Object, Error>}
    */
-  create(name, options = {}) {
+  create(name, description, options = {}) {
     return this.tenant.execute(
-      requests.createProject(name),
+      requests.createProject(name, description),
       options
     );
   }
