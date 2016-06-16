@@ -32,13 +32,11 @@ export default class Projects {
   list(options = {}) {
     return this.tenant.execute({path: endpoint("projects")}, options)
       .then((response) => {
-        let projects = [];
         if (response["_embedded"]) {
-          projects = {
-            projects: response["_embedded"]["be:project"]
-          };
+          return response["_embedded"]["be:project"];
+        } else {
+          return [];
         }
-        return projects;
       });
   }
 
