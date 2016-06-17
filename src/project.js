@@ -35,7 +35,7 @@ export default class Project {
    * @param  {Object} options         The options object.
    * @return {Promise<Object, Error>}
    */
-  get(options={}) {
+  get(options = {}) {
     return this.tenant.execute(
       {
         path: endpoint("project", this.projectId)
@@ -61,7 +61,7 @@ export default class Project {
 
   /**
    * Delete current project
-   * 
+   *
    * @param  {Object} options             The options object.
    * @returns {Promise.<Object, Error>}
    */
@@ -71,4 +71,36 @@ export default class Project {
       options
     );
   }
+
+  /**
+   *  Create a new context for the current project
+   *
+   * @param {String} name       Context name
+   * @param {Object} options    The options object
+   * @returns {Promise.<Object, Error>}
+   */
+  createContext(name, options = {}) {
+    return this.tenant.execute(
+      requests.createProjectContext(this.projectId, name),
+      options
+    );
+  }
+
+  /**
+   * List all the contexts for the current project
+   *
+   * @param options
+   * @returns {Promise.<Object, Error>}
+   */
+  listContexts(options = {}) {
+    return this.tenant.execute({path: endpoint("projectContexts", (this.projectId))}, options)
+      .then((response) => {
+        if (response["_embedded"]) {
+          return response["_embedded"]["be:project_context"];
+        } else {
+          return [];
+        }
+      });
+  }
+
 }

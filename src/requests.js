@@ -195,3 +195,11 @@ export function deleteProject(id) {
     path: endpoint("project", (id))
   };
 }
+
+export function createProjectContext(projectId, name) {
+  return {
+    method: "POST",
+    path: endpoint("projectContexts", (projectId)),
+    body: {name}
+  };
+}
