@@ -28,9 +28,17 @@ describe("Projects", () => {
   /** @test {Projects#list} */
   describe("#list()", () => {
     const data = [{id: "a"}, {id: "b"}];
+    const actual = {
+      "_embedded" : {
+        "be:project" : data
+      }
+    };
+    const expected = {
+      "projects" : data
+    };
 
     beforeEach(() => {
-      sandbox.stub(client, "execute").returns(Promise.resolve(data));
+      sandbox.stub(client, "execute").returns(Promise.resolve(actual));
     });
 
     it("should list tenant projects", () => {
@@ -42,7 +50,7 @@ describe("Projects", () => {
     });
 
     it("should return the list of projects", () => {
-      return projects.list().should.become(data);
+      return projects.list().should.become(expected);
     });
   });
 
