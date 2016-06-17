@@ -33,9 +33,6 @@ describe("Projects", () => {
         "be:project" : data
       }
     };
-    const expected = {
-      "projects" : data
-    };
 
     beforeEach(() => {
       sandbox.stub(client, "execute").returns(Promise.resolve(actual));
@@ -50,7 +47,7 @@ describe("Projects", () => {
     });
 
     it("should return the list of projects", () => {
-      return projects.list().should.become(expected);
+      return projects.list().should.become(data);
     });
   });
 
