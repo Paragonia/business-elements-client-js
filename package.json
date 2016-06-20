@@ -7,7 +7,7 @@
     "build": "babel src --out-dir lib",
     "dist": "mkdir -p dist && rm -f dist/*.* && npm run dist-dev && npm run dist-noshim && npm run dist-prod",
     "dist-dev": "browserify -s BusinessElementsClient -d -e src/index.js -o dist/business-elements-client.js -t [ babelify --sourceMapRelative . ]",
-    "dist-noshim": "browserify -s BusinessElementsClient -g uglifyify --ignore isomorphic-fetch --ignore babel-polyfill -e src/index.js -o dist/business-elements-client.noshim.js -t [ babelify --sourceMapRelative . ]",
+    "dist-noshim": "browserify -s BusinessElementsClient -g uglifyify --ignore isomorphic-fetch --ignore event-source-polyfill --ignore babel-polyfill -e src/index.js -o dist/business-elements-client.noshim.js -t [ babelify --sourceMapRelative . ]",
     "dist-prod": "browserify -s BusinessElementsClient -g uglifyify -e src/index.js -o dist/business-elements-client.min.js -t [ babelify --sourceMapRelative . ]",
     "test": "npm run lint && npm run test-nocover",
     "test-nocover": "babel-node node_modules/.bin/_mocha 'test/**/*_test.js'",
@@ -49,6 +49,7 @@
     "uuid": "^2.0.2"
   },
   "dependencies": {
+    "event-source-polyfill": "0.0.7",
     "isomorphic-fetch": "^2.2.1"
   }
 }
