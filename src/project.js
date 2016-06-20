@@ -2,6 +2,7 @@
 
 import endpoint from "./endpoint";
 import * as requests from "./requests";
+import ProjectContexts from "./project-contexts";
 
 /**
  * Abstract representation of a project.
@@ -73,34 +74,11 @@ export default class Project {
   }
 
   /**
-   *  Create a new context for the current project
+   * Provides access to project contexts.
    *
-   * @param {String} name       Context name
-   * @param {Object} options    The options object
-   * @returns {Promise.<Object, Error>}
+   * @return {ProjectContexts}
    */
-  createContext(name, options = {}) {
-    return this.tenant.execute(
-      requests.createProjectContext(this.projectId, name),
-      options
-    );
+  contexts() {
+    return new ProjectContexts(this.tenant, this);
   }
-
-  /**
-   * List all the contexts for the current project
-   *
-   * @param options
-   * @returns {Promise.<Object, Error>}
-   */
-  listContexts(options = {}) {
-    return this.tenant.execute({path: endpoint("projectContexts", (this.projectId))}, options)
-      .then((response) => {
-        if (response["_embedded"]) {
-          return response["_embedded"]["be:project_context"];
-        } else {
-          return [];
-        }
-      });
-  }
-
 }

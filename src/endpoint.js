@@ -9,36 +9,37 @@ const ENDPOINTS = {
 
   // Authentication
 
-  authentications:                    () => "/authentications",
-  authentication:                   (id) => `/authentications/${id}`,
-  currentAuthentication:              () => "/authentications/current",
+  authentications:                            () => "/authentications",
+  authentication:                           (id) => `/authentications/${id}`,
+  currentAuthentication:                      () => "/authentications/current",
 
   // Tenant
 
-  currentTenant:                      () => "/tenants/current",
+  currentTenant:                              () => "/tenants/current",
 
   // Users
 
-  users:                               () => "/users",
-  user:                              (id) => `/users/${id}`,
-  userPasswordResetRequest:            () => "/users/password_reset_request",
-  userPasswordReset:                   () => "/users/password_reset",
-  userEmailAddressRequest:             () => "/users/email_address_request",
-  userActivation:                      () => "/users/activation",
-  me:                                  () => "/users/me",
-  checkRegistrationStatus:             () => "/users/registration_check",
+  users:                                      () => "/users",
+  user:                                     (id) => `/users/${id}`,
+  userPasswordResetRequest:                   () => "/users/password_reset_request",
+  userPasswordReset:                          () => "/users/password_reset",
+  userEmailAddressRequest:                    () => "/users/email_address_request",
+  userActivation:                             () => "/users/activation",
+  me:                                         () => "/users/me",
+  checkRegistrationStatus:                    () => "/users/registration_check",
 
   // Projects
 
-  projects:                            () => "/projects",
-  project:                           (id) => `/projects/${id}`,
-  projectContexts: (projectId, contextId) => `/projects/${projectId}/contexts`,
-  projectContext:  (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}`,
+  projects:                                   () => "/projects",
+  project:                                  (id) => `/projects/${id}`,
+  projectContexts:                   (projectId) => `/projects/${projectId}/contexts`,
+  projectContext:         (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}`,
+  projectContextEvents:   (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/events`,
 
   // Organizations
 
-  organizations:                       () => "/organizations",
-  organization:                      (id) => `/organizations/${id}`
+  organizations:                              () => "/organizations",
+  organization:                             (id) => `/organizations/${id}`
 };
 
 /**
