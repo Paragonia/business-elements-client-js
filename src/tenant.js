@@ -1,5 +1,6 @@
 "use strict";
 
+import Attributes from "./attributes";
 import Organizations from "./organizations";
 import Projects from "./projects";
 import Users from "./users";
@@ -67,6 +68,15 @@ export default class Tenant {
    */
   execute(request, options, raw = false) {
     return this.client.execute(request, this.createTenantOptions(options), raw);
+  }
+
+  /**
+   * Provides access to tenant attributes.
+   *
+   * @returns {Attributes}
+   */
+  attributes() {
+    return new Attributes(this);
   }
 
   /**
