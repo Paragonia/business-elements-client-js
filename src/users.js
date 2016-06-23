@@ -114,7 +114,14 @@ export default class Users {
    * @returns {Promise.<Object, Error>}
    */
   listAuthentications(options = {}) {
-    return this.tenant.execute(requests.listAuthentications(), options);
+    return this.tenant.execute(requests.listAuthentications(), options).then((response) => {
+      // return empty string when response is missing certain fields to help client logic
+      if (response["_embedded"]) {
+        return response["_embedded"]["be:authentication"];
+      } else {
+        return [];
+      }
+    });
   }
 
   /**
