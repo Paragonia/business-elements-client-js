@@ -29,10 +29,16 @@ export default class Organizations {
    * @param  {Object} options         The options object.
    * @return {Promise<Array<Object>, Error>}
    */
-  list(options={}) {
-    return this.tenant.execute({
-      path: endpoint("organizations")
-    }, options);
+  list(options = {}) {
+    return this.tenant.execute({path: endpoint("organizations")}, options)
+      // return empty string when response is missing certain fields to help client logic
+      .then((response) => {
+        if (response && response["_embedded"]) {
+          return response["_embedded"]["be:organization"];
+        } else {
+          return [];
+        }
+      });
   }
 
   /**
@@ -54,8 +60,8 @@ export default class Organizations {
    */
   create(name, options = {}) {
     return this.tenant.execute(
-        requests.createOrganization(name),
-        options
-      );
+      requests.createOrganization(name),
+      options
+    );
   }
 }
