@@ -29,7 +29,18 @@ describe("Organizations", () => {
 
   /** @test {Organizations#list} */
   describe("#list()", () => {
-    const data = [{id: "a"}, {id: "b"}];
+    const data = {
+      "_embedded": {
+        "be:organization": [
+          {
+            "id": "1234"
+          },
+          {
+            "id": "4321"
+          }
+        ]
+      }
+    };
 
     beforeEach(() => {
       sandbox.stub(client, "execute").returns(Promise.resolve(data));
@@ -44,7 +55,7 @@ describe("Organizations", () => {
     });
 
     it("should return the list of organizations", () => {
-      return organizations.list().should.become(data);
+      return organizations.list().should.become(data["_embedded"]["be:organization"]);
     });
   });
 
