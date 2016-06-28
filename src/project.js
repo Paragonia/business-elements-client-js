@@ -2,6 +2,7 @@
 
 import endpoint from "./endpoint";
 import * as requests from "./requests";
+import ProjectContexts from "./project-contexts";
 
 /**
  * Abstract representation of a project.
@@ -35,7 +36,7 @@ export default class Project {
    * @param  {Object} options         The options object.
    * @return {Promise<Object, Error>}
    */
-  get(options={}) {
+  get(options = {}) {
     return this.tenant.execute(
       {
         path: endpoint("project", this.projectId)
@@ -61,7 +62,7 @@ export default class Project {
 
   /**
    * Delete current project
-   * 
+   *
    * @param  {Object} options             The options object.
    * @returns {Promise.<Object, Error>}
    */
@@ -70,5 +71,14 @@ export default class Project {
       requests.deleteProject(this.projectId),
       options
     );
+  }
+
+  /**
+   * Provides access to project contexts.
+   *
+   * @return {ProjectContexts}
+   */
+  contexts() {
+    return new ProjectContexts(this.tenant, this);
   }
 }
