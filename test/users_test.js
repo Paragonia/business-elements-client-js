@@ -168,5 +168,20 @@ describe("Users", () => {
     });
   });
 
+  /** @test {Users#changePassword} */
+  describe("#changePassword", () => {
+    beforeEach(()=> {
+      sandbox.stub(root, "fetch").returns(fakeServerResponse(204, {status: "NoContent"}, {}));
+    });
+
+    it("should execute expected request", () => {
+      return users.changePassword("newPassword", {}).should.eventually.become({status: "NoContent"});
+    });
+
+    it("should require new password", () => {
+      expect(() => users.changePassword(null)).to.Throw(Error, /A new password is required./);
+    });
+  });
+
 
 });

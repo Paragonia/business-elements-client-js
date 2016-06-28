@@ -148,6 +148,18 @@ export function passwordReset(userId, passwordResetCode, password) {
   };
 }
 
+export function passwordChange(password) {
+  if (!password) {
+    throw new Error("A new password is required.");
+  }
+
+  return {
+    method: "PATCH",
+    path: endpoint("me"),
+    body: {password}
+  };
+}
+
 export function checkRegistrationStatus(emailAddress) {
   if (!emailAddress) {
     throw new Error("A user email is required.");
