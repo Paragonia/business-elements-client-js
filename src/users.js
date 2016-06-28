@@ -114,7 +114,14 @@ export default class Users {
    * @returns {Promise.<Object, Error>}
    */
   listAuthentications(options = {}) {
-    return this.tenant.execute(requests.listAuthentications(), options);
+    return this.tenant.execute(requests.listAuthentications(), options).then((response) => {
+      // return empty string when response is missing certain fields to help client logic
+      if (response["_embedded"]) {
+        return response["_embedded"]["be:authentication"];
+      } else {
+        return [];
+      }
+    });
   }
 
   /**
@@ -137,5 +144,16 @@ export default class Users {
    */
   checkRegistrationStatus(emailAddress, options = {}) {
     return this.tenant.execute(requests.checkRegistrationStatus(emailAddress), options);
+  }
+
+  /**
+   * Updates the password to the supplied value.
+   *
+   * @param newPassword
+   * @param  {Object}   [options]       The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  changePassword(newPassword, options = {}) {
+    return this.tenant.execute(requests.passwordChange(newPassword), options);
   }
 }

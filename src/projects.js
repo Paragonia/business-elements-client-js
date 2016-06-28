@@ -31,6 +31,7 @@ export default class Projects {
    */
   list(options = {}) {
     return this.tenant.execute({path: endpoint("projects")}, options)
+      // return empty string when response is missing certain fields to help client logic
       .then((response) => {
         if (response["_embedded"]) {
           return response["_embedded"]["be:project"];
