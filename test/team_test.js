@@ -23,7 +23,7 @@ describe("Teams", () => {
     client = new BusinessElementsClient(FAKE_SERVER_URL);
     orgId = uuid.v4();
     teamId = uuid.v4();
-    team = client.tenant("example.com").organizations().organization(orgId).teams().team(orgId, teamId);
+    team = client.tenant("example.com").organizations().organization(orgId).teams().team(teamId);
   });
 
   afterEach(() => {

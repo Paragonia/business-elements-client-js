@@ -50,6 +50,6 @@ export default class Organization {
    * @return {Teams}
    */
   teams() {
-    return new Teams(this.tenant);
+    return new Teams(this.tenant, this);
   }
 }

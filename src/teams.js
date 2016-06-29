@@ -14,13 +14,19 @@ export default class Teams {
    *
    * @param  {Tenant} tenant The tenant instance.
    */
-  constructor(tenant) {
+  constructor(tenant, organization) {
 
     /**
      * The tenant.
      * @type {Tenant}
      */
     this.tenant = tenant;
+
+    /**
+     * The organization wich contains the team.
+     * @type {Organization}
+     */
+    this.organization = organization;
   }
 
   /**
@@ -30,7 +36,7 @@ export default class Teams {
    * @return {Promise<Array<Object>, Error>}
    */
   list(options = {}) {
-    return this.tenant.execute({path: endpoint("teams")}, options)
+    return this.tenant.execute({path: endpoint("teams", (this.organization.organizationId))}, options)
       // return empty string when response is missing certain fields to help client logic
       .then((response) => {
         if (response && response["_embedded"]) {
@@ -48,8 +54,8 @@ export default class Teams {
    * @param  {String} temaId             The id of the team.
    * @return {Team}
    */
-  team(orgId, teamId) {
-    return new Team(this.tenant, orgId, teamId);
+  team(teamId) {
+    return new Team(this.tenant, this.organization.organizationId, teamId);
   }
 
   /**
