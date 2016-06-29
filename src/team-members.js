@@ -52,7 +52,7 @@ export default class TeamMembers {
    *
    * @return {TeamMember}
    */
-  teamMember(memberId) {
+  member(memberId) {
     return new TeamMember(this.tenant, this.team.organizationId, this.team.organizationId, memberId);
   }
 
