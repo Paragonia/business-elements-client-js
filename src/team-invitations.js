@@ -14,13 +14,19 @@ export default class TeamInvitations {
    *
    * @param  {Tenant} tenant The tenant instance.
    */
-  constructor(tenant) {
+  constructor(tenant, team) {
 
     /**
      * The tenant.
      * @type {Tenant}
      */
     this.tenant = tenant;
+
+    /**
+     * The team associated with this invitation.
+     * @type {Tenant}
+     */
+    this.team = team;
   }
 
   /**
@@ -44,24 +50,22 @@ export default class TeamInvitations {
   /**
    * Retrieve an team invitation to perform operations on it.
    *
-   * @param  {String} orgId              The id of the organization.
-   * @param  {String} teamId             The id of the team.
    * @return {TeamInvitation}
    */
-  teamInvitation(orgId, teamId, invitationId) {
-    return new TeamInvitation(this.tenant, orgId, teamId, invitationId);
+  teamInvitation(invitationId) {
+    return new TeamInvitation(this.tenant, this.team.organizationId, this.team.teamId, invitationId);
   }
 
   /**
    * Creates the team invitation with the specified properties.
    *
-   * @param  {String}  name           The name of the organization.
+   * @param  {String}  emailAddress   The the email address to invite.
    * @param  {Object} options         The options object.
    * @return {Promise<Object, Error>}
    */
-  create(orgId, teamId, emailAddress, options = {}) {
+  create(emailAddress, options = {}) {
     return this.tenant.execute(
-      requests.sentTeamInvitation(orgId, teamId, emailAddress),
+      requests.sentTeamInvitation(this.team.organizationId, this.team.teamId, emailAddress),
       options
     );
   }
