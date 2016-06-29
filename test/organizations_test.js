@@ -73,9 +73,9 @@ describe("Organizations", () => {
     });
 
     it("should execute complete request", () => {
-      organizations.create();
+      organizations.create("name");
 
-      sinon.assert.calledWithMatch(requests.createOrganization, undefined);
+      sinon.assert.calledWithMatch(requests.createOrganization, "name");
     });
 
   });

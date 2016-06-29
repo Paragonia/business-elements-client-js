@@ -1,6 +1,7 @@
 "use strict";
 
 import endpoint from "./endpoint";
+import Teams from "./teams";
 
 /**
  * Abstract representation of a selected organization.
@@ -41,5 +42,14 @@ export default class Organization {
       },
       options
     );
+  }
+
+  /**
+   * Provides access to project contexts.
+   *
+   * @return {Teams}
+   */
+  teams() {
+    return new Teams(this.tenant);
   }
 }
