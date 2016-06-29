@@ -13,6 +13,7 @@ export default class TeamMembers {
    * Constructor.
    *
    * @param  {Tenant} tenant The tenant instance.
+   * @param  {Team} team     The team this object belongs to
    */
   constructor(tenant, team) {
 

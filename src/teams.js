@@ -12,7 +12,8 @@ export default class Teams {
   /**
    * Constructor.
    *
-   * @param  {Tenant} tenant The tenant instance.
+   * @param  {Tenant} tenant         The tenant instance.
+   * @param  {Team} organization     The organization this team belongs to
    */
   constructor(tenant, organization) {
 
@@ -23,7 +24,7 @@ export default class Teams {
     this.tenant = tenant;
 
     /**
-     * The organization wich contains the team.
+     * The organization which contains the team.
      * @type {Organization}
      */
     this.organization = organization;
