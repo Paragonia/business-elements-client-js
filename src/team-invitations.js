@@ -36,7 +36,7 @@ export default class TeamInvitations {
    * @return {Promise<Array<Object>, Error>}
    */
   list(options = {}) {
-    return this.tenant.execute({path: endpoint("teamInvitations")}, options)
+    return this.tenant.execute({path: endpoint("teamInvitations", this.team.organizationId, this.team.teamId)}, options)
       // return empty string when response is missing certain fields to help client logic
       .then((response) => {
         if (response && response["_embedded"]) {

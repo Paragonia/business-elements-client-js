@@ -52,7 +52,7 @@ export default class TeamInvitation {
   get(options={}) {
     return this.tenant.execute(
       {
-        path: endpoint("teamInvitation", this.organizationId, this.teamId, this.memberId)
+        path: endpoint("teamInvitation", this.organizationId, this.teamId, this.invitationId)
       },
       options
     );
@@ -74,7 +74,6 @@ export default class TeamInvitation {
   /**
    * Accept the given invitation Id.
    *
-   * @param  {String}  invitationId   The Id of the invitation to accept.
    * @param  {Object} options         The options object.
    * @return {Promise<Object, Error>}
    */

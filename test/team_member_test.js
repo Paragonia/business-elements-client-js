@@ -14,7 +14,7 @@ chai.config.includeStack = true;
 
 const FAKE_SERVER_URL = "http://api.fake-server";
 
-/** @test {Team} */
+/** @test {TeamMember} */
 describe("TeamMember", () => {
   let sandbox, client, orgId, teamId, memberId, member;
 
@@ -68,7 +68,7 @@ describe("TeamMember", () => {
     });
   
     it("should return success", () => {
-      return member.remove("name", {}).should.eventually.become(response);
+      return member.remove().should.eventually.become(response);
     });
   });
 
