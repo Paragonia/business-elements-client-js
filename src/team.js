@@ -82,7 +82,7 @@ export default class Team {
   /**
    * Provides access to team memeber.
    *
-   * @return {TeamMember}
+   * @return {TeamMembers}
    */
   memebers() {
     return new TeamMembers(this.tenant, this);
