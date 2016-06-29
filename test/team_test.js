@@ -6,8 +6,6 @@ import sinon from "sinon";
 import BusinessElementsClient from "../src";
 import uuid from "uuid";
 
-import {fakeServerResponse} from "./test_utils.js";
-
 import * as requests from "../src/requests";
 
 chai.use(chaiAsPromised);
@@ -55,8 +53,9 @@ describe("Teams", () => {
 
   /** @test {Team#edit} */
   describe("#edit()", () => {
+    const response = {status: "Ok"};
     beforeEach(() => {
-      sandbox.stub(client, "execute").returns(fakeServerResponse(200, {status: "Ok"}, {}));
+      sandbox.stub(client, "execute").returns(Promise.resolve(response));
       sandbox.spy(requests, "updateTeam");
     });
 
@@ -66,9 +65,28 @@ describe("Teams", () => {
       sinon.assert.calledWithMatch(requests.updateTeam, orgId, teamId, "name");
     });
 
-    //it("should return success", () => {
-    //  return team.edit("name", {}).should.eventually.become({status: "Ok"});
-    //});
+    it("should return success", () => {
+      return team.edit("name", {}).should.eventually.become(response);
+    });
+  });
+
+  /** @test {Team#remove} */
+  describe("#remove()", () => {
+    const response = {status: "Ok"};
+    beforeEach(() => {
+      sandbox.stub(client, "execute").returns(Promise.resolve(response));
+      sandbox.spy(requests, "deleteTeam");
+    });
+
+    it("should delete the team", () => {
+      team.remove({});
+
+      sinon.assert.calledWithMatch(requests.deleteTeam, orgId, teamId);
+    });
+
+    it("should return success", () => {
+      return team.edit("name", {}).should.eventually.become(response);
+    });
   });
 
 });
