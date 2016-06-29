@@ -2,6 +2,7 @@
 
 import endpoint from "./endpoint";
 import * as requests from "./requests";
+import TeamMembers from "./team-members";
 
 /**
  * Abstract representation of a selected organization.
@@ -76,6 +77,15 @@ export default class Team {
       requests.deleteTeam(this.organizationId, this.teamId),
       options
     );
+  }
+
+  /**
+   * Provides access to team memeber.
+   *
+   * @return {TeamMember}
+   */
+  memebers() {
+    return new TeamMembers(this.tenant, this);
   }
 
 }

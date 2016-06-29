@@ -14,13 +14,19 @@ export default class TeamMembers {
    *
    * @param  {Tenant} tenant The tenant instance.
    */
-  constructor(tenant) {
+  constructor(tenant, team) {
 
     /**
      * The tenant.
      * @type {Tenant}
      */
     this.tenant = tenant;
+
+    /**
+     * The team of this member.
+     * @type {Tenant}
+     */
+    this.team = team;
   }
 
   /**
@@ -44,24 +50,22 @@ export default class TeamMembers {
   /**
    * Retrieve an team member to perform operations on it.
    *
-   * @param  {String} orgId              The id of the organization.
-   * @param  {String} teamId             The id of the team.
    * @return {TeamMember}
    */
-  teamMember(orgId, teamId, memberId) {
-    return new TeamMember(this.tenant, orgId, teamId, memberId);
+  teamMember(memberId) {
+    return new TeamMember(this.tenant, this.team.organizationId, this.team.organizationId, memberId);
   }
 
   /**
    * Creates the team member with the specified properties.
    *
-   * @param  {String}  name           The name of the organization.
+   * @param  {String} emailAddress   The email address for the team member
    * @param  {Object} options         The options object.
    * @return {Promise<Object, Error>}
    */
-  create(orgId, teamId, emailAddress, options = {}) {
+  create(emailAddress, options = {}) {
     return this.tenant.execute(
-      requests.addTeamMember(orgId, teamId, emailAddress),
+      requests.addTeamMember(this.team.organizationId, this.team.organizationId, emailAddress),
       options
     );
   }
