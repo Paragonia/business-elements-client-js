@@ -65,9 +65,9 @@ export default class Teams {
    * @param  {Object} options         The options object.
    * @return {Promise<Object, Error>}
    */
-  create(orgId, name, description, visibility, options = {}) {
+  create(name, description, visibility, options = {}) {
     return this.tenant.execute(
-      requests.createTeam(orgId, name, description, visibility),
+      requests.createTeam(this.organization.organizationId, name, description, visibility),
       options
     );
   }
