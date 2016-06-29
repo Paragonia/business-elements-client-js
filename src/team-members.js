@@ -36,7 +36,7 @@ export default class TeamMembers {
    * @return {Promise<Array<Object>, Error>}
    */
   list(options = {}) {
-    return this.tenant.execute({path: endpoint("teamMembers")}, options)
+    return this.tenant.execute({path: endpoint("teamMembers", this.team.organizationId, this.team.teamId)}, options)
       // return empty string when response is missing certain fields to help client logic
       .then((response) => {
         if (response && response["_embedded"]) {
@@ -50,10 +50,11 @@ export default class TeamMembers {
   /**
    * Retrieve an team member to perform operations on it.
    *
-   * @return {TeamMember}
+   * @param  {String} memberId           The member id
+ * @return {TeamMember}
    */
   member(memberId) {
-    return new TeamMember(this.tenant, this.team.organizationId, this.team.organizationId, memberId);
+    return new TeamMember(this.tenant, this.team.organizationId, this.team.teamId, memberId);
   }
 
   /**
@@ -65,7 +66,7 @@ export default class TeamMembers {
    */
   create(emailAddress, options = {}) {
     return this.tenant.execute(
-      requests.addTeamMember(this.team.organizationId, this.team.organizationId, emailAddress),
+      requests.addTeamMember(this.team.organizationId, this.team.teamId, emailAddress),
       options
     );
   }

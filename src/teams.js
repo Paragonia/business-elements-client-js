@@ -50,8 +50,7 @@ export default class Teams {
   /**
    * Retrieve an team object to perform operations on it.
    *
-   * @param  {String} orgId              The id of the organization.
-   * @param  {String} temaId             The id of the team.
+   * @param  {String} teamId             The id of the team.
    * @return {Team}
    */
   team(teamId) {
@@ -61,8 +60,11 @@ export default class Teams {
   /**
    * Creates the team with the specified properties.
    *
-   * @param  {String}  name           The name of the organization.
-   * @param  {Object} options         The options object.
+   * @param  {String}  name                 The name of the organization.
+   * @param  {String}  description          The description of the organization.
+   * @param  {String}  visibility           The visibility of the organization.
+   *
+   * @param  {Object} options               The options object.
    * @return {Promise<Object, Error>}
    */
   create(name, description, visibility, options = {}) {

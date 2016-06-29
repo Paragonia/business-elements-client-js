@@ -57,7 +57,8 @@ export default class Team {
   /**
    * Updates current team
    *
-   * @param {String} name             Team name
+   * @param {String} name                 Team name
+   * @param  {Object} options             The options object.
    * @returns {Promise.<Object, Error>}
    */
   edit(name, options = {}) {
