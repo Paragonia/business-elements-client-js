@@ -3,6 +3,7 @@
 import endpoint from "./endpoint";
 import * as requests from "./requests";
 import TeamMembers from "./team-members";
+import TeamInvitations from "./team-invitations";
 
 /**
  * Abstract representation of a selected organization.
@@ -80,12 +81,21 @@ export default class Team {
   }
 
   /**
-   * Provides access to team memeber.
+   * Provides access to team member.
    *
    * @return {TeamMembers}
    */
-  memebers() {
+  members() {
     return new TeamMembers(this.tenant, this);
+  }
+
+  /**
+   * Provides access to team invitation.
+   *
+   * @return {TeamInvitations}
+   */
+  invitations() {
+    return new TeamInvitations(this.tenant, this);
   }
 
 }
