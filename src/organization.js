@@ -2,6 +2,7 @@
 
 import endpoint from "./endpoint";
 import Teams from "./teams";
+import * as requests from "./requests";
 
 /**
  * Abstract representation of a selected organization.
