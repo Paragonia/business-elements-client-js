@@ -13,6 +13,7 @@ export default class TeamInvitations {
    * Constructor.
    *
    * @param  {Tenant} tenant The tenant instance.
+   * @param  {Team} team     The team this object belongs to
    */
   constructor(tenant, team) {
 
@@ -36,7 +37,7 @@ export default class TeamInvitations {
    * @return {Promise<Array<Object>, Error>}
    */
   list(options = {}) {
-    return this.tenant.execute({path: endpoint("teamInvitations")}, options)
+    return this.tenant.execute({path: endpoint("teamInvitations", this.team.organizationId, this.team.teamId)}, options)
       // return empty string when response is missing certain fields to help client logic
       .then((response) => {
         if (response && response["_embedded"]) {
