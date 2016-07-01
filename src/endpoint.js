@@ -43,7 +43,24 @@ const ENDPOINTS = {
   // Organizations
 
   organizations:                              () => "/organizations",
-  organization:                             (id) => `/organizations/${id}`
+  organization:                             (id) => `/organizations/${id}`,
+
+  // Teams
+
+  teams:                                 (orgId) => `/organizations/${orgId}/teams`,
+  team:                          (orgId, teamId) => `/organizations/${orgId}/teams/${teamId}`,
+
+  // Team invitations
+
+  teamInvitations:               (orgId, teamId) => `/organizations/${orgId}/teams/${teamId}/invitations`,
+  teamInvitation:  (orgId, teamId, invitationId) => `/organizations/${orgId}/teams/${teamId}/invitations/${invitationId}`,
+  teamInvitationAccept:           (invitationId) => `/team_invitations/${invitationId}`,
+
+  // Team members
+
+  teamMembers:                   (orgId, teamId) => `/organizations/${orgId}/teams/${teamId}/members`,
+  teamMember:          (orgId, teamId, memberId) => `/organizations/${orgId}/teams/${teamId}/members/${memberId}`
+
 };
 
 /**
