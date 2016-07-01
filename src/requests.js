@@ -195,6 +195,20 @@ export function deleteOrganization(id) {
   };
 }
 
+export function updateOrganization(id, name) {
+  if (!id) {
+    throw new Error("An organization id is required.");
+  }
+  if (!name) {
+    throw new Error("An organization name is required.");
+  }
+  return {
+    method: "PUT",
+    path: endpoint("organization", (id)),
+    body: {name}
+  };
+}
+
 // Teams
 
 export function createTeam(orgId, name, description, visibility) {

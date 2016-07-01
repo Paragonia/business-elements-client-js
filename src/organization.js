@@ -59,6 +59,19 @@ export default class Organization {
   }
 
   /**
+   * Delete current organization
+   *
+   * @param  {Object} options             The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  update(name, options = {}) {
+    return this.tenant.execute(
+      requests.updateOrganization(this.organizationId, name),
+      options
+    );
+  }
+
+  /**
    * Provides access to project contexts.
    *
    * @return {Teams}
