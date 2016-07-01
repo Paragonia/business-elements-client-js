@@ -356,7 +356,30 @@ export function editProject(id, name, description) {
 export function deleteProject(id) {
   return {
     method: "DELETE",
-    path: endpoint("project", (id))
+    path: endpoint("project", id)
+  };
+}
+
+export function createProjectContext(projectId, name) {
+  return {
+    method: "POST",
+    path: endpoint("projectContexts", projectId),
+    body: {name}
+  };
+}
+
+export function editProjectContext(projectId, id, name) {
+  return {
+    method: "PUT",
+    path: endpoint("projectContext", projectId, id),
+    body: {name}
+  };
+}
+
+export function deleteProjectContext(projectId, id) {
+  return {
+    method: "DELETE",
+    path: endpoint("projectContext", projectId, id)
   };
 }
 
