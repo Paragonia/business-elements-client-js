@@ -48,7 +48,7 @@ describe("Users", () => {
     });
   });
 
-  /** @test {Users#createÏ} */
+  /** @test {Users#create} */
   describe("#create", () => {
     beforeEach(() => {
       sandbox.stub(root, "fetch").returns(fakeServerResponse(201, {}, {}));

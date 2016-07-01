@@ -1,6 +1,8 @@
 "use strict";
 
 import endpoint from "./endpoint";
+import Teams from "./teams";
+import * as requests from "./requests";
 
 /**
  * Abstract representation of a selected organization.
@@ -41,5 +43,40 @@ export default class Organization {
       },
       options
     );
+  }
+
+  /**
+   * Delete current organization
+   *
+   * @param  {Object} options             The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  remove(options = {}) {
+    return this.tenant.execute(
+      requests.deleteOrganization(this.organizationId),
+      options
+    );
+  }
+
+  /**
+   * Delete current organization
+   *
+   * @param  {Object} options             The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  update(name, options = {}) {
+    return this.tenant.execute(
+      requests.updateOrganization(this.organizationId, name),
+      options
+    );
+  }
+
+  /**
+   * Provides access to project contexts.
+   *
+   * @return {Teams}
+   */
+  teams() {
+    return new Teams(this.tenant, this);
   }
 }

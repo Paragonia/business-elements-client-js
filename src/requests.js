@@ -172,14 +172,166 @@ export function checkRegistrationStatus(emailAddress) {
   };
 }
 
-/**
- * @private
- */
+// Organizations
+
 export function createOrganization(name) {
+  if (!name) {
+    throw new Error("An organization name is required.");
+  }
   return {
     method: "POST",
     path: endpoint("organizations"),
     body: {name}
+  };
+}
+
+export function deleteOrganization(id) {
+  if (!id) {
+    throw new Error("An organization id is required.");
+  }
+  return {
+    method: "DELETE",
+    path: endpoint("organization", (id))
+  };
+}
+
+export function updateOrganization(id, name) {
+  if (!id) {
+    throw new Error("An organization id is required.");
+  }
+  if (!name) {
+    throw new Error("An organization name is required.");
+  }
+  return {
+    method: "PUT",
+    path: endpoint("organization", (id)),
+    body: {name}
+  };
+}
+
+// Teams
+
+export function createTeam(orgId, name, description, visibility) {
+  if (!orgId) {
+    throw new Error("An Organization Id where the team belongs is required.");
+  }
+  if (!name) {
+    throw new Error("An team name is required.");
+  }
+  return {
+    method: "POST",
+    path: endpoint("teams", orgId),
+    body: {name, description, visibility}
+  };
+}
+
+export function updateTeam(orgId, teamId, name) {
+  if (!orgId) {
+    throw new Error("An Organization Id where the team belongs is required.");
+  }
+  if (!teamId) {
+    throw new Error("An Team Id is required in order to perform updates on it.");
+  }
+  if (!name) {
+    throw new Error("An team name is required.");
+  }
+  return {
+    method: "PUT",
+    path: endpoint("team", orgId, teamId),
+    body: {name}
+  };
+}
+
+export function deleteTeam(orgId, teamId) {
+  if (!orgId) {
+    throw new Error("An Organization Id where the team belongs is required.");
+  }
+  if (!teamId) {
+    throw new Error("An Team Id is required in order to perform updates on it.");
+  }
+  return {
+    method: "DELETE",
+    path: endpoint("team", orgId, teamId)
+  };
+}
+
+// Team Members
+
+export function addTeamMember(orgId, teamId, emailAddress) {
+  if (!orgId) {
+    throw new Error("An Organization Id is required.");
+  }
+  if (!teamId) {
+    throw new Error("An Team Id is required.");
+  }
+  if (!emailAddress) {
+    throw new Error("An email address is required.");
+  }
+  return {
+    method: "POST",
+    path: endpoint("teamMember", orgId, teamId),
+    body: {emailAddress}
+  };
+}
+
+export function deleteTeamMember(orgId, teamId, memberId) {
+  if (!orgId) {
+    throw new Error("An Organization Id is required.");
+  }
+  if (!teamId) {
+    throw new Error("An Team Id is required.");
+  }
+  if (!memberId) {
+    throw new Error("An Member Id is required.");
+  }
+  return {
+    method: "DELETE",
+    path: endpoint("teamMember", orgId, teamId, memberId)
+  };
+}
+
+// Team Invitations
+
+export function deleteTeamInvitation(orgId, teamId, invitationId) {
+  if (!orgId) {
+    throw new Error("An Organization Id is required.");
+  }
+  if (!teamId) {
+    throw new Error("An Team Id is required.");
+  }
+  if (!invitationId) {
+    throw new Error("An Member Id is required.");
+  }
+  return {
+    method: "DELETE",
+    path: endpoint("teamInvitation", orgId, teamId, invitationId)
+  };
+}
+
+export function sentTeamInvitation(orgId, teamId, emailAddress) {
+  if (!orgId) {
+    throw new Error("An Organization Id is required.");
+  }
+  if (!teamId) {
+    throw new Error("An Team Id is required.");
+  }
+  if (!emailAddress) {
+    throw new Error("An email address is required.");
+  }
+  return {
+    method: "POST",
+    path: endpoint("teamInvitations", orgId, teamId, emailAddress),
+    body: {emailAddress}
+  };
+}
+
+export function acceptTeamInvitation(invitationId) {
+  if (!invitationId) {
+    throw new Error("An Member Id is required.");
+  }
+  return {
+    method: "POST",
+    path: endpoint("teamInvitationAccept", invitationId)
   };
 }
 
@@ -204,14 +356,29 @@ export function editProject(id, name, description) {
 export function deleteProject(id) {
   return {
     method: "DELETE",
-    path: endpoint("project", (id))
+    path: endpoint("project", id)
   };
 }
 
 export function createProjectContext(projectId, name) {
   return {
     method: "POST",
-    path: endpoint("projectContexts", (projectId)),
+    path: endpoint("projectContexts", projectId),
     body: {name}
+  };
+}
+
+export function editProjectContext(projectId, id, name) {
+  return {
+    method: "PUT",
+    path: endpoint("projectContext", projectId, id),
+    body: {name}
+  };
+}
+
+export function deleteProjectContext(projectId, id) {
+  return {
+    method: "DELETE",
+    path: endpoint("projectContext", projectId, id)
   };
 }
