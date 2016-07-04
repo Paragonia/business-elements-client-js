@@ -269,7 +269,7 @@ export function addTeamMember(orgId, teamId, emailAddress) {
   }
   return {
     method: "POST",
-    path: endpoint("teamMember", orgId, teamId),
+    path: endpoint("teamMembers", orgId, teamId),
     body: {emailAddress}
   };
 }
