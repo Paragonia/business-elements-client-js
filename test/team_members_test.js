@@ -34,7 +34,7 @@ describe("TeamMembers", () => {
     const data = [{id: "a"}, {id: "b"}];
     const actual = {
       "_embedded": {
-        "be:teamMembers": data
+        "be:team_member": data
       }
     };
 
