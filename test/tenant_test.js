@@ -25,6 +25,20 @@ describe("Tenant", () => {
     sandbox.restore();
   });
 
+  /** @test {Tenant#uploadOptions} */
+  describe("#uploadOptions()", () => {
+
+    it("should return uploadOptions", () => {
+      const authenticationToken = "0000000000000000-0000000000000000-0000000000000000-0000000000000000";
+      client.authenticationToken = authenticationToken;
+
+      const options = tenant.uploadOptions();
+      options.remote.should.equal(FAKE_SERVER_URL + "/upload");
+      options.headers.tenant.should.equal("example.com");
+      options.headers["Authentication-Token"].should.equal(authenticationToken);
+    });
+  });
+
   /** @test {Tenant#projects} */
   describe("#projects()", () => {
 
