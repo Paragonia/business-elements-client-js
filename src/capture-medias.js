@@ -37,7 +37,7 @@ export default class CaptureMedias {
    * @return {Promise<Array<Object>, Error>}
    */
   list(options = {}) {
-    return this.tenant.execute({path: endpoint("captureMedias", (this.capture.captureId))}, options)
+    return this.tenant.execute({path: endpoint("captureMedias", this.capture.captureId)}, options)
       .then((response) => {
         if (response["_embedded"]) {
           return response["_embedded"]["be:capture_media"];
@@ -67,7 +67,7 @@ export default class CaptureMedias {
    */
   create(media, options = {}) {
     return this.tenant.execute(
-      requests.createCaptureMedia(this.capture.captureId, name),
+      requests.createCaptureMedia(this.capture.captureId, media),
       options
     );
   }
