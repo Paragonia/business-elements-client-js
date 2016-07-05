@@ -251,4 +251,18 @@ export default class BusinessElementsClientBase {
   tenant(domainName) {
     return new Tenant(this, domainName);
   }
+
+  /**
+   * Get the download uri for the specified resource.
+   *
+   * Relies on session cookies for authentication and authorization.
+   *
+   * @param  {String}     resourceUri  The resource uri.
+   * @param  {String}     qualifier    Optional qualifier.
+   * @return {String} Download uri.
+   */
+
+  getDownloadUri(resourceUri, qualifier = null) {
+    return this.remote + endpoint("download", resourceUri) + (qualifier ? `?qualifier=${qualifier}` : "");
+  }
 }

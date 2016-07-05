@@ -23,7 +23,11 @@ export default class HTTP {
    * @type {Object}
    */
   static get defaultOptions() {
-    return {timeout: 5000, requestMode: "cors"};
+    return {
+      timeout: 5000,
+      requestMode: "cors",
+      credentials: "include"
+    };
   }
 
   /**
@@ -32,6 +36,7 @@ export default class HTTP {
    * Options:
    * - {Number} timeout      The request timeout in ms (default: `5000`).
    * - {String} requestMode  The HTTP request mode (default: `"cors"`).
+   * - {String} credentials  Whether to include credentials (default: `"include"`).
    *
    * @param {Object}       options The options object.
    */
@@ -51,6 +56,12 @@ export default class HTTP {
      * @type {Number}
      */
     this.timeout = options.timeout;
+
+    /**
+     * Include credentials.
+     * @type {String}
+     */
+    this.credentials = options.credentials;
   }
 
   /**
@@ -78,6 +89,7 @@ export default class HTTP {
       options.headers = Object.assign({}, {"Content-Type": "application/json"}, options.headers);
     }
     options.mode = this.requestMode;
+    options.credentials = this.credentials;
 
     return new Promise((resolve, reject) => {
       const _timeoutId = setTimeout(() => {

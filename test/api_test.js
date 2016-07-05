@@ -157,4 +157,21 @@ describe("BusinessElementsClient", () => {
     });
 
   });
+
+  /** @test {BusinessElementsClient#getDownloadUri} */
+  describe("#getDownloadUri()", () => {
+
+    it("should return download uri without qualifier", () => {
+      const resourceUri = "resource:image/jpeg,user-7f73ba30-1666-4afd-bb75-44a6f263dc08";
+      const downloadUri = api.getDownloadUri(resourceUri);
+      downloadUri.should.equal(`http://api.fake-server/download/${resourceUri}`);
+    });
+
+    it("should return download uri with qualifier", () => {
+      const resourceUri = "resource:image/jpeg,user-7f73ba30-1666-4afd-bb75-44a6f263dc08";
+      const qualifier = "thumbnail";
+      const downloadUri = api.getDownloadUri(resourceUri, qualifier);
+      downloadUri.should.equal(`http://api.fake-server/download/${resourceUri}?qualifier=${qualifier}`);
+    });
+  });
 });

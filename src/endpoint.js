@@ -28,6 +28,18 @@ const ENDPOINTS = {
   me:                                         () => "/users/me",
   checkRegistrationStatus:                    () => "/users/registration_check",
 
+  // Upload
+
+  upload:                                     () => "/upload",
+  download:                        (resourceUri) => `/download/${resourceUri}`,
+
+  // Captures
+
+  captures:                                   () => "/captures",
+  capture:                                  (id) => `/captures/${id}`,
+  captureMedias:                            (id) => `/captures/${id}/media`,
+  captureMedia:                    (id, mediaId) => `/captures/${id}/media/${mediaId}`,
+
   // Attributes
   attributes:                                 () => "/attributes",
   attribute:                       (attributeId) => `/attributes/${attributeId}`,

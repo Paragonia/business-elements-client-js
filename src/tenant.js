@@ -1,9 +1,12 @@
 "use strict";
 
 import Attributes from "./attributes";
+import Captures from "./captures";
 import Organizations from "./organizations";
 import Projects from "./projects";
 import Users from "./users";
+import UploadOptions from "./upload-options";
+import endpoint from "./endpoint";
 
 /**
  * Abstract representation of a selected tenant.
@@ -45,7 +48,7 @@ export default class Tenant {
    * @param  {Object} options The options to merge.
    * @return {Object}         The merged options.
    */
-  createTenantOptions(options) {
+  createTenantOptions(options={}) {
     return {
       ...this._tenantOptions,
       ...options,
@@ -104,5 +107,29 @@ export default class Tenant {
    */
   users() {
     return new Users(this);
+  }
+
+  /**
+   * Provides access to tenant captures.
+   *
+   * @return {Captures}
+   */
+  captures() {
+    return new Captures(this);
+  }
+
+  /**
+   * Provides access to upload options because details are often required by other libraries.
+   *
+   * @return {UploadOptions}
+   */
+  uploadOptions() {
+    return new UploadOptions({
+      remote: this.client.remote + endpoint("upload"),
+      headers: {
+        ...this.createTenantOptions().headers,
+        ...this.client.getRequestOptions().headers
+      }
+    });
   }
 }
