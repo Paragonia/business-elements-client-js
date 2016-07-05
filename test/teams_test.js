@@ -32,7 +32,7 @@ describe("Teams", () => {
     const data = [{id: "a"}, {id: "b"}];
     const actual = {
       "_embedded" : {
-        "be:teams" : data
+        "be:team" : data
       }
     };
 

@@ -24,7 +24,7 @@ describe("TeamInvitation", () => {
     orgId = uuid.v4();
     teamId = uuid.v4();
     invitationId = uuid.v4();
-    invitation = client.tenant("example.com").organizations().organization(orgId).teams().team(teamId).invitations().teamInvitation(invitationId);
+    invitation = client.tenant("example.com").organizations().organization(orgId).teams().team(teamId).invitations().invitation(invitationId);
   });
 
   afterEach(() => {

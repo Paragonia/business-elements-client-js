@@ -41,7 +41,7 @@ export default class Teams {
       // return empty string when response is missing certain fields to help client logic
       .then((response) => {
         if (response && response["_embedded"]) {
-          return response["_embedded"]["be:teams"];
+          return response["_embedded"]["be:team"];
         } else {
           return [];
         }
