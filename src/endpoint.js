@@ -32,7 +32,8 @@ const ENDPOINTS = {
 
   captures:                                   () => "/captures",
   capture:                                  (id) => `/captures/${id}`,
-
+  captureMedias:                            (id) => `/captures/${id}/media`,
+  captureMedia:                    (id, mediaId) => `/captures/${id}/media/${mediaId}`,
 
   // Attributes
   attributes:                                 () => "/attributes",

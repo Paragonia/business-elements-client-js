@@ -1,6 +1,7 @@
 "use strict";
 
 import endpoint from "./endpoint";
+import CaptureMedias from "./capture-medias";
 
 /**
  * Abstract representation of a capture.
@@ -41,5 +42,14 @@ export default class Capture {
       },
       options
     );
+  }
+
+  /**
+   * Provides access to capture medias.
+   *
+   * @return {CaptureMedias}
+   */
+  medias() {
+    return new CaptureMedias(this.tenant, this);
   }
 }

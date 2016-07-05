@@ -396,3 +396,13 @@ export function createCapture(description, location) {
   };
 }
 
+export function createCaptureMedia(media) {
+  return {
+    method: "POST",
+    path: endpoint("captureMedias"),
+    body: {
+      media
+    }
+  };
+}
+
