@@ -28,6 +28,12 @@ const ENDPOINTS = {
   me:                                         () => "/users/me",
   checkRegistrationStatus:                    () => "/users/registration_check",
 
+  // Captures
+
+  captures:                                   () => "/captures",
+  capture:                                  (id) => `/captures/${id}`,
+
+
   // Attributes
   attributes:                                 () => "/attributes",
   attribute:                       (attributeId) => `/attributes/${attributeId}`,

@@ -1,6 +1,7 @@
 "use strict";
 
 import Attributes from "./attributes";
+import Captures from "./captures";
 import Organizations from "./organizations";
 import Projects from "./projects";
 import Users from "./users";
@@ -104,5 +105,14 @@ export default class Tenant {
    */
   users() {
     return new Users(this);
+  }
+
+  /**
+   * Provides access to tenant captures.
+   *
+   * @return {Captures}
+   */
+  captures() {
+    return new Captures(this);
   }
 }

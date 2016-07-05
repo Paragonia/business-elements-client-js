@@ -382,3 +382,17 @@ export function deleteProjectContext(projectId, id) {
     path: endpoint("projectContext", projectId, id)
   };
 }
+
+// Captures
+
+export function createCapture(description, location) {
+  return {
+    method: "POST",
+    path: endpoint("captures"),
+    body: {
+      description,
+      location
+    }
+  };
+}
+
