@@ -101,6 +101,18 @@ export function activateUser(userId, activationCode) {
   };
 }
 
+export function activationRequest(emailAddress) {
+  if (!emailAddress) {
+    throw new Error("An email address is required.");
+  }
+
+  return {
+    method: "POST",
+    path: endpoint("userActivationRequest"),
+    body: {emailAddress}
+  };
+}
+
 /**
  * @private
  */

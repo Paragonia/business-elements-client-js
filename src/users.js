@@ -69,6 +69,17 @@ export default class Users {
   }
 
   /**
+   * Resend activation code for the specified user.
+   *
+   * @param  {String}   emailAddress           email address of notified user.
+   * @param  {Object}   [options]        The options object.
+   * @return {Promise<String, Error>}    With the authentication token.
+   */
+  activationRequest(emailAddress, options = {}) {
+    return this.tenant.execute(requests.activationRequest(emailAddress), options, true);
+  }
+
+  /**
    * Returns current user information.
    *
    * @param  {Object}   [options]        The options object.
