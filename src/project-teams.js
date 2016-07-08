@@ -1,6 +1,5 @@
 "use strict";
 
-import endpoint from "./endpoint";
 import ProjectTeam from "./project-team";
 import * as requests from "./requests";
 

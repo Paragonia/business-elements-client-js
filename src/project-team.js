@@ -1,6 +1,5 @@
 "use strict";
 
-import endpoint from "./endpoint";
 import * as requests from "./requests";
 
 /**
