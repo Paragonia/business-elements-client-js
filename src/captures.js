@@ -54,15 +54,14 @@ export default class Captures {
    * Creates the capture with the specified properties.
    *
    * @param  {String}  description          The optional description of the capture.
-   * @param  {Object} location              The optional location of the capture.
-   * @param  {Number} location.latitude     The location latitude.
-   * @param  {Number} location.longitude    The location longitude.
+   * @param {Object}   media                Media object
+   * @param {Object}   media.type           Media object type
    * @param  {Object} options               The options object.
    * @return {Promise<Object, Error>}
    */
-  create(description, location, options = {}) {
+  create(description, media, options = {}) {
     return this.tenant.execute(
-      requests.createCapture(description, location),
+      requests.createCapture(description, media),
       options
     );
   }
