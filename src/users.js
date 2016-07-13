@@ -114,7 +114,7 @@ export default class Users {
       .execute(requests.passwordReset(userId, passwordResetCode, password), options, true)
       .then((response) => {
         this.tenant.client.authenticationToken = response.headers.get("Authentication-Token");
-        return this.authenticationToken;
+        return this.tenant.client.authenticationToken;
       });
   }
 
