@@ -1,6 +1,7 @@
 "use strict";
 
 import * as requests from "./requests";
+import Me from "./me";
 
 /**
  * Abstract representation of users.
@@ -82,11 +83,10 @@ export default class Users {
   /**
    * Returns current user information.
    *
-   * @param  {Object}   [options]        The options object.
-   * @returns {Promise.<Object, Error>}
+   * @return {Me}
    */
-  me(options = {}) {
-    return this.tenant.execute(requests.me(), options);
+  me() {
+    return new Me(this.tenant);
   }
 
   /**

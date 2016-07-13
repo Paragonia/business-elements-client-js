@@ -99,18 +99,6 @@ describe("Users", () => {
 
   });
 
-  /** @test {Users#me} */
-  describe("#me", () => {
-    beforeEach(()=> {
-      sandbox.spy(requests, "me");
-    });
-
-    it("should execute expected request", () => {
-      users.me();
-      sinon.assert.calledWithMatch(requests.me);
-    });
-  });
-
   /** @test {Users#resetPasswordRequest} */
   describe("#passwordResetRequest", () => {
     beforeEach(()=> {
