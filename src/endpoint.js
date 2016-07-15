@@ -52,6 +52,8 @@ const ENDPOINTS = {
   projectContexts:                   (projectId) => `/projects/${projectId}/contexts`,
   projectContext:         (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}`,
   projectContextEvents:   (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/events`,
+  projectTeams:                      (projectId) => `/projects/${projectId}/teams`,
+  projectTeam:               (projectId, teamId) => `/projects/${projectId}/teams/${teamId}`,
 
   // Organizations
 

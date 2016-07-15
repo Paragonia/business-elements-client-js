@@ -395,6 +395,74 @@ export function deleteProjectContext(projectId, id) {
   };
 }
 
+// Project teams
+export function createProjectTeam(projectId, teamId, permission) {
+  if (!projectId) {
+    throw new Error("An Project Id is required.");
+  }
+  if (!teamId) {
+    throw new Error("An Team Id is required.");
+  }
+  if (!permission) {
+    throw new Error("An Team permission is required.");
+  }
+  return {
+    method: "POST",
+    path: endpoint("projectTeams", projectId),
+    body: {teamId, permission}
+  };
+}
+
+export function listProjectTeams(projectId) {
+  if (!projectId) {
+    throw new Error("An Project Id is required.");
+  }
+  return {
+    method: "GET",
+    path: endpoint("projectTeams", projectId)
+  };
+}
+
+export function getProjectTeam(projectId, teamId) {
+  if (!projectId) {
+    throw new Error("An Project Id is required.");
+  }
+  if (!teamId) {
+    throw new Error("An Team Id is required.");
+  }
+  return {
+    method: "GET",
+    path: endpoint("projectTeam", projectId, teamId)
+  };
+}
+
+export function deleteProjectTeam(projectId, teamId) {
+  if (!projectId) {
+    throw new Error("An Project Id is required.");
+  }
+  if (!teamId) {
+    throw new Error("An Team Id is required.");
+  }
+  return {
+    method: "DELETE",
+    path: endpoint("projectTeam", projectId, teamId)
+  };
+}
+
+export function editProjectTeam(projectId, teamId, permission) {
+  if (!projectId) {
+    throw new Error("An Project Id is required.");
+  }
+  if (!permission) {
+    throw new Error("An Team permission is required.");
+  }
+  return {
+    method: "PUT",
+    path: endpoint("projectTeam", projectId, teamId),
+    body: {permission}
+  };
+}
+
 // Captures
 
 export function createCapture(description, media) {
