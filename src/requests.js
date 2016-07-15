@@ -123,6 +123,22 @@ export function me() {
   };
 }
 
+export function updateMyDisplayName(name) {
+  return {
+    method: "PUT",
+    path: endpoint("myDisplayName"),
+    body: {name}
+  };
+}
+
+export function updateMyAvatarImage(pictureUri) {
+  return {
+    method: "PUT",
+    path: endpoint("myAvatarImage"),
+    body: {pictureUri}
+  };
+}
+
 export function currentTenant() {
   return {
     method: "GET",
