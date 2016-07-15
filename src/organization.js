@@ -3,6 +3,7 @@
 import endpoint from "./endpoint";
 import Teams from "./teams";
 import * as requests from "./requests";
+import OrganizationProjects from "./organization-projects";
 
 /**
  * Abstract representation of a selected organization.
@@ -78,5 +79,9 @@ export default class Organization {
    */
   teams() {
     return new Teams(this.tenant, this);
+  }
+
+  projects() {
+    return new OrganizationProjects(this.tenant, this);
   }
 }

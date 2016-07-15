@@ -54,13 +54,15 @@ const ENDPOINTS = {
   projectContexts:                   (projectId) => `/projects/${projectId}/contexts`,
   projectContext:         (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}`,
   projectContextEvents:   (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/events`,
-  projectTeams:                      (projectId) => `/projects/${projectId}/teams`,
-  projectTeam:               (projectId, teamId) => `/projects/${projectId}/teams/${teamId}`,
 
   // Organizations
 
-  organizations:                              () => "/organizations",
-  organization:                             (id) => `/organizations/${id}`,
+  organizations:                                      () => "/organizations",
+  organization:                                  (orgId) => `/organizations/${orgId}`,
+  organizationProjects:                          (orgId) => `/organizations/${orgId}/projects`,
+  organizationProject:                (orgId, projectId) => `/organizations/${orgId}/projects/${projectId}`,
+  organizationProjectTeams:           (orgId, projectId) => `/organizations/${orgId}/projects/${projectId}/teams`,
+  organizationProjectTeam:    (orgId, projectId, teamId) => `/organizations/${orgId}/projects/${projectId}/teams/${teamId}`,
 
   // Teams
 

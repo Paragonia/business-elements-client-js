@@ -1,6 +1,7 @@
 "use strict";
 
 import * as requests from "./requests";
+import endpoint from "./endpoint";
 
 /**
  * Abstract representation of a project team.
@@ -10,9 +11,9 @@ export default class ProjectTeam {
   /**
    * Constructor.
    *
-   * @param  {Tenant}  tenant     The tenant instance.
-   * @param  {Project} project    The project instance.
-   * @param  {String}  teamId     The team id.
+   * @param  {Tenant}              tenant     The tenant instance.
+   * @param  {OrganizationProject} project    The project instance.
+   * @param  {String}  teamId      The team id.
    */
   constructor(tenant, project, teamId) {
 
@@ -42,9 +43,14 @@ export default class ProjectTeam {
    * @return {Promise<Object, Error>}
    */
   get(options = {}) {
-    return this.tenant.execute(requests.getProjectTeam(this.project.id, this.teamId),
-      options
-    );
+    return this.tenant.execute({
+      path: endpoint(
+        "organizationProjectTeam",
+        this.project.organization.organizationId,
+        this.project.projectId,
+        this.teamId
+      )
+    }, options);
   }
 
   /**
@@ -56,7 +62,11 @@ export default class ProjectTeam {
    */
   edit(permissions, options = {}) {
     return this.tenant.execute(
-      requests.editProjectTeam(this.project.projectId, this.teamId, permissions),
+      requests.editProjectTeam(
+        this.project.organization.organizationId,
+        this.project.projectId,
+        this.teamId, permissions
+      ),
       options
     );
   }
@@ -69,7 +79,11 @@ export default class ProjectTeam {
    */
   remove(options = {}) {
     return this.tenant.execute(
-      requests.deleteProjectTeam(this.project.projectId, this.teamId),
+      requests.deleteProjectTeam(
+        this.project.organization.organizationId,
+        this.project.projectId,
+        this.teamId
+      ),
       options
     );
   }

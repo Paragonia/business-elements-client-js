@@ -2,6 +2,7 @@
 
 import ProjectTeam from "./project-team";
 import * as requests from "./requests";
+import endpoint from "./endpoint";
 
 /**
  * Abstract representation of project team.
@@ -12,7 +13,7 @@ export default class ProjectTeams {
    * Constructor.
    *
    * @param  {Tenant} tenant The tenant instance.
-   * @param  {Project} project The project instance.
+   * @param  {OrganizationProject} project The project instance.
    */
   constructor(tenant, project) {
 
@@ -24,7 +25,7 @@ export default class ProjectTeams {
 
     /**
      * The project
-     * @type {Project}
+     * @type {OrganizationProject}
      */
     this.project = project;
   }
@@ -36,10 +37,16 @@ export default class ProjectTeams {
    * @return {Promise<Array<Object>, Error>}
    */
   list(options = {}) {
-    return this.tenant.execute(requests.listProjectTeams(this.project.projectId), options)
+    return this.tenant.execute({
+      path: endpoint(
+        "organizationProjectTeams",
+        this.project.organization.organizationId,
+        this.project.projectId
+      )
+    }, options)
       .then((response) => {
         if (response["_embedded"]) {
-          return response["_embedded"]["be:project_teams"];
+          return response["_embedded"]["be:organization_project_teams"];
         } else {
           return [];
         }
@@ -49,7 +56,7 @@ export default class ProjectTeams {
   /**
    * Retrieve a project team object to perform operations on it.
    *
-   * @param  {String} id The id of the project team.
+   * @param  {String} teamId The id of the project team.
    * @return {ProjectTeam}
    */
   projectTeam(teamId) {
@@ -59,13 +66,18 @@ export default class ProjectTeams {
   /**
    *  Create a new team for the current project
    *
-   * @param {String} name       Context name
+   * @param  {String} teamId The team to assign to the project.
+   * @param  {String} permission The permission of the project team.
    * @param {Object} options    The options object
    * @returns {Promise.<Object, Error>}
    */
   create(teamId, permission, options = {}) {
     return this.tenant.execute(
-      requests.createProjectTeam(this.project.projectId, teamId, permission),
+      requests.createOrganizationProjectTeam(
+        this.project.organization.organizationId,
+        this.project.projectId,
+        teamId,
+        permission),
       options
     );
   }
