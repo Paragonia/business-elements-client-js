@@ -3,7 +3,7 @@
 import endpoint from "./endpoint";
 import * as requests from "./requests";
 import ProjectContexts from "./project-contexts";
-import ProjectTeams from "./project-teams";
+import Teams from "./teams";
 
 /**
  * Abstract representation of a project.
@@ -75,7 +75,7 @@ export default class Project {
   }
 
   teams() {
-    return new ProjectTeams(this.tenant, this);
+    return new Teams(this.tenant, this);
   }
 
   /**
