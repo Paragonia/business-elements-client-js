@@ -46,7 +46,7 @@ export default class ProjectTeams {
     }, options)
       .then((response) => {
         if (response["_embedded"]) {
-          return response["_embedded"]["be:organization_project_teams"];
+          return response["_embedded"]["be:organization_project_team"];
         } else {
           return [];
         }
