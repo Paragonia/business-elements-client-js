@@ -71,25 +71,4 @@ describe("TeamInvitation", () => {
       return invitation.remove("name", {}).should.eventually.become(response);
     });
   });
-
-
-  /** @test {TeamInvitation#accept} */
-  describe("#accept()", () => {
-    const response = {status: "Ok"};
-    beforeEach(() => {
-      sandbox.stub(client, "execute").returns(Promise.resolve(response));
-      sandbox.spy(requests, "acceptTeamInvitation");
-    });
-
-    it("should delete the invitation", () => {
-      invitation.accept({});
-
-      sinon.assert.calledWithMatch(requests.acceptTeamInvitation, invitationId);
-    });
-
-    it("should return success", () => {
-      return invitation.accept().should.eventually.become(response);
-    });
-  });
-
 });

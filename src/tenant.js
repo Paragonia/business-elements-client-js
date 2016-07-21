@@ -6,6 +6,7 @@ import Organizations from "./organizations";
 import Projects from "./projects";
 import Users from "./users";
 import UploadOptions from "./upload-options";
+import Invitation from "./invitation";
 import endpoint from "./endpoint";
 
 /**
@@ -116,6 +117,15 @@ export default class Tenant {
    */
   captures() {
     return new Captures(this);
+  }
+
+  /**
+   * Provides access to tenant invitations
+   *
+   * @return {Invitation}
+   */
+  invitation() {
+    return new Invitation(this);
   }
 
   /**

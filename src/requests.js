@@ -353,13 +353,20 @@ export function sentTeamInvitation(orgId, teamId, emailAddress) {
   };
 }
 
-export function acceptTeamInvitation(invitationId) {
+export function acceptTeamMemberInvitation(invitationId, emailAddress, password) {
   if (!invitationId) {
-    throw new Error("An Member Id is required.");
+    throw new Error("An Invitation Id is required ");
+  }
+  if (!emailAddress) {
+    throw new Error("An emailAddress is required.");
+  }
+  if (!password) {
+    throw new Error("An Password Id is required.");
   }
   return {
     method: "POST",
-    path: endpoint("teamInvitationAccept", invitationId)
+    path: endpoint("teamInvitationAccept", invitationId),
+    body: {emailAddress, password}
   };
 }
 

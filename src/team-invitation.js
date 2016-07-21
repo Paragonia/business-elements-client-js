@@ -70,17 +70,4 @@ export default class TeamInvitation {
       options
     );
   }
-
-  /**
-   * Accept the given invitation Id.
-   *
-   * @param  {Object} options         The options object.
-   * @return {Promise<Object, Error>}
-   */
-  accept(options = {}) {
-    return this.tenant.execute(
-      requests.acceptTeamInvitation(this.invitationId),
-      options
-    );
-  }
 }
