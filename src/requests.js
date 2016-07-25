@@ -507,3 +507,51 @@ export function createCapture(description, media) {
     }
   };
 }
+
+//Values
+export function createValue(projectId, attributeHandle, data) {
+  return {
+    method: "POST",
+    path: endpoint("values"),
+    body: {
+      projectId,
+      attributeHandle,
+      data
+    }
+  };
+}
+
+// Cells
+export function createContextValueCell(valueId, projectIdOption, projectContextId, position) {
+  debugger;
+  return {
+    method: "POST",
+    path: endpoint("cells", valueId),
+    body: {
+      projectContextId,
+      position,
+      projectIdOption
+    }
+  };
+}
+
+export function editContextValueCell(valueId, cellId) {
+  return {
+    method: "PUT",
+    path: endpoint("cell", valueId, cellId),
+    body: {
+
+    }
+  };
+}
+
+export function deleteContextValueCell(valueId, cellId) {
+  return {
+    method: "DELETE",
+    path: endpoint("cell"),
+    body: {
+      valueId,
+      cellId
+    }
+  };
+}

@@ -1,6 +1,7 @@
 "use strict";
 
 import Attributes from "./attributes";
+import Values from "./values";
 import Captures from "./captures";
 import Organizations from "./organizations";
 import Projects from "./projects";
@@ -81,6 +82,15 @@ export default class Tenant {
    */
   attributes() {
     return new Attributes(this);
+  }
+
+  /**
+   * Provides access to tenant values.
+   *
+   * @returns {Values}
+   */
+  values() {
+    return new Values(this);
   }
 
   /**

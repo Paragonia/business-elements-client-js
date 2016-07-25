@@ -47,6 +47,14 @@ const ENDPOINTS = {
   attributes:                                 () => "/attributes",
   attribute:                       (attributeId) => `/attributes/${attributeId}`,
 
+  // Values
+  values:                                     () => "/values",
+  value:                               (valueId) => `/values/${valueId}`,
+
+  // Cells
+  cells:                               (valueId) => `/values/${valueId}/cells`,
+  cell:                        (valueId, cellId) => `/values/${valueId}/cells/${cellId}`,
+
   // Projects
 
   projects:                                   () => "/projects",
