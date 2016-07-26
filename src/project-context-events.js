@@ -35,10 +35,13 @@ export default class ProjectContextEvents {
     this.contextId = contextId;
 
     /**
-     * Construct the event source to start consuming events straight away.
+     * The event source of context updates
+     *
+     * The remote part of the url has to be explicitly appended, otherwise the event source will be creates on the same origin.
+     *
      * @type {EventSource}
-     */
-    this.eventSource = new EventSource(endpoint("projectContextEvents", this.project.projectId, this.contextId));
+     * */
+    this.eventSource = new EventSource(this.tenant.client.remote + endpoint("projectContextEvents", this.project.projectId, this.contextId), { withCredentials: true } );
   }
 
   /**
@@ -47,7 +50,7 @@ export default class ProjectContextEvents {
    * @param {ProjectContextEvents.eventCallback} listener
    */
   on(event, listener) {
-    this.eventSource.addEventListener(event.value, listener);
+    this.eventSource.addEventListener(event.value, listener, false);
   }
 
   /**
