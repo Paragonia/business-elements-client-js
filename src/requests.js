@@ -523,7 +523,6 @@ export function createValue(projectId, attributeHandle, data) {
 
 // Cells
 export function createContextValueCell(valueId, projectIdOption, projectContextId, position) {
-  debugger;
   return {
     method: "POST",
     path: endpoint("cells", valueId),
