@@ -534,12 +534,12 @@ export function createValueCell(valueId, projectIdOption, projectContextId, posi
   };
 }
 
-export function editValueCell(valueId, cellId) {
+export function editValueCell(valueId, cellId, position) {
   return {
     method: "PUT",
     path: endpoint("cell", valueId, cellId),
     body: {
-
+      position
     }
   };
 }
@@ -547,10 +547,7 @@ export function editValueCell(valueId, cellId) {
 export function deleteValueCell(valueId, cellId) {
   return {
     method: "DELETE",
-    path: endpoint("cell"),
-    body: {
-      valueId,
-      cellId
-    }
+    path: endpoint("cell", valueId, cellId),
+    body: {}
   };
 }

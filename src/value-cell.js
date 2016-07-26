@@ -54,13 +54,13 @@ export default class ValueCell {
   /**
    * Updates current cell
    *
-   * @param {String} name                 Context name
+   * @param {Object} position                Cell position
    * @param  {Object} options             The options object.
    * @returns {Promise.<Object, Error>}
    */
-  edit(name, options = {}) {
+  edit(position, options = {}) {
     return this.tenant.execute(
-      requests.editValueCell(this.valueId, this.cellId),
+      requests.editValueCell(this.valueId, this.cellId, position),
       options
     );
   }
