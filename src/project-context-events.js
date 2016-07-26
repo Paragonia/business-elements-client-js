@@ -1,6 +1,7 @@
 "use strict";
 
 import endpoint from "./endpoint";
+import ProjectContextEvent from "./project-context-event";
 
 /**
  * Abstract representation of a project.
@@ -42,6 +43,12 @@ export default class ProjectContextEvents {
      * @type {EventSource}
      * */
     this.eventSource = new EventSource(this.tenant.client.remote + endpoint("projectContextEvents", this.project.projectId, this.contextId), { withCredentials: true } );
+
+    /**
+     * Event types enum.
+     * @type {ProjectContextEvent}
+     */
+    this.type = ProjectContextEvent;
   }
 
   /**
@@ -59,10 +66,4 @@ export default class ProjectContextEvents {
   close() {
     this.eventSource.close();
   }
-
-  /**
-   * Callback to handle the SSE event.
-   * @callback ProjectContextEvents~eventCallback
-   * @param {Object} event.
-   */
 }

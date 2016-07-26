@@ -47,19 +47,19 @@ export default class ProjectContextEvent {
   }
 }
 
-// Data events - attributes
+// Data events - values
 
-ProjectContextEvent.ATTRIBUTE = new ProjectContextEvent("ATTRIBUTE", "attribute");
-ProjectContextEvent.ATTRIBUTE_ADD = new ProjectContextEvent("ATTRIBUTE_ADD", "attributeAdd");
-ProjectContextEvent.ATTRIBUTE_UPDATE = new ProjectContextEvent("ATTRIBUTE_UPDATE", "attributeUpdate");
-ProjectContextEvent.ATTRIBUTE_DELETE = new ProjectContextEvent("ATTRIBUTE_DELETE", "attributeDelete");
+ProjectContextEvent.VALUE = new ProjectContextEvent("VALUE", "value");
+ProjectContextEvent.VALUE_CREATED = new ProjectContextEvent("VALUE_CREATED", "valueCreated");
+ProjectContextEvent.VALUE_UPDATED = new ProjectContextEvent("VALUE_UPDATED", "valueUpdate");
+ProjectContextEvent.VALUE_DELETED = new ProjectContextEvent("VALUE_DELETED", "valueDelete");
 
-// Data events - attribute references
+// Data events - value cells
 
-ProjectContextEvent.ATTRIBUTE_REFERENCE = new ProjectContextEvent("ATTRIBUTE_REFERENCE", "reference");
-ProjectContextEvent.ATTRIBUTE_REFERENCE_ADD = new ProjectContextEvent("ATTRIBUTE_REFERENCE_ADD", "referenceAdd");
-ProjectContextEvent.ATTRIBUTE_REFERENCE_UPDATE = new ProjectContextEvent("ATTRIBUTE_REFERENCE_UPDATE", "referenceUpdate");
-ProjectContextEvent.ATTRIBUTE_REFERENCE_DELETE = new ProjectContextEvent("ATTRIBUTE_REFERENCE_DELETE", "referenceDelete");
+ProjectContextEvent.VALUE_CELL = new ProjectContextEvent("VALUE_CELL", "valueCell");
+ProjectContextEvent.VALUE_CELL_CREATED = new ProjectContextEvent("VALUE_CELL_CREATED", "valueCellCreated");
+ProjectContextEvent.VALUE_CELL_UPDATED = new ProjectContextEvent("VALUE_CELL_UPDATED", "valueCellUpdated");
+ProjectContextEvent.VALUE_CELL_DELETED = new ProjectContextEvent("VALUE_CELL_DELETED", "valueCellDeleted");
 
 // User events - Connection
 
