@@ -6,7 +6,7 @@ import * as requests from "./requests";
 /**
  * Abstract representation of a project.
  */
-export default class ContextValueCell {
+export default class ValueCell {
 
   /**
    * Constructor.
@@ -60,7 +60,7 @@ export default class ContextValueCell {
    */
   edit(name, options = {}) {
     return this.tenant.execute(
-      requests.editContextValueCell(this.valueId, this.cellId),
+      requests.editValueCell(this.valueId, this.cellId),
       options
     );
   }
@@ -73,7 +73,7 @@ export default class ContextValueCell {
    */
   remove(options = {}) {
     return this.tenant.execute(
-      requests.deleteContextValueCell(this.valueId, this.cellId),
+      requests.deleteValueCell(this.valueId, this.cellId),
       options
     );
   }

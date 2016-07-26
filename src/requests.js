@@ -522,7 +522,7 @@ export function createValue(projectId, attributeHandle, data) {
 }
 
 // Cells
-export function createContextValueCell(valueId, projectIdOption, projectContextId, position) {
+export function createValueCell(valueId, projectIdOption, projectContextId, position) {
   return {
     method: "POST",
     path: endpoint("cells", valueId),
@@ -534,7 +534,7 @@ export function createContextValueCell(valueId, projectIdOption, projectContextI
   };
 }
 
-export function editContextValueCell(valueId, cellId) {
+export function editValueCell(valueId, cellId) {
   return {
     method: "PUT",
     path: endpoint("cell", valueId, cellId),
@@ -544,7 +544,7 @@ export function editContextValueCell(valueId, cellId) {
   };
 }
 
-export function deleteContextValueCell(valueId, cellId) {
+export function deleteValueCell(valueId, cellId) {
   return {
     method: "DELETE",
     path: endpoint("cell"),

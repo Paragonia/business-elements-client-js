@@ -1,7 +1,7 @@
 "use strict";
 
 import endpoint from "./endpoint";
-import ContextValueCells from "./context-value-cells";
+import ValueCells from "./value-cells";
 
 /**
  * Abstract representation of a attribute.
@@ -45,7 +45,7 @@ export default class Value {
   }
 
   cells(){
-    return new ContextValueCells(this.tenant, this.valueId);
+    return new ValueCells(this.tenant, this.valueId);
   }
 }
 
