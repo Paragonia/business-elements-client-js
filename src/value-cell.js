@@ -66,7 +66,7 @@ export default class ValueCell {
   }
 
   /**
-   * Delete current context
+   * Delete current value cell
    *
    * @param  {Object} options             The options object.
    * @returns {Promise.<Object, Error>}
