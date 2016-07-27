@@ -51,7 +51,7 @@ export default class ProjectContextEvent {
 
 ProjectContextEvent.VALUE = new ProjectContextEvent("VALUE", "value");
 ProjectContextEvent.VALUE_CREATED = new ProjectContextEvent("VALUE_CREATED", "valueCreated");
-ProjectContextEvent.VALUE_UPDATED = new ProjectContextEvent("VALUE_UPDATED", "valueUpdate");
+ProjectContextEvent.VALUE_UPDATED = new ProjectContextEvent("VALUE_UPDATED", "valueUpdated");
 ProjectContextEvent.VALUE_DELETED = new ProjectContextEvent("VALUE_DELETED", "valueDelete");
 
 // Data events - value cells
