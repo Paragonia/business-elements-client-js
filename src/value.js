@@ -2,6 +2,7 @@
 
 import endpoint from "./endpoint";
 import ValueCells from "./value-cells";
+import * as requests from "./requests";
 
 /**
  * Abstract representation of a attribute.
@@ -40,6 +41,23 @@ export default class Value {
       {
         path: endpoint("value", this.valueId)
       },
+      options
+    );
+  }
+
+  /**
+   * Updates the value with the specified properties.
+   *
+   * @param  {String}  projectId        The project id.
+   * @param {String} attributeHandle    The selected attribute
+   * @param {Object} value    The form data object
+   * @param  {Object} options       The options object.
+   * @return {Promise<Object, Error>}
+   */
+  edit(projectId, attributeHandle, value, options = {})
+  {
+    return this.tenant.execute(
+      requests.editValue(this.valueId, projectId, attributeHandle, value),
       options
     );
   }

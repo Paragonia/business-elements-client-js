@@ -521,6 +521,18 @@ export function createValue(projectId, attributeHandle, data) {
   };
 }
 
+export function editValue(valueId, projectId, attributeHandle, data) {
+  return {
+    method: "PUT",
+    path: endpoint("value", valueId),
+    body: {
+      projectId,
+      attributeHandle,
+      data
+    }
+  };
+}
+
 // Cells
 export function createValueCell(valueId, projectIdOption, projectContextId, position) {
   return {
