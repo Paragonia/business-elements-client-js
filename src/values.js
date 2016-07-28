@@ -44,6 +44,29 @@ export default class Values {
   }
 
   /**
+   * Retrieves the list of values in the current tenant.
+   *
+   * @param {String}      The values project id field
+   * @param  {Object} options         The options object.
+   * @return {Promise<Array<Object>, Error>}
+   */
+  listProjectValues(projectId, options = {}) {
+    return this.tenant.execute({path: endpoint("valuesProject", projectId)}, options)
+      .then((response) => {
+        const embedded = response["_embedded"];
+        if (embedded) {
+          const values = embedded["be:value"];
+          if (values) {
+            return values;
+          }
+        }
+        return [];
+      });
+  }
+
+
+
+  /**
    * Retrieve a value object to perform operations on it.
    *
    * @param  {String} id              The id of the value.
