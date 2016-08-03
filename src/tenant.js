@@ -8,6 +8,7 @@ import Projects from "./projects";
 import Users from "./users";
 import UploadOptions from "./upload-options";
 import Invitation from "./invitation";
+import Exhibitions from "./exhibitions";
 import endpoint from "./endpoint";
 
 /**
@@ -136,6 +137,15 @@ export default class Tenant {
    */
   invitation() {
     return new Invitation(this);
+  }
+
+  /**
+   * Provides access to tenant exhibitions.
+   *
+   * @return {Exhibitions}
+   */
+  exhibitions() {
+    return new Exhibitions(this);
   }
 
   /**

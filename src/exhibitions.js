@@ -46,7 +46,7 @@ export default class Exhibitions {
    * Retrieve a value object to perform operations on it.
    *
    * @param  {String} id              The id of the value.
-   * @return {Value}
+   * @return {Exhibition}
    */
   exhibition(id) {
     return new Exhibition(this.tenant, id);
