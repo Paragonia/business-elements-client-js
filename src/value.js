@@ -5,7 +5,7 @@ import ValueCells from "./value-cells";
 import * as requests from "./requests";
 
 /**
- * Abstract representation of a attribute.
+ * Abstract representation of a value.
  */
 export default class Value {
 

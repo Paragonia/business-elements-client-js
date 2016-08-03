@@ -87,7 +87,11 @@ const ENDPOINTS = {
   // Team members
 
   teamMembers:                   (orgId, teamId) => `/organizations/${orgId}/teams/${teamId}/members`,
-  teamMember:          (orgId, teamId, memberId) => `/organizations/${orgId}/teams/${teamId}/members/${memberId}`
+  teamMember:          (orgId, teamId, memberId) => `/organizations/${orgId}/teams/${teamId}/members/${memberId}`,
+
+  // Exhibitions
+  exhibitions:                                () => "exhibitions",
+  exhibition:                     (exhibitionId) => `exhibitions/${exhibitionId}`
 
 };
 

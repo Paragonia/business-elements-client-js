@@ -563,3 +563,33 @@ export function deleteValueCell(valueId, cellId) {
     body: {}
   };
 }
+
+// Exhibition
+export function createExhibition(projectId, name) {
+  return {
+    method: "POST",
+    path: endpoint("exhibitions"),
+    body: {
+      projectId,
+      name
+    }
+  };
+}
+
+export function changeExhibitionVisibility(exhibitionId, visibility) {
+  return {
+    method: "PUT",
+    path: endpoint("exhibition", exhibitionId),
+    body: {
+      visibility
+    }
+  };
+}
+
+export function deleteExhibition(exhibitionId) {
+  return {
+    method: "DELETE",
+    path: endpoint("exhibition", exhibitionId),
+    body: {}
+  };
+}
