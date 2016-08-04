@@ -50,7 +50,7 @@ const ENDPOINTS = {
   // Values
   values:                                     () => "/values",
   value:                               (valueId) => `/values/${valueId}`,
-  valuesProject:                      (projectId) => `/values/project/${projectId}`,
+  valuesProject:                     (projectId) => `/values/project/${projectId}`,
 
   // Cells
   cells:                               (valueId) => `/values/${valueId}/cells`,
@@ -63,6 +63,7 @@ const ENDPOINTS = {
   projectContexts:                   (projectId) => `/projects/${projectId}/contexts`,
   projectContext:         (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}`,
   projectContextEvents:   (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/events`,
+  projectContextClusters: (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/clusters `,
 
   // Organizations
 

@@ -87,4 +87,15 @@ export default class ProjectContext {
   events() {
     return new ProjectContextEvents(this.tenant, this.project, this.contextId);
   }
+
+  /**
+   * Provides the clusters of a context
+   * @param  {Object} options   The options object.
+   */
+  clusters(options = {}) {
+    return this.tenant.execute(
+      requests.getContextClusters(this.project.projectId, this.contextId),
+      options
+    );
+  }
 }
