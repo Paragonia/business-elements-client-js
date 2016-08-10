@@ -73,6 +73,7 @@ const ENDPOINTS = {
 
   organizations:                                      () => "/organizations",
   organization:                                  (orgId) => `/organizations/${orgId}`,
+  organizationLogo:                              (orgId) => `/organizations/${orgId}/logo`,
   organizationProjects:                          (orgId) => `/organizations/${orgId}/projects`,
   organizationProject:                (orgId, projectId) => `/organizations/${orgId}/projects/${projectId}`,
   organizationProjectTeams:           (orgId, projectId) => `/organizations/${orgId}/projects/${projectId}/teams`,

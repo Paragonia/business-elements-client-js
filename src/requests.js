@@ -237,6 +237,18 @@ export function updateOrganization(id, name) {
   };
 }
 
+export function changeOrganizationLogo(id, pictureUri) {
+  if (!id) {
+    throw new Error("An organization id is required.");
+  }
+
+  return {
+    method: "PUT",
+    path: endpoint("organizationLogo", id),
+    body: {pictureUri}
+  };
+}
+
 // Teams
 
 export function createTeam(orgId, name, description, visibility) {

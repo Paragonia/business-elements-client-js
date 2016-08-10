@@ -60,7 +60,7 @@ export default class Organization {
   }
 
   /**
-   * Delete current organization
+   * Update current organization
    *
    * @param  {Object} options             The options object.
    * @returns {Promise.<Object, Error>}
@@ -68,6 +68,19 @@ export default class Organization {
   update(name, options = {}) {
     return this.tenant.execute(
       requests.updateOrganization(this.organizationId, name),
+      options
+    );
+  }
+
+  /**
+   * Change current organization logo
+   *
+   * @param  {Object} options             The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  changeLogo(pictureUri, options = {}) {
+    return this.tenant.execute(
+      requests.changeOrganizationLogo(this.organizationId, pictureUri),
       options
     );
   }
