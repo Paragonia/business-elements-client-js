@@ -9,6 +9,7 @@ import Users from "./users";
 import UploadOptions from "./upload-options";
 import Invitation from "./invitation";
 import Exhibitions from "./exhibitions";
+import Resources from "./resources";
 import endpoint from "./endpoint";
 
 /**
@@ -161,5 +162,14 @@ export default class Tenant {
         ...this.client.getRequestOptions().headers
       }
     });
+  }
+
+  /**
+   * Provides access to user resources.
+   *
+   * @return {Resources}
+   */
+  resources() {
+    return new Resources(this);
   }
 }
