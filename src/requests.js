@@ -530,7 +530,7 @@ export function createCapture(description, media) {
 export function editCapture(captureId, description) {
   return {
     method: "PUT",
-    path: endpoint("captures", captureId),
+    path: endpoint("capture", captureId),
     body: {
       description
     }
@@ -540,7 +540,7 @@ export function editCapture(captureId, description) {
 export function deleteCapture(captureId) {
   return {
     method: "DELETE",
-    path: endpoint("captures", captureId)
+    path: endpoint("capture", captureId)
   };
 }
 
