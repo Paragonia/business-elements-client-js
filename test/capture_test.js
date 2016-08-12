@@ -5,6 +5,7 @@ import chaiAsPromised from "chai-as-promised";
 import sinon from "sinon";
 import BusinessElementsClient from "../src";
 import uuid from "uuid";
+import * as requests from "../src/requests";
 
 chai.use(chaiAsPromised);
 chai.should();
@@ -45,6 +46,44 @@ describe("Capture", () => {
 
     it("should return capture data", () => {
       return capture.get().should.become(data);
+    });
+  });
+
+  /** @test {Capture#edit} */
+  describe("#edit()", () => {
+    const response = {status: "Ok"};
+    beforeEach(() => {
+      sandbox.stub(client, "execute").returns(Promise.resolve(response));
+      sandbox.spy(requests, "editCapture");
+    });
+
+    it("should edit the capture", () => {
+      capture.edit("description", {});
+
+      sinon.assert.calledWithMatch(requests.editCapture, captureId, "description");
+    });
+
+    it("should return success", () => {
+      return capture.edit("description", {}).should.eventually.become(response);
+    });
+  });
+
+  /** @test {Capture#remove} */
+  describe("#remove()", () => {
+    const response = {status: "Ok"};
+    beforeEach(() => {
+      sandbox.stub(client, "execute").returns(Promise.resolve(response));
+      sandbox.spy(requests, "deleteCapture");
+    });
+
+    it("should delete the team", () => {
+      capture.remove({});
+
+      sinon.assert.calledWithMatch(requests.deleteCapture, captureId);
+    });
+
+    it("should return success", () => {
+      return capture.remove({}).should.eventually.become(response);
     });
   });
 

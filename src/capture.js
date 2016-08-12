@@ -1,6 +1,7 @@
 "use strict";
 
 import endpoint from "./endpoint";
+import * as requests from "./requests";
 import CaptureMedias from "./capture-medias";
 
 /**
@@ -41,6 +42,33 @@ export default class Capture {
         path: endpoint("capture", this.captureId)
       },
       options
+    );
+  }
+
+  /**
+   * Updates current capture
+   *
+   * @param {String} description          Capture description
+   * @param  {Object} options             The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  edit(description, options = {}) {
+    return this.tenant.execute(
+        requests.editCapture(this.captureId, description),
+        options
+    );
+  }
+
+  /**
+   * Delete current capture
+   *
+   * @param  {Object} options             The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  remove(options = {}) {
+    return this.tenant.execute(
+        requests.deleteCapture(this.captureId),
+        options
     );
   }
 

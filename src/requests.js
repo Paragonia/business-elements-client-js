@@ -527,6 +527,23 @@ export function createCapture(description, media) {
   };
 }
 
+export function editCapture(captureId, description) {
+  return {
+    method: "PUT",
+    path: endpoint("captures", captureId),
+    body: {
+      description
+    }
+  };
+}
+
+export function deleteCapture(captureId) {
+  return {
+    method: "DELETE",
+    path: endpoint("captures", captureId)
+  };
+}
+
 //Values
 export function createValue(projectId, attributeHandle, data) {
   return {
