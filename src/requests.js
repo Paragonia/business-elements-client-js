@@ -544,6 +544,17 @@ export function deleteCapture(captureId) {
   };
 }
 
+//Capture-Media
+export function addCaptureMedia(captureId, media) {
+  return {
+    method: "POST",
+    path: endpoint("captureMedias", captureId),
+    body: {
+      media
+    }
+  };
+}
+
 //Values
 export function createValue(projectId, attributeHandle, data) {
   return {
