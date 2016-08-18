@@ -56,7 +56,8 @@ describe("CaptureMedias", () => {
 
   /** @test {CaptureMedias#add} */
   describe("#add()", () => {
-    const requestsMedia = [
+
+    const captureMedias = [
       {
         type : "image",
         data: {
@@ -71,6 +72,12 @@ describe("CaptureMedias", () => {
       }
     ];
 
+    const requestResponse = {
+      "_embedded": {
+        "be:capture_media": captureMedias
+      }
+    };
+
     const media = {
       type : "image",
       data: {
@@ -79,7 +86,7 @@ describe("CaptureMedias", () => {
     };
 
     beforeEach(() => {
-      sandbox.stub(client, "execute").returns(Promise.resolve(requestsMedia));
+      sandbox.stub(client, "execute").returns(Promise.resolve(requestResponse));
       sandbox.spy(requests, "addCaptureMedia");
     });
 
@@ -89,7 +96,7 @@ describe("CaptureMedias", () => {
     });
 
     it("should return media and the existing ones", () => {
-      return medias.add(media).should.become(requestsMedia);
+      return medias.add(media).should.become(captureMedias);
     });
 
   });

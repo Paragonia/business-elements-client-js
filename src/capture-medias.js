@@ -68,7 +68,13 @@ export default class CaptureMedias {
     return this.tenant.execute(
       requests.addCaptureMedia(this.capture.captureId, media),
       options
-    );    
+    ).then((response) => {
+      if (response["_embedded"]) {
+        return response["_embedded"]["be:capture_media"];
+      } else {
+        return [];
+      }
+    });
     
   }
 }
