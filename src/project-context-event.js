@@ -63,6 +63,7 @@ ProjectContextEvent.VALUE_CELL_DELETED = new ProjectContextEvent("VALUE_CELL_DEL
 
 // User events - Connection
 
+ProjectContextEvent.USERS_ONLINE = new ProjectContextEvent("USERS_ONLINE", "onlineUsers");
 ProjectContextEvent.USER_CONNECT = new ProjectContextEvent("USER_CONNECT", "connect");
 ProjectContextEvent.USER_RECONNECT = new ProjectContextEvent("USER_RECONNECT", "reconnect");
 ProjectContextEvent.USER_DISCONNECT = new ProjectContextEvent("USER_DISCONNECT", "disconnect");
