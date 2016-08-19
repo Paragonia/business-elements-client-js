@@ -1,6 +1,7 @@
 "use strict";
 
 import endpoint from "./endpoint";
+import * as requests from "./requests";
 
 /**
  * Abstract representation of a capture.
@@ -46,6 +47,19 @@ export default class CaptureMedia {
       {
         path: endpoint("captureMedia", this.capture.captureId, this.mediaId)
       },
+      options
+    );
+  }
+
+  /**
+   * Delete current capture media.
+   *
+   * @param  {Object} options         The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  remove(options = {}) {
+    return this.tenant.execute(
+      requests.deleteCaptureMedia(this.capture.captureId, this.mediaId),
       options
     );
   }

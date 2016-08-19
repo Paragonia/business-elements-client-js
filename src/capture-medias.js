@@ -2,6 +2,7 @@
 
 import endpoint from "./endpoint";
 import CaptureMedia from "./capture-media";
+import * as requests from "./requests";
 
 /**
  * Abstract representation of capture medias.
@@ -54,5 +55,26 @@ export default class CaptureMedias {
    */
   media(id) {
     return new CaptureMedia(this.tenant, this.capture, id);
+  }
+
+  /**
+   * Add capture-media with the specified properties.
+   *
+   * @param {Object}   media                Media object
+   * @param  {Object} options               The options object.
+   * @return {Promise<Object, Error>}
+   */
+  add(media, options = {}) {
+    return this.tenant.execute(
+      requests.addCaptureMedia(this.capture.captureId, media),
+      options
+    ).then((response) => {
+      if (response["_embedded"]) {
+        return response["_embedded"]["be:capture_media"];
+      } else {
+        return [];
+      }
+    });
+    
   }
 }
