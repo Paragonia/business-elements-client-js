@@ -58,7 +58,7 @@ ProjectContextEvent.VALUE_DELETED = new ProjectContextEvent("VALUE_DELETED", "va
 
 ProjectContextEvent.VALUE_CELL = new ProjectContextEvent("VALUE_CELL", "valueCell");
 ProjectContextEvent.VALUE_CELL_CREATED = new ProjectContextEvent("VALUE_CELL_CREATED", "valueCellCreated");
-ProjectContextEvent.VALUE_CELL_UPDATED = new ProjectContextEvent("VALUE_CELL_UPDATED", "valueCellUpdated");
+ProjectContextEvent.VALUE_CELL_MOVED = new ProjectContextEvent("VALUE_CELL_MOVED", "valueCellMoved");
 ProjectContextEvent.VALUE_CELL_DELETED = new ProjectContextEvent("VALUE_CELL_DELETED", "valueCellDeleted");
 
 // User events - Connection
