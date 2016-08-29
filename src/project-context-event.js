@@ -63,14 +63,15 @@ ProjectContextEvent.VALUE_CELL_DELETED = new ProjectContextEvent("VALUE_CELL_DEL
 
 // User events - Connection
 
-ProjectContextEvent.USERS_ONLINE = new ProjectContextEvent("USERS_ONLINE", "onlineUsers");
-ProjectContextEvent.USER_CONNECT = new ProjectContextEvent("USER_CONNECT", "connect");
-ProjectContextEvent.USER_RECONNECT = new ProjectContextEvent("USER_RECONNECT", "reconnect");
-ProjectContextEvent.USER_DISCONNECT = new ProjectContextEvent("USER_DISCONNECT", "disconnect");
+ProjectContextEvent.ONLINE_USERS = new ProjectContextEvent("ONLINE_USERS", "onlineUsers");
+ProjectContextEvent.ONLINE_MEMBER_JOINED = new ProjectContextEvent("ONLINE_MEMBER_JOINED", "memberJoined");
+ProjectContextEvent.ONLINE_MEMBER_LEFT = new ProjectContextEvent("ONLINE_MEMBER_LEFT", "memberLeft");
+ProjectContextEvent.ONLINE_GUEST_JOINED = new ProjectContextEvent("ONLINE_GUEST_JOINED", "guestJoined");
+ProjectContextEvent.ONLINE_GUEST_LEFT = new ProjectContextEvent("ONLINE_GUEST_JOINED", "guestLeft");
 
 // User events - Interaction
 
-ProjectContextEvent.USER_POSITION_UPDATE = new ProjectContextEvent("USER_POSITION_UPDATE", "positionUpdate");
+ProjectContextEvent.ONLINE_MEMBER_POSITION_UPDATE = new ProjectContextEvent("ONLINE_MEMBER_POSITION_UPDATE", "positionUpdate");
 
 // Do not allow changes
 Object.freeze(ProjectContextEvent);

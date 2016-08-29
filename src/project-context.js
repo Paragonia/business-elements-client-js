@@ -89,12 +89,24 @@ export default class ProjectContext {
   }
 
   /**
-   * Provides the clusters of a context
+   * Provides the clusters of a context.
    * @param  {Object} options   The options object.
    */
   clusters(options = {}) {
     return this.tenant.execute(
       requests.getContextClusters(this.project.projectId, this.contextId),
+      options
+    );
+  }
+
+  /**
+   * Updates a user's position in a context.
+   * @param {Object} position   Cell position
+   * @param {Object} options    The options object.
+   */
+  positionUpdate(position, options = {}) {
+    return this.tenant.execute(
+      requests.updateContextPosition(this.project.projectId, this.contextId, position),
       options
     );
   }
