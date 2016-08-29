@@ -460,6 +460,14 @@ export function getContextClusters(projectId, contextId) {
   };
 }
 
+export function updateContextPosition(projectId, contextId, position) {
+  return {
+    method: "POST",
+    path: endpoint("projectContextPositions", projectId, contextId),
+    body: {position}
+  };
+}
+
 // Project teams
 export function createOrganizationProjectTeam(organizationId, projectId, teamId, permission) {
   if (!organizationId) {
