@@ -10,6 +10,7 @@ import UploadOptions from "./upload-options";
 import Invitation from "./invitation";
 import Exhibitions from "./exhibitions";
 import Resources from "./resources";
+import Concepts from "./concepts";
 import BeProxy from "./be-proxy";
 import endpoint from "./endpoint";
 
@@ -172,6 +173,15 @@ export default class Tenant {
    */
   resources() {
     return new Resources(this);
+  }
+
+  /**
+   * Provides access to concepts.
+   *
+   * @return {Concepts}
+   */
+  concepts() {
+    return new Concepts(this);
   }
 
   /**

@@ -36,6 +36,10 @@ const ENDPOINTS = {
   upload:                                     () => "/upload",
   download:                        (resourceUri) => `/download/${resourceUri}`,
 
+  // Concepts
+  concepts:                                  () => "/concepts",
+  concept:                          (conceptId) => `/concepts/${conceptId}`,
+
   // Resources
   resources:                                  () => "/resources",
   resource:                     (userResourceId) => `/resources/${userResourceId}`,

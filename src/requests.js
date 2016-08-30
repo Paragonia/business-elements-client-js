@@ -655,3 +655,20 @@ export function deleteExhibition(exhibitionId) {
     body: {}
   };
 }
+
+export function createConcept(handle, schema) {
+  if (!handle) {
+    throw new Error("A concept handle is required");
+  }
+  if (!schema) {
+    throw new Error("A concept schema object is required.");
+  }
+  return {
+    method: "POST",
+    path: endpoint("concepts"),
+    body: {
+      handle,
+      schema
+    }
+  };
+}
