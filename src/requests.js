@@ -704,3 +704,11 @@ export function searchInstances(projectId, conceptId) {
     }
   };
 }
+
+export function deleteInstance(projectId, instanceId) {
+  return {
+    method: "DELETE",
+    path: endpoint("instance", projectId, instanceId)
+  };
+}
+

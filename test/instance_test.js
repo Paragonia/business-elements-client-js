@@ -5,6 +5,7 @@ import chaiAsPromised from "chai-as-promised";
 import sinon from "sinon";
 import BusinessElementsClient from "../src";
 import uuid from "uuid";
+import * as requests from "../src/requests";
 
 chai.use(chaiAsPromised);
 chai.should();
@@ -47,6 +48,25 @@ describe("Instance", () => {
 
     it("should return concept data", () => {
       return instance.get().should.become(data);
+    });
+  });
+
+  /** @test {Instance#remove} */
+  describe("#remove()", () => {
+    const response = {status: "Ok"};
+    beforeEach(() => {
+      sandbox.stub(client, "execute").returns(Promise.resolve(response));
+      sandbox.spy(requests, "deleteInstance");
+    });
+
+    it("should delete the instance", () => {
+      instance.remove({});
+
+      sinon.assert.calledWithMatch(requests.deleteInstance, projectId, instanceId);
+    });
+
+    it("should return success", () => {
+      return instance.remove({}).should.eventually.become(response);
     });
   });
 

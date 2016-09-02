@@ -29,7 +29,7 @@ export default class Concept {
   }
 
   /**
-   * Retrieves resource.
+   * Retrieves concept.
    *
    * @param  {Object} options         The options object.
    * @return {Promise<Object, Error>}

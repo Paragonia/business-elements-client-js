@@ -1,6 +1,7 @@
 "use strict";
 
 import endpoint from "./endpoint";
+import * as requests from "../src/requests";
 
 /**
  * Abstract representation of a instance.
@@ -45,6 +46,20 @@ export default class Instance {
       {
         path: endpoint("instance", this.projectId, this.instanceId)
       },
+      options
+    );
+  }
+
+
+  /**
+   * Delete instance
+   *
+   * @param  {Object} options         The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  remove(options = {}) {
+    return this.tenant.execute(
+      requests.deleteInstance(this.projectId, this.instanceId),
       options
     );
   }
