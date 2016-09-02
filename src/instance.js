@@ -1,7 +1,7 @@
 "use strict";
 
 import endpoint from "./endpoint";
-import * as requests from "../src/requests";
+import * as requests from "./requests";
 
 /**
  * Abstract representation of a instance.
