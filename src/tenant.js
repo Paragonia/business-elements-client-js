@@ -12,6 +12,7 @@ import Exhibitions from "./exhibitions";
 import Resources from "./resources";
 import Concepts from "./concepts";
 import BeProxy from "./be-proxy";
+import Applications from "./applications";
 import endpoint from "./endpoint";
 
 /**
@@ -189,5 +190,9 @@ export default class Tenant {
    */
   beProxy() {
     return new BeProxy(this);
+  }
+
+  applications() {
+    return new Applications(this);
   }
 }

@@ -105,7 +105,13 @@ const ENDPOINTS = {
   exhibition:                     (exhibitionId) => `/exhibitions/${exhibitionId}`,
 
   // Proxy
-  proxyEmbeddable:                                  (url) => `/proxy/embeddable/${url}`
+  proxyEmbeddable:                         (url) => `/proxy/embeddable/${url}`,
+
+  //Applications
+  applications:                                                   () => "/applications",
+  application:                                   (applicationHandle) => `/applications/${applicationHandle}`,
+  applicationConfig:               (applicationHandle, configHandle) => `/applications/${applicationHandle}/configs/${configHandle}`,
+  applicationLocalization:   (applicationHandle, localizationHandle) => `/applications/${applicationHandle}/localizations/${localizationHandle}`
 
 };
 
