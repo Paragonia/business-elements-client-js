@@ -49,7 +49,7 @@ export default class Application {
    * @param  {Object} options         The options object.
    * @return {Promise<Object, Error>}
    */
-  getConfig(options = {}, configHandle) {
+  getConfig(configHandle, options = {}) {
     return this.tenant.execute(
       {
         path: endpoint("applicationConfig", this.applicationHandle, configHandle)
@@ -64,7 +64,7 @@ export default class Application {
    * @param  {Object} options         The options object.
    * @return {Promise<Object, Error>}
    */
-  getLocalization(options = {}, localizationHandle) {
+  getLocalization(localizationHandle, options = {}) {
     return this.tenant.execute(
       {
         path: endpoint("applicationLocalization", this.applicationHandle, localizationHandle)
