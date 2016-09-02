@@ -672,3 +672,35 @@ export function createConcept(handle, schema) {
     }
   };
 }
+
+//Instances
+export function createInstance(projectId, concept, properties) {
+  if (!concept) {
+    throw new Error("A concept handle is required");
+  }
+  return {
+    method: "POST",
+    path: endpoint("instances", projectId),
+    body: {
+      concept,
+      properties
+    }
+  };
+}
+
+export function searchInstances(projectId, conceptId) {
+  if (!projectId) {
+    throw new Error("A projectId is required");
+  }
+  if (!conceptId) {
+    throw new Error("A conceptId is required");
+  }
+  return {
+    method: "POST",
+    path: endpoint("searchInstances"),
+    body: {
+      projectId,
+      conceptId
+    }
+  };
+}
