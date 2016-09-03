@@ -70,4 +70,25 @@ describe("Instance", () => {
     });
   });
 
+  /** @test {Instance#update} */
+  describe("#update()", () => {
+    const response = {status: "Ok"};
+    const updateOperations = [{"op": "add"}, {"op": "remove"}];
+
+    beforeEach(() => {
+      sandbox.stub(client, "execute").returns(Promise.resolve(response));
+      sandbox.spy(requests, "updateInstance");
+    });
+
+    it("should update the instance", () => {
+      instance.update(updateOperations, {});
+
+      sinon.assert.calledWithMatch(requests.updateInstance, projectId, instanceId, updateOperations);
+    });
+
+    it("should return success", () => {
+      return instance.update({}).should.eventually.become(response);
+    });
+  });
+
 });

@@ -63,4 +63,18 @@ export default class Instance {
       options
     );
   }
+
+  /**
+   * Update the instance
+   *
+   * @param  {Object} updateOperations  the update-operations to perform on the instance
+   * @param  {Object} options           The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  update(updateOperations, options = {}) {
+    return this.tenant.execute(
+      requests.updateInstance(this.projectId, this.instanceId, updateOperations),
+      options
+    );
+  }
 }

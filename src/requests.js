@@ -712,3 +712,13 @@ export function deleteInstance(projectId, instanceId) {
   };
 }
 
+export function updateInstance(projectId, instanceId, operation) {
+  return {
+    method: "PATCH",
+    path: endpoint("instance", projectId, instanceId),
+    body: {
+      operation,
+    }
+  };
+}
+
