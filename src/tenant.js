@@ -207,6 +207,10 @@ export default class Tenant {
    */
 
   getDownloadUri(resourceUri, qualifier = null) {
-    return this.client.remote + endpoint("download", resourceUri) + (qualifier ? `?qualifier=${qualifier}` : "") + `?Tenant=${this.domainName}`;
+    if (qualifier) {
+      return this.client.remote + endpoint("download", resourceUri) + `?qualifier=${qualifier}` + `&Tenant=${this.domainName}`;
+    } else {
+      return this.client.remote + endpoint("download", resourceUri) + `?Tenant=${this.domainName}`;
+    }
   }
 }
