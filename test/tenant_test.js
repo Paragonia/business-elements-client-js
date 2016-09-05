@@ -68,7 +68,7 @@ describe("Tenant", () => {
       const resourceUri = "resource:image/jpeg,user-7f73ba30-1666-4afd-bb75-44a6f263dc08";
       const qualifier = "thumbnail";
       const downloadUri = tenant.getDownloadUri(resourceUri, qualifier);
-      downloadUri.should.equal(`http://api.fake-server/download/${resourceUri}?qualifier=${qualifier}?Tenant=example.com`);
+      downloadUri.should.equal(`http://api.fake-server/download/${resourceUri}?qualifier=${qualifier}&Tenant=example.com`);
     });
   });
 });
