@@ -195,4 +195,18 @@ export default class Tenant {
   applications() {
     return new Applications(this);
   }
+
+  /**
+   * Get the download uri for the specified resource.
+   *
+   * Relies on session cookies for authentication and authorization.
+   *
+   * @param  {String}     resourceUri  The resource uri.
+   * @param  {String}     qualifier    Optional qualifier.
+   * @return {String} Download uri.
+   */
+
+  getDownloadUri(resourceUri, qualifier = null) {
+    return this.client.remote + endpoint("download", resourceUri) + (qualifier ? `?qualifier=${qualifier}` : "") + `?Tenant=${this.domainName}`;
+  }
 }
