@@ -674,7 +674,7 @@ export function createConcept(handle, schema) {
 }
 
 //Instances
-export function createInstance(projectId, concept, properties) {
+export function createInstance(projectId, concept, properties, relations) {
   if (!concept) {
     throw new Error("A concept handle is required");
   }
@@ -683,7 +683,8 @@ export function createInstance(projectId, concept, properties) {
     path: endpoint("instances", projectId),
     body: {
       concept,
-      properties
+      properties,
+      relations
     }
   };
 }
@@ -712,12 +713,13 @@ export function deleteInstance(projectId, instanceId) {
   };
 }
 
-export function updateInstance(projectId, instanceId, operation) {
+export function updateInstance(projectId, instanceId, operations, relations) {
   return {
     method: "PATCH",
     path: endpoint("instance", projectId, instanceId),
     body: {
-      operation,
+      operations,
+      relations
     }
   };
 }

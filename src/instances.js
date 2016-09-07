@@ -63,13 +63,14 @@ export default class Instances {
    *
    * @param  {String} conceptHandle  The handle of the concept.
    * @param  {Array}  properties     The array containing attribute-handle, path and value
+   * @param  {Array}  relations      The array of concept-handles on which instance has relations with
    *
    * @param  {Object} options        The options object.
    * @return {Promise<Object, Error>}
    */
-  create(conceptHandle, properties, options = {}) {
+  create(conceptHandle, properties, relations, options = {}) {
     return this.tenant.execute(
-      requests.createInstance(this.projectId, conceptHandle, properties),
+      requests.createInstance(this.projectId, conceptHandle, properties, relations),
       options
     );
   }
