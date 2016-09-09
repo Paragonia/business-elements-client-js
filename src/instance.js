@@ -68,12 +68,13 @@ export default class Instance {
    * Update the instance
    *
    * @param  {Object} updateOperations  the update-operations to perform on the instance
+   * @param  {Array}  relations         an array of concept-handles on which instance has relations with
    * @param  {Object} options           The options object.
    * @returns {Promise.<Object, Error>}
    */
-  update(updateOperations, options = {}) {
+  update(updateOperations, instanceCategories, options = {}) {
     return this.tenant.execute(
-      requests.updateInstance(this.projectId, this.instanceId, updateOperations),
+      requests.updateInstance(this.projectId, this.instanceId, updateOperations, instanceCategories),
       options
     );
   }

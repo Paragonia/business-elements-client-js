@@ -71,10 +71,11 @@ describe("Instances", () => {
 
     const conceptHandle = "conceptHandle";
     const properties = [{"title": "My instance"}, {"age": "19"}];
+    const relations = ["concept-handle-1", "concept-handle-2"];
 
     it("should execute request", () => {
-      instances.create(conceptHandle, properties);
-      sinon.assert.calledWithMatch(requests.createInstance, projectId, conceptHandle, properties);
+      instances.create(conceptHandle, properties, relations);
+      sinon.assert.calledWithMatch(requests.createInstance, projectId, conceptHandle, properties, relations);
     });
 
   });

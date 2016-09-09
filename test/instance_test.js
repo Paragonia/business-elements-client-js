@@ -74,6 +74,7 @@ describe("Instance", () => {
   describe("#update()", () => {
     const response = {status: "Ok"};
     const updateOperations = [{"op": "add"}, {"op": "remove"}];
+    const relations = ["concept-handle-1", "concept-handle-2"];
 
     beforeEach(() => {
       sandbox.stub(client, "execute").returns(Promise.resolve(response));
@@ -81,9 +82,9 @@ describe("Instance", () => {
     });
 
     it("should update the instance", () => {
-      instance.update(updateOperations, {});
+      instance.update(updateOperations, relations, {});
 
-      sinon.assert.calledWithMatch(requests.updateInstance, projectId, instanceId, updateOperations);
+      sinon.assert.calledWithMatch(requests.updateInstance, projectId, instanceId, updateOperations, relations);
     });
 
     it("should return success", () => {
