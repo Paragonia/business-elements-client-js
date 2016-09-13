@@ -131,6 +131,14 @@ export function updateMyDisplayName(name) {
   };
 }
 
+export function updateMyBiography(biography) {
+  return {
+    method: "PUT",
+    path: endpoint("myBiography"),
+    body: {biography}
+  };
+}
+
 export function updateMyAvatarImage(pictureUri) {
   return {
     method: "PUT",

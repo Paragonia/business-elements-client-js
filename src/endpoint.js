@@ -28,6 +28,7 @@ const ENDPOINTS = {
   userActivationRequest:                      () => "/users/activation_request",
   me:                                         () => "/users/me",
   myDisplayName:                              () => "/users/me/name",
+  myBiography:                                () => "/users/me/biography",
   myAvatarImage:                              () => "/users/me/pictureUri",
   checkRegistrationStatus:                    () => "/users/registration_check",
 

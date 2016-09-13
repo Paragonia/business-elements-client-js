@@ -43,6 +43,17 @@ export default class Me {
   }
 
   /**
+   * Update display biography
+   *
+   * @param {String} biography             The updated display biography
+   * @param  {Object} options         The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  updateBiography(biography, options = {}) {
+    return this.tenant.execute(requests.updateMyBiography(biography), options);
+  }
+
+  /**
    * Update avatar picture
    *
    * @param {String} pictureUri       The updated avatar pictureUri
