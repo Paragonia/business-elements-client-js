@@ -656,6 +656,26 @@ export function changeExhibitionVisibility(exhibitionId, visibility) {
   };
 }
 
+export function changeExhibitionDescription(exhibitionId, description) {
+  return {
+    method: "PUT",
+    path: endpoint("exhibitionDescription", exhibitionId),
+    body: {
+      description
+    }
+  };
+}
+
+export function changeExhibitionPicture(exhibitionId, pictureUri) {
+  return {
+    method: "PUT",
+    path: endpoint("exhibitionPicture", exhibitionId),
+    body: {
+      pictureUri
+    }
+  };
+}
+
 export function deleteExhibition(exhibitionId) {
   return {
     method: "DELETE",

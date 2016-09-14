@@ -38,7 +38,7 @@ describe("Instance", () => {
       sandbox.stub(client, "execute").returns(Promise.resolve(data));
     });
 
-    it("should get concept", () => {
+    it("should get instance", () => {
       instance.get();
 
       sinon.assert.calledWithMatch(client.execute, {
@@ -46,7 +46,7 @@ describe("Instance", () => {
       });
     });
 
-    it("should return concept data", () => {
+    it("should return instance data", () => {
       return instance.get().should.become(data);
     });
   });

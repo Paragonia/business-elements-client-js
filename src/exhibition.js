@@ -47,8 +47,8 @@ export default class Exhibition {
   /**
    * Updates the value with the specified properties.
    *
-   * @param  {String}  exhibitionId        The exhibition id.
-   * @param {String} visibility    The exhibition visibility
+   * @param  {String} exhibitionId  The exhibition id.
+   * @param {String} visibility     The exhibition visibility
    * @param  {Object} options       The options object.
    * @return {Promise<Object, Error>}
    */
@@ -56,6 +56,38 @@ export default class Exhibition {
   {
     return this.tenant.execute(
       requests.changeExhibitionVisibility(this.exhibitionId, visibility),
+      options
+    );
+  }
+
+  /**
+   * Updates the description of the exhibition.
+   *
+   * @param {String} exhibitionId   The exhibition id.
+   * @param {String} description    The exhibition description.
+   * @param  {Object} options       The options object.
+   * @return {Promise<Object, Error>}
+   */
+  changeExhibitionDescription(description, options = {})
+  {
+    return this.tenant.execute(
+      requests.changeExhibitionDescription(this.exhibitionId, description),
+      options
+    );
+  }
+
+  /**
+   * Updates the value with the specified properties.
+   *
+   * @param  {String} exhibitionId  The exhibition id.
+   * @param {String} pictureUri     The exhibition picture.
+   * @param  {Object} options       The options object.
+   * @return {Promise<Object, Error>}
+   */
+  changeExhibitionPicture(pictureUri, options = {})
+  {
+    return this.tenant.execute(
+      requests.changeExhibitionPicture(this.exhibitionId, pictureUri),
       options
     );
   }
