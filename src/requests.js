@@ -649,7 +649,7 @@ export function createExhibition(projectId, name) {
 export function changeExhibitionVisibility(exhibitionId, visibility) {
   return {
     method: "PUT",
-    path: endpoint("exhibition", exhibitionId),
+    path: endpoint("exhibitionVisibility", exhibitionId),
     body: {
       visibility
     }

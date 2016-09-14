@@ -43,6 +43,25 @@ export default class Exhibitions {
   }
 
   /**
+   * Retrieves the list of exhibitions in the current tenant.
+   * @param  {Object} options         The options object.
+   * @return {Promise<Array<Object>, Error>}
+   */
+  listPublic(options = {}) {
+    return this.tenant.execute({path: endpoint("publicExhibitions")}, options)
+      .then((response) => {
+        const embedded = response["_embedded"];
+        if (embedded) {
+          const exhibitions = embedded["be:exhibition"];
+          if (exhibitions) {
+            return exhibitions;
+          }
+        }
+        return [];
+      });
+  }
+
+  /**
    * Retrieve a value object to perform operations on it.
    *
    * @param  {String} id              The id of the value.

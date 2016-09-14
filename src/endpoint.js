@@ -108,7 +108,9 @@ const ENDPOINTS = {
 
   // Exhibitions
   exhibitions:                                () => "/exhibitions",
+  publicExhibitions:                          () => "/exhibitions/public",
   exhibition:                     (exhibitionId) => `/exhibitions/${exhibitionId}`,
+  exhibitionVisibility:           (exhibitionId) => `/exhibitions/${exhibitionId}/visibility`,
 
   // Proxy
   proxyEmbeddable:                         (url) => `/proxy/embeddable/${url}`,
