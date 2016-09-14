@@ -98,10 +98,12 @@ describe("Exhibitions", () => {
     });
 
     const name = "exhibition name";
+    const description = "description";
+    const pictureUri = "pictureUri";
 
     it("should execute request", () => {
-      exhibitions.create(projectId, name, {});
-      sinon.assert.calledWithMatch(requests.createExhibition, projectId, name);
+      exhibitions.create(projectId, name, description, pictureUri, {});
+      sinon.assert.calledWithMatch(requests.createExhibition, projectId, name, description, pictureUri);
     });
 
   });

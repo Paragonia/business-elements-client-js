@@ -635,13 +635,15 @@ export function deleteValueCell(valueId, cellId) {
 }
 
 // Exhibition
-export function createExhibition(projectId, name) {
+export function createExhibition(projectId, name, description, pictureUri) {
   return {
     method: "POST",
     path: endpoint("exhibitions"),
     body: {
       projectId,
-      name
+      name,
+      description,
+      pictureUri
     }
   };
 }

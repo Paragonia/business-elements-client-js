@@ -74,15 +74,17 @@ export default class Exhibitions {
   /**
    * Creates the value with the specified properties.
    *
-   * @param  {String}  projectId        The project id.
-   * @param {Object} name    The name of the exhibition
-   * @param  {Object} options       The options object.
+   * @param  {String}  projectId  The project id.
+   * @param {Object} name         The name of the exhibition
+   * @param {Object} description  The description of the exhibition
+   * @param {Object} pictureUri   The pictureUri of the exhibition
+   * @param  {Object} options     The options object.
    * @return {Promise<Object, Error>}
    */
-  create(projectId, name, options = {})
+  create(projectId, name, description, pictureUri, options = {})
   {
     return this.tenant.execute(
-      requests.createExhibition(projectId, name),
+      requests.createExhibition(projectId, name, description, pictureUri),
       options
     );
   }
