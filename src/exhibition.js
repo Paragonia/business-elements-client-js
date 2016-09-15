@@ -52,8 +52,7 @@ export default class Exhibition {
    * @param  {Object} options       The options object.
    * @return {Promise<Object, Error>}
    */
-  changeExhibitionVisibility(visibility, options = {})
-  {
+  changeExhibitionVisibility(visibility, options = {}) {
     return this.tenant.execute(
       requests.changeExhibitionVisibility(this.exhibitionId, visibility),
       options
@@ -105,6 +104,26 @@ export default class Exhibition {
     );
   }
 
+  /**
+   * Retrieves exhibition instances.
+   *
+   * @param  {Object} options         The options object.
+   * @return {Promise<Object, Error>}
+   */
+  getPublishedInstances(options = {}) {
+    return this.tenant.execute(
+      {
+        path: endpoint("exhibitionInstances", this.exhibitionId)
+      },
+      options
+    ).then((response) => {
+      if (response["_embedded"]) {
+        return response["_embedded"]["be:instance"];
+      } else {
+        return [];
+      }
+    });
+  }
 }
 
 
