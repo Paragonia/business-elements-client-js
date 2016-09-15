@@ -179,7 +179,7 @@ export default class BusinessElementsClientBase {
     const locationPromise = this.authenticationToken ? this.locationService.currentLocation : Promise.resolve(null);
 
     const responsePromise = locationPromise.then(location => {
-      const locationHeaders = (location !== null && typeof location === 'object') ? {'BE-Geolocation': `(${location.latitude}, ${location.longitude})`} : {};
+      const locationHeaders = (location !== null && typeof location === "object") ? {"BE-Geolocation": `(${location.latitude}, ${location.longitude})`} : {};
 
       const completeRequest = {
         ...request,
@@ -243,8 +243,8 @@ export default class BusinessElementsClientBase {
   checkAuthenticationToken(authenticationToken, options = {}) {
     return this
       .execute({
-          path: endpoint("currentAuthentication")
-        },
+        path: endpoint("currentAuthentication")
+      },
         optionUtils.join({"Authentication-Token": authenticationToken}, options)
       )
       .then(() => {
