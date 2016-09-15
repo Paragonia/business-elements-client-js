@@ -123,6 +123,7 @@ export default class Exhibition {
   /**
    * Retrieves exhibition instances.
    *
+   * @param  {String} instanceId      The instance id.
    * @param  {Object} options         The options object.
    * @return {Promise<Object, Error>}
    */
@@ -134,7 +135,9 @@ export default class Exhibition {
       options
     ).then((response) => {
       if (response["_embedded"]) {
-        return response["_embedded"]["be:instance"];
+        return response["_embedded"]["be:instance"].forEach((instance) => {
+          instance.users = response["_embedded"]["be:user"];
+        });
       } else {
         return [];
       }
@@ -153,7 +156,10 @@ export default class Exhibition {
         path: endpoint("exhibitionInstance", this.exhibitionId, instanceId)
       },
       options
-    )
+    ).then((response) => {
+      response.users = response["_embedded"]["be:user"];
+      return response;
+    });
   }
 }
 
