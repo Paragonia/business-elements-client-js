@@ -67,8 +67,7 @@ export default class Exhibition {
    * @param  {Object} options       The options object.
    * @return {Promise<Object, Error>}
    */
-  changeExhibitionDescription(description, options = {})
-  {
+  changeExhibitionDescription(description, options = {}) {
     return this.tenant.execute(
       requests.changeExhibitionDescription(this.exhibitionId, description),
       options
@@ -83,8 +82,7 @@ export default class Exhibition {
    * @param  {Object} options       The options object.
    * @return {Promise<Object, Error>}
    */
-  changeExhibitionPicture(pictureUri, options = {})
-  {
+  changeExhibitionPicture(pictureUri, options = {}) {
     return this.tenant.execute(
       requests.changeExhibitionPicture(this.exhibitionId, pictureUri),
       options
@@ -123,6 +121,21 @@ export default class Exhibition {
         return [];
       }
     });
+  }
+
+  /**
+   * Retrieves exhibition instances.
+   *
+   * @param  {Object} options         The options object.
+   * @return {Promise<Object, Error>}
+   */
+  getPublishedInstance(instanceId, options = {}) {
+    return this.tenant.execute(
+      {
+        path: endpoint("exhibitionInstance", this.exhibitionId, instanceId)
+      },
+      options
+    )
   }
 }
 
