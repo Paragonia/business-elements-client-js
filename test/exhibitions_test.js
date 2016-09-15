@@ -69,7 +69,7 @@ describe("Exhibitions", () => {
     const data = [{id: "a"}, {id: "b"}];
     const actual = {
       "_embedded" : {
-        "be:exhibition" : data
+        "be:exhibition_instances" : data
       }
     };
 
