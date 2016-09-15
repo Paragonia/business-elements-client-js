@@ -6,6 +6,8 @@ import * as requests from "./requests";
 import * as optionUtils from "./options";
 import Tenant from "./tenant";
 
+import LocationService from "./location";
+
 /**
  * HTTP client for the Business Elements API.
  *
@@ -22,7 +24,7 @@ export default class BusinessElementsClientBase {
    * @param  {Object}  options.headers     The key-value headers to pass to each request (default: `{}`).
    * @param  {String}  options.requestMode The HTTP request mode (from ES6 fetch spec).
    */
-  constructor(remote, options={}) {
+  constructor(remote, options = {}) {
 
     this.remote = remote;
 
@@ -62,6 +64,8 @@ export default class BusinessElementsClientBase {
      * @type {HTTP}
      */
     this.http = new HTTP({requestMode: options.requestMode});
+
+    this.locationService = new LocationService();
   }
 
   /**
@@ -98,9 +102,9 @@ export default class BusinessElementsClientBase {
    * @return   {Object}
    * @property {Object} headers The extended headers object option.
    */
-  getRequestOptions(options={}) {
+  getRequestOptions(options = {}) {
 
-    const authenticationTokenHeaders = this.authenticationToken ? { "Authentication-Token": this.authenticationToken } : {};
+    const authenticationTokenHeaders = this.authenticationToken ? {"Authentication-Token": this.authenticationToken} : {};
 
     return {
       ...this.defaultReqOptions,
@@ -172,19 +176,26 @@ export default class BusinessElementsClientBase {
 
     const requestOptions = this.getRequestOptions(options);
 
-    const completeRequest = {
-      ...request,
-      body: JSON.stringify(request.body),
-      ...requestOptions,
-      headers: {
-        ...request.headers,
-        ...requestOptions.headers
-      }
-    };
+    const locationPromise = this.authenticationToken ? this.locationService.currentLocation : Promise.resolve(null);
 
-    const promise = this.http.request(`${this.remote}${completeRequest.path}`, completeRequest);
+    const responsePromise = locationPromise.then(location => {
+      const locationHeaders = (location !== null && typeof location === 'object') ? {'BE-Geolocation': `(${location.latitude}, ${location.longitude})`} : {};
 
-    return raw ? promise : promise.then(({json}) => json);
+      const completeRequest = {
+        ...request,
+        body: JSON.stringify(request.body),
+        ...requestOptions,
+        headers: {
+          ...request.headers,
+          ...requestOptions.headers,
+          ...locationHeaders
+        }
+      };
+
+      return this.http.request(`${this.remote}${completeRequest.path}`, completeRequest);
+    });
+
+    return raw ? responsePromise : responsePromise.then(({json}) => json);
   }
 
   /**
@@ -197,7 +208,7 @@ export default class BusinessElementsClientBase {
    * @param  {Object}   options         The options object.
    * @return {Promise<String, Error>} With the authentication token.
    */
-  login(emailAddress, password, options={}) {
+  login(emailAddress, password, options = {}) {
     return this.execute(requests.login(emailAddress, password), options, true)
       .then((response) => {
         this.authenticationToken = response.headers.get("Authentication-Token");
@@ -213,7 +224,7 @@ export default class BusinessElementsClientBase {
    * @param  {Object}   options         The options object.
    * @return {Promise<undefined, Error>}
    */
-  logout(options={}) {
+  logout(options = {}) {
     return this.execute(requests.logout(), options)
       .then(() => {
         this.authenticationToken = undefined;
@@ -229,12 +240,12 @@ export default class BusinessElementsClientBase {
    * @param  {Object} options             The options object.
    * @return {Promise<Object[], Error>}
    */
-  checkAuthenticationToken(authenticationToken, options={}) {
+  checkAuthenticationToken(authenticationToken, options = {}) {
     return this
       .execute({
-        path: endpoint("currentAuthentication")
-      },
-        optionUtils.join({ "Authentication-Token": authenticationToken }, options)
+          path: endpoint("currentAuthentication")
+        },
+        optionUtils.join({"Authentication-Token": authenticationToken}, options)
       )
       .then(() => {
         this.authenticationToken = authenticationToken;
