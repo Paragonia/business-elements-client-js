@@ -113,6 +113,7 @@ const ENDPOINTS = {
   exhibitionVisibility:           (exhibitionId) => `/exhibitions/${exhibitionId}/visibility`,
   exhibitionInstances:            (exhibitionId) => `/exhibitions/${exhibitionId}/published/instances`,
   exhibitionInstance: (exhibitionId, instanceId) => `/exhibitions/${exhibitionId}/published/instances/${instanceId}`,
+  exhibitionClusters:             (exhibitionId) => `/exhibitions/${exhibitionId}/published/clusters`,
   exhibitionDescription:          (exhibitionId) => `/exhibitions/${exhibitionId}/description`,
   exhibitionPicture:              (exhibitionId) => `/exhibitions/${exhibitionId}/pictureUri`,
 

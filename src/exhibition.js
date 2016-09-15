@@ -47,7 +47,6 @@ export default class Exhibition {
   /**
    * Updates the value with the specified properties.
    *
-   * @param  {String} exhibitionId  The exhibition id.
    * @param {String} visibility     The exhibition visibility
    * @param  {Object} options       The options object.
    * @return {Promise<Object, Error>}
@@ -62,7 +61,6 @@ export default class Exhibition {
   /**
    * Updates the description of the exhibition.
    *
-   * @param {String} exhibitionId   The exhibition id.
    * @param {String} description    The exhibition description.
    * @param  {Object} options       The options object.
    * @return {Promise<Object, Error>}
@@ -77,7 +75,6 @@ export default class Exhibition {
   /**
    * Updates the value with the specified properties.
    *
-   * @param  {String} exhibitionId  The exhibition id.
    * @param {String} pictureUri     The exhibition picture.
    * @param  {Object} options       The options object.
    * @return {Promise<Object, Error>}
@@ -103,6 +100,27 @@ export default class Exhibition {
   }
 
   /**
+   * Retrieves exhibition clusters.
+   *
+   * @param  {Object} options         The options object.
+   * @return {Promise<Object, Error>}
+   */
+  getPublishedClusters(options = {}) {
+    return this.tenant.execute(
+        {
+          path: endpoint("exhibitionClusters", this.exhibitionId)
+        },
+        options
+    ).then((response) => {
+          if (response) {
+            return response;
+          } else {
+            return {};
+          }
+        });
+  }
+
+  /**
    * Retrieves exhibition instances.
    *
    * @param  {Object} options         The options object.
@@ -125,7 +143,7 @@ export default class Exhibition {
 
   /**
    * Retrieves exhibition instances.
-   *
+   * @param  {String} instanceId      The id of the instance.
    * @param  {Object} options         The options object.
    * @return {Promise<Object, Error>}
    */
