@@ -107,15 +107,16 @@ const ENDPOINTS = {
   teamMember:          (orgId, teamId, memberId) => `/organizations/${orgId}/teams/${teamId}/members/${memberId}`,
 
   // Exhibitions
-  exhibitions:                                () => "/exhibitions",
-  publicExhibitions:                          () => "/exhibitions/public",
-  exhibition:                     (exhibitionId) => `/exhibitions/${exhibitionId}`,
-  exhibitionVisibility:           (exhibitionId) => `/exhibitions/${exhibitionId}/visibility`,
-  exhibitionInstances:            (exhibitionId) => `/exhibitions/${exhibitionId}/published/instances`,
-  exhibitionInstance: (exhibitionId, instanceId) => `/exhibitions/${exhibitionId}/published/instances/${instanceId}`,
-  exhibitionClusters:             (exhibitionId) => `/exhibitions/${exhibitionId}/published/clusters`,
-  exhibitionDescription:          (exhibitionId) => `/exhibitions/${exhibitionId}/description`,
-  exhibitionPicture:              (exhibitionId) => `/exhibitions/${exhibitionId}/pictureUri`,
+  exhibitions:                                  () => "/exhibitions",
+  publicExhibitions:                            () => "/exhibitions/public",
+  exhibition:                       (exhibitionId) => `/exhibitions/${exhibitionId}`,
+  exhibitionVisibility:             (exhibitionId) => `/exhibitions/${exhibitionId}/visibility`,
+  exhibitionDescription:            (exhibitionId) => `/exhibitions/${exhibitionId}/description`,
+  exhibitionPicture:                (exhibitionId) => `/exhibitions/${exhibitionId}/pictureUri`,
+  exhibitionInstances:              (exhibitionId) => `/exhibitions/${exhibitionId}/published/instances`,
+  exhibitionInstance:   (exhibitionId, instanceId) => `/exhibitions/${exhibitionId}/published/instances/${instanceId}`,
+  exhibitionClusters:               (exhibitionId) => `/exhibitions/${exhibitionId}/published/clusters`,
+  exhibitionCluster: (exhibitionId, clusterHeadId) => `/exhibitions/${exhibitionId}/published/clusters/${clusterHeadId}`,
 
   // Proxy
   proxyEmbeddable:                         (url) => `/proxy/embeddable/${url}`,

@@ -103,15 +103,31 @@ export default class Exhibition {
       if (response) {
         return response;
       } else {
-        return {};
+        return [];
       }
     });
   }
 
   /**
+   * Retrieves exhibition cluster.
+   * @param  {String} clusterHeadId      The id of the cluster head.
+   * @param  {Object} options         The options object.
+   * @return {Promise<Object, Error>}
+   */
+  getPublishedCluster(clusterHeadId, options = {}) {
+    return this.tenant.execute(
+        {
+          path: endpoint("exhibitionCluster", this.exhibitionId, clusterHeadId)
+        },
+        options
+    ).then((response) => {
+          return response;
+        });
+  }
+
+  /**
    * Retrieves exhibition instances.
    *
-   * @param  {String} instanceId      The instance id.
    * @param  {Object} options         The options object.
    * @return {Promise<Object, Error>}
    */
