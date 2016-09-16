@@ -100,11 +100,14 @@ export default class Exhibition {
       },
       options
     ).then((response) => {
-      if (response) {
-        return response;
-      } else {
-        return [];
-      }
+          if (response["_embedded"]) {
+            response["_embedded"]["be:exhibition_clusters"].forEach((cluster) => {
+              cluster.users = response["_embedded"]["be:user"];
+            });
+            return response["_embedded"]["be:exhibition_clusters"];
+          } else {
+            return [];
+          }
     });
   }
 
@@ -121,6 +124,7 @@ export default class Exhibition {
       },
       options
     ).then((response) => {
+      response.users = response["_embedded"]["be:user"];
       return response;
     });
   }
