@@ -91,48 +91,27 @@ describe("Exhibition", () => {
     });
   });
 
-  /** @test {Exhibition#changeExhibitionVisibility} */
-  describe("#changeExhibitionDescription()", () => {
+  /** @test {Exhibition#update} */
+  describe("#update()", () => {
     const response = {status: "Ok"};
 
+    const name = "exhibition name";
     const description = "exhibition description";
+    const pictureUri = "exhibition pictureUri";
 
     beforeEach(() => {
       sandbox.stub(client, "execute").returns(Promise.resolve(response));
-      sandbox.spy(requests, "changeExhibitionDescription");
+      sandbox.spy(requests, "updateExhibition");
     });
 
-    it("should change description of the exhibition", () => {
-      exhibition.changeExhibitionDescription(description, {});
+    it("should update the exhibition", () => {
+      exhibition.update(name, description, pictureUri, {});
 
-      sinon.assert.calledWithMatch(requests.changeExhibitionDescription, exhibitionId, description);
-    });
-
-    it("should return success", () => {
-      return exhibition.changeExhibitionDescription(description, {}).should.eventually.become(response);
-    });
-  });
-
-  /** @test {Exhibition#changeExhibitionPicture} */
-  describe("#changeExhibitionDescription()", () => {
-    const response = {status: "Ok"};
-
-    const pictureUri = "picture uri";
-
-    beforeEach(() => {
-      sandbox.stub(client, "execute").returns(Promise.resolve(response));
-      sandbox.spy(requests, "changeExhibitionPicture");
-    });
-
-    it("should change picture-uri of the exhibition", () => {
-      exhibition.changeExhibitionPicture(pictureUri, {});
-
-      sinon.assert.calledWithMatch(requests.changeExhibitionPicture, exhibitionId, pictureUri);
+      sinon.assert.calledWithMatch(requests.updateExhibition, exhibitionId, name, description, pictureUri);
     });
 
     it("should return success", () => {
-      return exhibition.changeExhibitionPicture(pictureUri, {}).should.eventually.become(response);
+      return exhibition.update(name, description, pictureUri, {}).should.eventually.become(response);
     });
   });
-
 });

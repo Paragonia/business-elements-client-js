@@ -47,7 +47,6 @@ export default class Exhibition {
   /**
    * Updates the value with the specified properties.
    *
-   * @param  {String} exhibitionId  The exhibition id.
    * @param {String} visibility     The exhibition visibility
    * @param  {Object} options       The options object.
    * @return {Promise<Object, Error>}
@@ -62,31 +61,15 @@ export default class Exhibition {
   /**
    * Updates the description of the exhibition.
    *
-   * @param {String} exhibitionId   The exhibition id.
+   * @param {String} name           The exhibition name.
    * @param {String} description    The exhibition description.
-   * @param  {Object} options       The options object.
-   * @return {Promise<Object, Error>}
-   */
-  changeExhibitionDescription(description, options = {})
-  {
-    return this.tenant.execute(
-      requests.changeExhibitionDescription(this.exhibitionId, description),
-      options
-    );
-  }
-
-  /**
-   * Updates the value with the specified properties.
-   *
-   * @param  {String} exhibitionId  The exhibition id.
    * @param {String} pictureUri     The exhibition picture.
    * @param  {Object} options       The options object.
    * @return {Promise<Object, Error>}
    */
-  changeExhibitionPicture(pictureUri, options = {})
-  {
+  update(name, description, pictureUri, options = {}) {
     return this.tenant.execute(
-      requests.changeExhibitionPicture(this.exhibitionId, pictureUri),
+      requests.updateExhibition(this.exhibitionId, name, description, pictureUri),
       options
     );
   }
@@ -105,6 +88,44 @@ export default class Exhibition {
   }
 
   /**
+   * Retrieves exhibition clusters.
+   *
+   * @param  {Object} options         The options object.
+   * @return {Promise<Object, Error>}
+   */
+  getPublishedClusters(options = {}) {
+    return this.tenant.execute(
+      {
+        path: endpoint("exhibitionClusters", this.exhibitionId)
+      },
+      options
+    ).then((response) => {
+      if (response) {
+        return response;
+      } else {
+        return [];
+      }
+    });
+  }
+
+  /**
+   * Retrieves exhibition cluster.
+   * @param  {String} clusterHeadId      The id of the cluster head.
+   * @param  {Object} options         The options object.
+   * @return {Promise<Object, Error>}
+   */
+  getPublishedCluster(clusterHeadId, options = {}) {
+    return this.tenant.execute(
+      {
+        path: endpoint("exhibitionCluster", this.exhibitionId, clusterHeadId)
+      },
+      options
+    ).then((response) => {
+      return response;
+    });
+  }
+
+  /**
    * Retrieves exhibition instances.
    *
    * @param  {Object} options         The options object.
@@ -118,10 +139,31 @@ export default class Exhibition {
       options
     ).then((response) => {
       if (response["_embedded"]) {
+        response["_embedded"]["be:instance"].forEach((instance) => {
+          instance.users = response["_embedded"]["be:user"];
+        });
         return response["_embedded"]["be:instance"];
       } else {
         return [];
       }
+    });
+  }
+
+  /**
+   * Retrieves exhibition instances.
+   * @param  {String} instanceId      The id of the instance.
+   * @param  {Object} options         The options object.
+   * @return {Promise<Object, Error>}
+   */
+  getPublishedInstance(instanceId, options = {}) {
+    return this.tenant.execute(
+      {
+        path: endpoint("exhibitionInstance", this.exhibitionId, instanceId)
+      },
+      options
+    ).then((response) => {
+      response.users = response["_embedded"]["be:user"];
+      return response;
     });
   }
 }

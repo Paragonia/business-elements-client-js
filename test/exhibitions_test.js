@@ -17,8 +17,8 @@ const FAKE_SERVER_URL = "http://api.fake-server";
 
 /** @test {Exhibitions} */
 describe("Exhibitions", () => {
-  let sandbox, client, exhibitions, projectId;
-  projectId = uuid.v4();
+  let sandbox, client, exhibitions;
+  const projectId = uuid.v4();
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
