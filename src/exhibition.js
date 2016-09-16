@@ -116,13 +116,13 @@ export default class Exhibition {
    */
   getPublishedCluster(clusterHeadId, options = {}) {
     return this.tenant.execute(
-        {
-          path: endpoint("exhibitionCluster", this.exhibitionId, clusterHeadId)
-        },
-        options
+      {
+        path: endpoint("exhibitionCluster", this.exhibitionId, clusterHeadId)
+      },
+      options
     ).then((response) => {
-          return response;
-        });
+      return response;
+    });
   }
 
   /**
