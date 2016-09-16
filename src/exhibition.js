@@ -123,9 +123,10 @@ export default class Exhibition {
       options
     ).then((response) => {
       if (response["_embedded"]) {
-        return response["_embedded"]["be:instance"].forEach((instance) => {
+        response["_embedded"]["be:instance"].forEach((instance) => {
           instance.users = response["_embedded"]["be:user"];
         });
+        return response["_embedded"]["be:instance"];
       } else {
         return [];
       }
