@@ -61,27 +61,15 @@ export default class Exhibition {
   /**
    * Updates the description of the exhibition.
    *
+   * @param {String} name           The exhibition name.
    * @param {String} description    The exhibition description.
-   * @param  {Object} options       The options object.
-   * @return {Promise<Object, Error>}
-   */
-  changeExhibitionDescription(description, options = {}) {
-    return this.tenant.execute(
-      requests.changeExhibitionDescription(this.exhibitionId, description),
-      options
-    );
-  }
-
-  /**
-   * Updates the value with the specified properties.
-   *
    * @param {String} pictureUri     The exhibition picture.
    * @param  {Object} options       The options object.
    * @return {Promise<Object, Error>}
    */
-  changeExhibitionPicture(pictureUri, options = {}) {
+  update(name, description, pictureUri, options = {}) {
     return this.tenant.execute(
-      requests.changeExhibitionPicture(this.exhibitionId, pictureUri),
+      requests.updateExhibition(this.exhibitionId, name, description, pictureUri),
       options
     );
   }
@@ -107,17 +95,17 @@ export default class Exhibition {
    */
   getPublishedClusters(options = {}) {
     return this.tenant.execute(
-        {
-          path: endpoint("exhibitionClusters", this.exhibitionId)
-        },
-        options
+      {
+        path: endpoint("exhibitionClusters", this.exhibitionId)
+      },
+      options
     ).then((response) => {
-          if (response) {
-            return response;
-          } else {
-            return {};
-          }
-        });
+      if (response) {
+        return response;
+      } else {
+        return {};
+      }
+    });
   }
 
   /**

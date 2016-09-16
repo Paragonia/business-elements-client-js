@@ -658,21 +658,13 @@ export function changeExhibitionVisibility(exhibitionId, visibility) {
   };
 }
 
-export function changeExhibitionDescription(exhibitionId, description) {
+export function updateExhibition(exhibitionId, name, description, pictureUri) {
   return {
     method: "PUT",
-    path: endpoint("exhibitionDescription", exhibitionId),
+    path: endpoint("exhibition", exhibitionId),
     body: {
-      description
-    }
-  };
-}
-
-export function changeExhibitionPicture(exhibitionId, pictureUri) {
-  return {
-    method: "PUT",
-    path: endpoint("exhibitionPicture", exhibitionId),
-    body: {
+      name,
+      description,
       pictureUri
     }
   };
