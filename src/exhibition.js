@@ -99,17 +99,16 @@ export default class Exhibition {
         path: endpoint("exhibitionClusters", this.exhibitionId)
       },
       options
-    ).then((response) =>
-      {
-        if (response["_embedded"]) {
-          response["_embedded"]["be:exhibition_clusters"].forEach((cluster) => {
-            cluster.users = response["_embedded"]["be:user"];
-          });
-          return response["_embedded"]["be:exhibition_clusters"];
-        } else {
-          return [];
-        }
-      });
+    ).then((response) => {
+      if (response["_embedded"]) {
+        response["_embedded"]["be:exhibition_clusters"].forEach((cluster) => {
+          cluster.users = response["_embedded"]["be:user"];
+        });
+        return response["_embedded"]["be:exhibition_clusters"];
+      } else {
+        return [];
+      }
+    });
   }
 
   /**
