@@ -31,6 +31,7 @@ const ENDPOINTS = {
   myBiography:                                () => "/users/me/biography",
   myAvatarImage:                              () => "/users/me/pictureUri",
   checkRegistrationStatus:                    () => "/users/registration_check",
+  userInvitationRequest:                      () => "/users/invitation_request",
 
   // Upload
 

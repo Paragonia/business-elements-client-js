@@ -53,6 +53,17 @@ export default class Users {
   }
 
   /**
+   * Request for invitation for the user with the specified email.
+   *
+   * @param  {String}   emailAddress     The email address of the user.
+   * @param  {Object}   [options]        The options object.
+   * @return {Promise<Object, Error>}
+   */
+  requestInvitation(emailAddress, options = {}) {
+    return this.tenant.execute(requests.requestInvitation(emailAddress), options);
+  }
+
+  /**
    * Activates the specified user.
    *
    * @param  {String}   userId           Id of the user to activate.
