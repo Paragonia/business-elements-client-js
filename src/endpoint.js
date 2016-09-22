@@ -107,8 +107,8 @@ const ENDPOINTS = {
   teamMember:          (orgId, teamId, memberId) => `/organizations/${orgId}/teams/${teamId}/members/${memberId}`,
 
   // Exhibitions
-  exhibitions:                                  () => "/exhibitions",
-  publicExhibitions:                            () => "/exhibitions/public",
+  exhibitions:                                  () => `/exhibitions`,
+  publicExhibitions:                            () => `/exhibitions/public`,
   exhibition:                       (exhibitionId) => `/exhibitions/${exhibitionId}`,
   exhibitionVisibility:             (exhibitionId) => `/exhibitions/${exhibitionId}/visibility`,
   exhibitionDescription:            (exhibitionId) => `/exhibitions/${exhibitionId}/description`,

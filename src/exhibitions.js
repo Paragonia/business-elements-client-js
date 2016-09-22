@@ -52,7 +52,7 @@ export default class Exhibitions {
       .then((response) => {
         const embedded = response["_embedded"];
         if (embedded) {
-          const exhibitions = embedded["be:exhibition_instances"];
+          const exhibitions = embedded["be:public_exhibitions"];
           if (exhibitions) {
             return exhibitions;
           }
