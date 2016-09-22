@@ -49,7 +49,15 @@ export default class Users {
    * @return {Promise<Object, Error>}
    */
   create(emailAddress, password, options = {}) {
-    return this.tenant.execute(requests.createUser(emailAddress, password), options);
+    return this.tenant.execute(requests.createUser(emailAddress, password), options, true)
+      .then((response) => {
+        let authenticationToken = response.headers.get("Authentication-Token");
+        if (authenticationToken) {
+          this.tenant.client.authenticationToken = authenticationToken;
+          response.json.authenticationToken = authenticationToken;
+        }
+        return response.json;
+      });
   }
 
   /**
