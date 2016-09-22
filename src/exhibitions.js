@@ -43,7 +43,7 @@ export default class Exhibitions {
   }
 
   /**
-   * Retrieves the list of exhibitions in the current tenant.
+   * Retrieves the list of public exhibitions in the current tenant.
    * @param  {Object} options         The options object.
    * @return {Promise<Array<Object>, Error>}
    */
