@@ -34,7 +34,7 @@ export default class Invitation {
   acceptTeamMemberInvitation(invitationId, emailAddress, password, options = {}) {
     return this.tenant.execute(requests.acceptTeamMemberInvitation(invitationId, emailAddress, password), options, true)
       .then((response) => {
-        let authenticationToken = response.headers.get("Authentication-Token");
+        const authenticationToken = response.headers.get("Authentication-Token");
         if (authenticationToken) {
           this.tenant.client.authenticationToken = authenticationToken;
           response.json.authenticationToken = authenticationToken;
