@@ -5,6 +5,7 @@ import chaiAsPromised from "chai-as-promised";
 import sinon from "sinon";
 import BusinessElementsClient from "../src";
 import uuid from "uuid";
+import {fakeServerResponse} from "./test_utils.js";
 
 import * as requests from "../src/requests";
 
@@ -12,6 +13,7 @@ chai.use(chaiAsPromised);
 chai.should();
 chai.config.includeStack = true;
 
+const root = typeof window === "object" ? window : global;
 const FAKE_SERVER_URL = "http://api.fake-server";
 
 /** @test {Invitation} */
@@ -31,9 +33,8 @@ describe("Invitation", () => {
 
   /** @test {Invitation#acceptTeamMemberInvtation} */
   describe("#acceptTeamMemberInvitation()", () => {
-    const response = {status: "Ok"};
     beforeEach(() => {
-      sandbox.stub(client, "execute").returns(Promise.resolve(response));
+      sandbox.stub(root, "fetch").returns(fakeServerResponse(202, {}, {}));
       sandbox.spy(requests, "acceptTeamMemberInvitation");
     });
 
@@ -43,7 +44,7 @@ describe("Invitation", () => {
     });
 
     it("should return success", () => {
-      return invitation.acceptTeamMemberInvitation(invitationId, "some@some-email.com", "1234", {}).should.eventually.become(response);
+      return invitation.acceptTeamMemberInvitation(invitationId, "some@some-email.com", "1234", {}).should.eventually.become({});
     });
   });
 
