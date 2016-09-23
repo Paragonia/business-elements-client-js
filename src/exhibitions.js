@@ -43,7 +43,7 @@ export default class Exhibitions {
   }
 
   /**
-   * Retrieves the list of exhibitions in the current tenant.
+   * Retrieves the list of public exhibitions in the current tenant.
    * @param  {Object} options         The options object.
    * @return {Promise<Array<Object>, Error>}
    */
@@ -52,7 +52,7 @@ export default class Exhibitions {
       .then((response) => {
         const embedded = response["_embedded"];
         if (embedded) {
-          const exhibitions = embedded["be:exhibition_instances"];
+          const exhibitions = embedded["be:public_exhibitions"];
           if (exhibitions) {
             return exhibitions;
           }
