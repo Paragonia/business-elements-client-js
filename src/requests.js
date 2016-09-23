@@ -85,6 +85,21 @@ export function createUser(emailAddress, password) {
 /**
  * @private
  */
+export function requestInvitation(emailAddress) {
+  if (!emailAddress) {
+    throw new Error("An email address is required.");
+  }
+
+  return {
+    method: "POST",
+    path: endpoint("userInvitationRequest"),
+    body: {emailAddress}
+  };
+}
+
+/**
+ * @private
+ */
 export function activateUser(userId, activationCode) {
   if (!userId) {
     throw new Error("A user id is required.");

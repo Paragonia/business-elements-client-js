@@ -73,6 +73,25 @@ describe("Users", () => {
 
   });
 
+  /** @test {Users#requestInvitation} */
+  describe("#requestInvitation", () => {
+    beforeEach(() => {
+      sandbox.stub(root, "fetch").returns(fakeServerResponse(201, {}, {}));
+      sandbox.spy(requests, "requestInvitation");
+    });
+
+    it("should succeed", () => {
+      users.requestInvitation("test@example.com");
+
+      sinon.assert.calledWithMatch(requests.requestInvitation, "test@example.com");
+    });
+
+    it("should require correct email input", () => {
+      expect(() => users.requestInvitation(null)).to.Throw(Error, /An email address is required/);
+    });
+
+  });
+
   /** @test {Users#activate} */
   describe("#activate", () => {
 
