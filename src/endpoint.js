@@ -43,9 +43,10 @@ const ENDPOINTS = {
   concept:                          (conceptId) => `/concepts/${conceptId}`,
 
   // Instances
-  instances:                        (projectId) => `/projects/${projectId}/instances`,
-  instance:             (projectId, instanceId) => `/projects/${projectId}/instances/${instanceId}`,
-  searchInstances:                           () => "/search/instances",
+  instances:                                      (projectId) => `/projects/${projectId}/instances`,
+  instance:                           (projectId, instanceId) => `/projects/${projectId}/instances/${instanceId}`,
+  instanceRelation:  (projectId, instanceId, specificationId) => `/projects/${projectId}/instances/${instanceId}/relation/${specificationId}`,
+  searchInstances:                                         () => "/search/instances",
 
   // Resources
   resources:                                  () => "/resources",

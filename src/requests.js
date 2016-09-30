@@ -761,3 +761,16 @@ export function updateInstance(projectId, instanceId, operations, relations) {
   };
 }
 
+export function specifyInstanceRelation(projectId, instanceId, specificationId, subjectId, subjectType, objectId, objectType) {
+  return {
+    method: "POST",
+    path: endpoint("instanceRelation", projectId, instanceId, specificationId),
+    body: {
+      subjectId,
+      subjectType,
+      objectId,
+      objectType
+    }
+  };
+}
+

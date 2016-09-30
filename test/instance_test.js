@@ -92,4 +92,29 @@ describe("Instance", () => {
     });
   });
 
+  /** @test {Instance#specifyInstanceRelation} */
+  describe("#specifyInstanceRelation()", () => {
+    const response = {status: "Ok"};
+    const specificationId = "111-222-333";
+    const subjectId = "aaa-bbb-ccc";
+    const subjectType = "Instance";
+    const objectId = "ddd-eee-fff";
+    const objectType = "Concept";
+
+    beforeEach(() => {
+      sandbox.stub(client, "execute").returns(Promise.resolve(response));
+      sandbox.spy(requests, "specifyInstanceRelation");
+    });
+
+    it("should specify the instance relation", () => {
+      instance.specifyInstanceRelation(specificationId, subjectId, subjectType, objectId, objectType, {});
+
+      sinon.assert.calledWithMatch(requests.specifyInstanceRelation, projectId, instanceId, specificationId, subjectId, subjectType, objectId, objectType);
+    });
+
+    it("should return success", () => {
+      return instance.update({}).should.eventually.become(response);
+    });
+  });
+
 });
