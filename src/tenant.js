@@ -14,6 +14,7 @@ import Concepts from "./concepts";
 import BeProxy from "./be-proxy";
 import Applications from "./applications";
 import endpoint from "./endpoint";
+import * as requests from "./requests";
 
 /**
  * Abstract representation of a selected tenant.
@@ -221,5 +222,15 @@ export default class Tenant {
    */
   getPublicDownloadUri(resourceUri, qualifier = null) {
     return this.client.remote + endpoint("downloadPublic", this.domainName, resourceUri) + (qualifier ? `?qualifier=${qualifier}` : "");
+  }
+
+  /**
+   * Retrieves the current tenant details.
+   *
+   * @param  {Object} options         The options object.
+   * @return {Promise<Array<Object>, Error>}
+   */
+  get(options = {}) {
+    return this.execute(requests.currentTenant(), options);
   }
 }
