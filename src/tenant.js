@@ -201,12 +201,15 @@ export default class Tenant {
    *
    * Relies on session cookies for authentication and authorization.
    *
-   * @param  {String}     resourceUri  The resource uri.
-   * @param  {String}     qualifier    Optional qualifier.
+   * @param  {String}     resourceUri           The resource uri.
+   * @param  {String}     [qualifier]           Optional qualifier.
+   * @param  {Boolean}    [includeCredentials]  Optionally include credentials in the request.
    * @return {String} Download uri.
    */
-
-  getDownloadUri(resourceUri, qualifier = null) {
-    return this.client.remote + endpoint("download", resourceUri) + `?Tenant=${this.domainName}` + (qualifier ? `&qualifier=${qualifier}` : "");
+  getDownloadUri(resourceUri, qualifier = null, includeCredentials = false) {
+    const baseUri = this.client.remote + endpoint("download", resourceUri) + `?Tenant=${this.domainName}`;
+    const baseUriWithCredentials = includeCredentials ? baseUri + `&Authentication-Token=${this.client.authenticationToken}` : baseUri;
+    const uriWithQualifier = baseUriWithCredentials + (qualifier ? `&qualifier=${qualifier}` : "");
+    return uriWithQualifier;
   }
 }
