@@ -209,7 +209,17 @@ export default class Tenant {
   getDownloadUri(resourceUri, qualifier = null, includeCredentials = false) {
     const baseUri = this.client.remote + endpoint("download", resourceUri) + `?Tenant=${this.domainName}`;
     const baseUriWithCredentials = includeCredentials ? baseUri + `&Authentication-Token=${this.client.authenticationToken}` : baseUri;
-    const uriWithQualifier = baseUriWithCredentials + (qualifier ? `&qualifier=${qualifier}` : "");
-    return uriWithQualifier;
+    return baseUriWithCredentials + (qualifier ? `&qualifier=${qualifier}` : "");
+  }
+
+  /**
+   * Get the public download uri for the specified resource.
+   *
+   * @param  {String}     resourceUri           The resource uri.
+   * @param  {String}     [qualifier]           Optional qualifier.
+   * @return {String} Public download uri.
+   */
+  getPublicDownloadUri(resourceUri, qualifier = null) {
+    return this.client.remote + endpoint("downloadPublic", this.domainName, resourceUri) + (qualifier ? `&qualifier=${qualifier}` : "");
   }
 }

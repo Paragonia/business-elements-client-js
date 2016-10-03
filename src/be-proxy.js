@@ -38,4 +38,14 @@ export default class BeProxy {
     });
   }
 
+  /**
+   * Get the Youtube video id proxy url.
+   *
+   * @param id The Youtube video id
+   *
+   * @returns {String} With the url to the Youtube video id proxy.
+   */
+  getYoutubePreviewUri(id) {
+    return this.tenant.client.remote + endpoint("proxyYoutube", id);
+  }
 }

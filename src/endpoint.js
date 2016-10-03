@@ -38,6 +38,12 @@ const ENDPOINTS = {
   upload:                                     () => "/upload",
   download:                        (resourceUri) => `/download/${resourceUri}`,
 
+  // Public
+
+  downloadPublic:    (tenantHandle, resourceUri) => `/assets/resource/${tenantHandle}/${resourceUri}`,
+  proxyEmbeddable:                         (url) => `/assets/proxy/embeddable/${url}`,
+  proxyYoutube:                             (id) => `/assets/proxy/youtube/preview/${id}`,
+
   // Concepts
   concepts:                                  () => "/concepts",
   concept:                          (conceptId) => `/concepts/${conceptId}`,
@@ -120,10 +126,7 @@ const ENDPOINTS = {
   exhibitionClusters:               (exhibitionId) => `/exhibitions/${exhibitionId}/published/clusters`,
   exhibitionCluster: (exhibitionId, clusterHeadId) => `/exhibitions/${exhibitionId}/published/clusters/${clusterHeadId}`,
 
-  // Proxy
-  proxyEmbeddable:                         (url) => `/proxy/embeddable/${url}`,
-
-  //Applications
+  // Applications
   applications:                                                   () => "/applications",
   application:                                   (applicationHandle) => `/applications/${applicationHandle}`,
   applicationConfig:               (applicationHandle, configHandle) => `/applications/${applicationHandle}/configs/${configHandle}`,
