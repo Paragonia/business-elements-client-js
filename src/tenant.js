@@ -220,6 +220,6 @@ export default class Tenant {
    * @return {String} Public download uri.
    */
   getPublicDownloadUri(resourceUri, qualifier = null) {
-    return this.client.remote + endpoint("downloadPublic", this.domainName, resourceUri) + (qualifier ? `&qualifier=${qualifier}` : "");
+    return this.client.remote + endpoint("downloadPublic", this.domainName, resourceUri) + (qualifier ? `?qualifier=${qualifier}` : "");
   }
 }
