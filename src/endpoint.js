@@ -53,6 +53,7 @@ const ENDPOINTS = {
   instance:                           (projectId, instanceId) => `/projects/${projectId}/instances/${instanceId}`,
   instanceRelation:  (projectId, instanceId, specificationId) => `/projects/${projectId}/instances/${instanceId}/relation/${specificationId}`,
   searchInstances:                                         () => "/search/instances",
+  instancesRelations:                            (instanceId) => `/instances/${instanceId}/relations`,
 
   // Resources
   resources:                                  () => "/resources",

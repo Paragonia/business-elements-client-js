@@ -743,6 +743,18 @@ export function searchInstances(projectId, conceptId) {
   };
 }
 
+export function listInstanceRelations(instanceId) {
+  if (!instanceId) {
+    throw new Error("A instanceId is required");
+  }
+
+  return {
+    method: "GET",
+    path: endpoint("instancesRelations", instanceId),
+    body: {}
+  };
+}
+
 export function deleteInstance(projectId, instanceId) {
   return {
     method: "DELETE",

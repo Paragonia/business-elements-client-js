@@ -49,6 +49,24 @@ export default class Instances {
   }
 
   /**
+   * List instance relations.
+   *
+   * @param  {String} instanceId       The instance id for which the relations are returned.
+   * @param  {Object} options         The options object.
+   * @return {Promise<Array<Object>, Error>}
+   */
+  listInstanceRelations(instanceId, options = {}) {
+    return this.tenant.execute(requests.listInstanceRelations(this.projectId, instanceId), options)
+      .then((response) => {
+        if (response["_embedded"]) {
+          return response["_embedded"]["be:instance"];
+        } else {
+          return [];
+        }
+      });
+  }
+
+  /**
    * Retrieve a instance object to perform operations on it.
    *
    * @param  {String} id        The id of the instance.
