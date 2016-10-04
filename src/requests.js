@@ -750,8 +750,7 @@ export function listInstanceRelations(instanceId) {
 
   return {
     method: "GET",
-    path: endpoint("instancesRelations", instanceId),
-    body: {}
+    path: endpoint("instancesRelations", instanceId)
   };
 }
 

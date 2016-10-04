@@ -56,7 +56,7 @@ export default class Instances {
    * @return {Promise<Array<Object>, Error>}
    */
   listInstanceRelations(instanceId, options = {}) {
-    return this.tenant.execute(requests.listInstanceRelations(this.projectId, instanceId), options)
+    return this.tenant.execute(requests.listInstanceRelations(instanceId), options)
       .then((response) => {
         if (response["_embedded"]) {
           return response["_embedded"]["be:instance"];
