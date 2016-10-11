@@ -274,7 +274,7 @@ export function changeOrganizationLogo(id, pictureUri) {
 
 // Teams
 
-export function createTeam(orgId, name, description, visibility) {
+export function createTeam(orgId, name, description, isOwnerTeam, visibility) {
   if (!orgId) {
     throw new Error("An Organization Id where the team belongs is required.");
   }
@@ -284,7 +284,7 @@ export function createTeam(orgId, name, description, visibility) {
   return {
     method: "POST",
     path: endpoint("teams", orgId),
-    body: {name, description, visibility}
+    body: {name, description, isOwnerTeam, visibility}
   };
 }
 
