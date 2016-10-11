@@ -17,11 +17,12 @@ const FAKE_SERVER_URL = "http://api.fake-server";
 
 /** @test {Instances} */
 describe("Instances", () => {
-  let sandbox, client, instances, projectId, conceptId;
+  let sandbox, client, instances, projectId, conceptId, instanceId;
 
   beforeEach(() => {
     projectId = uuid.v4();
     conceptId = uuid.v4();
+    instanceId = uuid.v4();
     sandbox = sinon.sandbox.create();
     client = new BusinessElementsClient(FAKE_SERVER_URL);
     instances = client.tenant("example.com").projects().project(projectId).instances();
@@ -61,6 +62,38 @@ describe("Instances", () => {
       return instances.searchByConceptId(conceptId).should.become(data);
     });
   });
+
+  /** @test {Instances#listInstanceRelations} */
+  describe("#listInstanceRelations()", () => {
+    beforeEach(() => {
+      sandbox.stub(root, "fetch").returns(fakeServerResponse(201, {}, {}));
+      sandbox.spy(requests, "listInstanceRelations");
+    });
+
+    const data = [{id: "a"}, {id: "b"}];
+    const actual = {
+      "_embedded" : {
+        "be:instance" : data
+      }
+    };
+
+    beforeEach(() => {
+      sandbox.stub(client, "execute").returns(Promise.resolve(actual));
+    });
+
+    it("should call instances url", () => {
+      instances.listInstanceRelations(instanceId);
+
+      sinon.assert.calledWithMatch(client.execute, {
+        path: `/instances/${instanceId}/relations`
+      });
+    });
+
+    it("should return the list of instances", () => {
+      return instances.listInstanceRelations(instanceId).should.become(data);
+    });
+  });
+
 
   /** @test {Instances#create} */
   describe("#create", () => {
