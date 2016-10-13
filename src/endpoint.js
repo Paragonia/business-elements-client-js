@@ -103,6 +103,7 @@ const ENDPOINTS = {
 
   teams:                                 (orgId) => `/organizations/${orgId}/teams`,
   team:                          (orgId, teamId) => `/organizations/${orgId}/teams/${teamId}`,
+  ownerTeam:                     (orgId, teamId) => `/organizations/${orgId}/teams/${teamId}/owner`,
 
   // Team invitations
 

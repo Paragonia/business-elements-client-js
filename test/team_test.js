@@ -70,6 +70,24 @@ describe("Teams", () => {
     });
   });
 
+  describe("#specifyOwnerTeam()", () => {
+    const response = {status: "Ok"};
+    beforeEach(() => {
+      sandbox.stub(client, "execute").returns(Promise.resolve(response));
+      sandbox.spy(requests, "specifyOwnerTeam");
+    });
+
+    it("should edit the owner team", () => {
+      team.specifyOwnerTeam(true, {});
+
+      sinon.assert.calledWithMatch(requests.specifyOwnerTeam, orgId, teamId, true);
+    });
+
+    it("should return success", () => {
+      return team.specifyOwnerTeam(true, {}).should.eventually.become(response);
+    });
+  });
+
   /** @test {Team#remove} */
   describe("#remove()", () => {
     const response = {status: "Ok"};

@@ -62,15 +62,16 @@ export default class Teams {
    * Creates the team with the specified properties.
    *
    * @param  {String}  name                 The name of the organization.
+   * @param  {Boolean}  isOwnerTeam         True if is the owner team of the organization.
    * @param  {String}  description          The description of the organization.
    * @param  {String}  visibility           The visibility of the organization.
    *
    * @param  {Object} options               The options object.
    * @return {Promise<Object, Error>}
    */
-  create(name, description, visibility, options = {}) {
+  create(name, description, isOwnerTeam, visibility, options = {}) {
     return this.tenant.execute(
-      requests.createTeam(this.organization.organizationId, name, description, visibility),
+      requests.createTeam(this.organization.organizationId, name, description, isOwnerTeam, visibility),
       options
     );
   }

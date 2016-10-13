@@ -69,6 +69,20 @@ export default class Team {
   }
 
   /**
+   * Set owner team
+   *
+   * @param  {Boolean}  isOwnerTeam        True if is the owner team of the organization.
+   * @param  {Object} options             The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  specifyOwnerTeam(isOwnerTeam, options = {}) {
+    return this.tenant.execute(
+      requests.specifyOwnerTeam(this.organizationId, this.teamId, isOwnerTeam),
+      options
+    );
+  }
+
+  /**
    * Delete current team
    *
    * @param  {Object} options             The options object.

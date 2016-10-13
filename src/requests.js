@@ -274,7 +274,7 @@ export function changeOrganizationLogo(id, pictureUri) {
 
 // Teams
 
-export function createTeam(orgId, name, description, visibility) {
+export function createTeam(orgId, name, description, isOwnerTeam, visibility) {
   if (!orgId) {
     throw new Error("An Organization Id where the team belongs is required.");
   }
@@ -284,7 +284,7 @@ export function createTeam(orgId, name, description, visibility) {
   return {
     method: "POST",
     path: endpoint("teams", orgId),
-    body: {name, description, visibility}
+    body: {name, description, isOwnerTeam, visibility}
   };
 }
 
@@ -302,6 +302,21 @@ export function updateTeam(orgId, teamId, name) {
     method: "PUT",
     path: endpoint("team", orgId, teamId),
     body: {name}
+  };
+}
+
+export function specifyOwnerTeam(orgId, teamId, isOwnerTeam) {
+  if (!orgId) {
+    throw new Error("An Organization Id where the team belongs is required.");
+  }
+  if (!teamId) {
+    throw new Error("An Team Id is required in order to perform updates on it.");
+  }
+
+  return {
+    method: "PUT",
+    path: endpoint("ownerTeam", orgId, teamId),
+    body: {isOwnerTeam}
   };
 }
 
