@@ -305,6 +305,21 @@ export function updateTeam(orgId, teamId, name) {
   };
 }
 
+export function specifyOwnerTeam(orgId, teamId, isOwnerTeam) {
+  if (!orgId) {
+    throw new Error("An Organization Id where the team belongs is required.");
+  }
+  if (!teamId) {
+    throw new Error("An Team Id is required in order to perform updates on it.");
+  }
+
+  return {
+    method: "PUT",
+    path: endpoint("ownerTeam", orgId, teamId),
+    body: {isOwnerTeam}
+  };
+}
+
 export function deleteTeam(orgId, teamId) {
   if (!orgId) {
     throw new Error("An Organization Id where the team belongs is required.");
