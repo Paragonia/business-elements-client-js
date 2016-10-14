@@ -13,7 +13,7 @@ import Resources from "./resources";
 import Concepts from "./concepts";
 import BeProxy from "./be-proxy";
 import Applications from "./applications";
-import Queries from './queries';
+import Queries from "./queries";
 import endpoint from "./endpoint";
 import * as requests from "./requests";
 

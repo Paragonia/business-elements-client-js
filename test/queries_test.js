@@ -2,8 +2,10 @@
 
 import chai from "chai";
 import chaiAsPromised from "chai-as-promised";
+import {fakeServerResponse} from "./test_utils.js";
 import sinon from "sinon";
 import BusinessElementsClient from "../src";
+import * as requests from "../src/requests";
 
 chai.use(chaiAsPromised);
 chai.should();
@@ -30,7 +32,7 @@ describe("Queries", () => {
     const data = [{id: "a"}, {id: "b"}];
     const actual = {
       "_embedded" : {
-        "be:queryDefinition" : data
+        "be:query" : data
       }
     };
 
