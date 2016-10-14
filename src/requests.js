@@ -811,14 +811,14 @@ export function createQuery(conceptId, collectionName) {
 export function deleteQuery(queryId) {
   return {
     method: "DELETE",
-    path: endpoint("queries", queryId)
+    path: endpoint("query", queryId)
   };
 }
 
-export function addQueryFilter(queryDefinitionFilter) {
+export function addQueryFilter(queryId, queryDefinitionFilter) {
   return {
     method: "PUT",
-    path: endpoint("queries"),
+    path: endpoint("query", queryId),
     body: {queryDefinitionFilter}
   };
 }

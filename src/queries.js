@@ -33,7 +33,7 @@ export default class Queries {
     return this.tenant.execute({path: endpoint("queries")}, options)
       .then((response) => {
         if (response["_embedded"]) {
-          return response["_embedded"]["be:queryDefinition"];
+          return response["_embedded"]["be:query"];
         } else {
           return [];
         }
