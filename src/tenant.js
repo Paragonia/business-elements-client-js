@@ -13,6 +13,7 @@ import Resources from "./resources";
 import Concepts from "./concepts";
 import BeProxy from "./be-proxy";
 import Applications from "./applications";
+import Queries from "./queries";
 import endpoint from "./endpoint";
 import * as requests from "./requests";
 
@@ -184,6 +185,15 @@ export default class Tenant {
    */
   concepts() {
     return new Concepts(this);
+  }
+
+  /**
+   * Provides access to tenant queries.
+   *
+   * @return {Queries}
+   */
+  queries() {
+    return new Queries(this);
   }
 
   /**

@@ -132,7 +132,11 @@ const ENDPOINTS = {
   applications:                                                   () => "/applications",
   application:                                   (applicationHandle) => `/applications/${applicationHandle}`,
   applicationConfig:               (applicationHandle, configHandle) => `/applications/${applicationHandle}/configs/${configHandle}`,
-  applicationLocalization:   (applicationHandle, localizationHandle) => `/applications/${applicationHandle}/localizations/${localizationHandle}`
+  applicationLocalization:   (applicationHandle, localizationHandle) => `/applications/${applicationHandle}/localizations/${localizationHandle}`,
+
+  // Queries
+  queries:                        () => "/queries",
+  query:                        (id) => `/queries/${id}`
 
 };
 

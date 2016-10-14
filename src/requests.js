@@ -800,3 +800,26 @@ export function specifyInstanceRelation(projectId, instanceId, specificationId, 
   };
 }
 
+export function createQuery(conceptId, collectionName) {
+  return {
+    method: "POST",
+    path: endpoint("queries"),
+    body: {conceptId, collectionName}
+  };
+}
+
+export function deleteQuery(queryId) {
+  return {
+    method: "DELETE",
+    path: endpoint("query", queryId)
+  };
+}
+
+export function addQueryFilter(queryId, queryDefinitionFilter) {
+  return {
+    method: "PUT",
+    path: endpoint("query", queryId),
+    body: {queryDefinitionFilter}
+  };
+}
+
