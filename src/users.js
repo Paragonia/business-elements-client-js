@@ -193,7 +193,7 @@ export default class Users {
    *
    * @param  {Object}   [options]       The options object.
    * @returns {Promise.<Object, Error>}
-     */
+   */
   getPerson(options = {}) {
     return this.tenant.execute({path: endpoint("person")}, options);
   }
@@ -203,9 +203,37 @@ export default class Users {
    *
    * @param  {Object}   [options]       The options object.
    * @returns {Promise.<Object, Error>}
-     */
-  getRole(options = {}) {
-    return this.tenant.execute({path: endpoint("roles")}, options);
+   */
+  getRoles(options = {}) {
+    return this.tenant.execute({path: endpoint("roles")}, options).then((response) => {
+      if (response["_embedded"]) {
+        return response["_embedded"]["be:instance"];
+      } else {
+        return [];
+      }
+    });
   }
-  
+
+  /**
+   * Associate a role to the current user
+   *
+   * @param roleId
+   * @param  {Object}   [options]       The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  addPersonRole(roleId, options = {}) {
+    return this.tenant.execute(requests.addPersonRole(roleId), options);
+  }
+
+  /**
+   * Remove a role from the current user
+   *
+   * @param roleId
+   * @param  {Object}   [options]       The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  removePersonRole(roleId, options = {}) {
+    return this.tenant.execute(requests.removePersonRole(roleId), options);
+  }
+
 }
