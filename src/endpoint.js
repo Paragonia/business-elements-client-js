@@ -32,6 +32,8 @@ const ENDPOINTS = {
   myAvatarImage:                              () => "/users/me/pictureUri",
   checkRegistrationStatus:                    () => "/users/registration_check",
   userInvitationRequest:                      () => "/users/invitation_request",
+  person:                                     () => "/person",
+  roles:                                      () => "/person/roles",
 
   // Upload
 
