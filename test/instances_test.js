@@ -34,22 +34,19 @@ describe("Instances", () => {
 
   /** @test {Instances#searchByConceptId} */
   describe("#searchByConceptId()", () => {
-    beforeEach(() => {
-      sandbox.stub(root, "fetch").returns(fakeServerResponse(201, {}, {}));
-      sandbox.spy(requests, "searchInstances");
-    });
-
     const data = [{id: "a"}, {id: "b"}];
     const actual = {
       "_embedded" : {
         "be:instance" : data
       }
     };
-
+    
     beforeEach(() => {
+      sandbox.stub(root, "fetch").returns(fakeServerResponse(201, {}, {}));
       sandbox.stub(client, "execute").returns(Promise.resolve(actual));
+      sandbox.spy(requests, "searchInstances");
     });
-
+    
     it("should call instances url", () => {
       instances.searchByConceptId(conceptId);
 
