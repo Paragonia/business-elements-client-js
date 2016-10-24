@@ -207,7 +207,7 @@ export default class Users {
   getRoles(options = {}) {
     return this.tenant.execute({path: endpoint("roles")}, options).then((response) => {
       if (response["_embedded"]) {
-        return response["_embedded"]["be:instance"];
+        return response["_embedded"]["be:role"];
       } else {
         return [];
       }

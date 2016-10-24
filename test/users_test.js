@@ -208,7 +208,7 @@ describe("Users", () => {
     const data = [{id: "a"}, {id: "b"}];
     const actual = {
       "_embedded": {
-        "be:instance": data
+        "be:role": data
       }
     };
 
