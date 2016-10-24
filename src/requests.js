@@ -823,3 +823,19 @@ export function addQueryFilter(queryId, queryDefinitionFilter) {
   };
 }
 
+export function addPersonRole(roleId) {
+  return {
+    method: "POST",
+    path: endpoint("person"),
+    body: {roleId}
+  };
+}
+
+export function removePersonRole(roleId) {
+  return {
+    method: "DELETE",
+    path: endpoint("person"),
+    body: {roleId}
+  };
+}
+

@@ -2,6 +2,7 @@
 
 import * as requests from "./requests";
 import Me from "./me";
+import endpoint from "./endpoint";
 
 /**
  * Abstract representation of users.
@@ -186,4 +187,53 @@ export default class Users {
   changePassword(newPassword, options = {}) {
     return this.tenant.execute(requests.passwordChange(newPassword), options);
   }
+
+  /**
+   * Get person details for current user
+   *
+   * @param  {Object}   [options]       The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  getPerson(options = {}) {
+    return this.tenant.execute({path: endpoint("person")}, options);
+  }
+
+  /**
+   * Get roles
+   *
+   * @param  {Object}   [options]       The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  getRoles(options = {}) {
+    return this.tenant.execute({path: endpoint("roles")}, options).then((response) => {
+      if (response["_embedded"]) {
+        return response["_embedded"]["be:instance"];
+      } else {
+        return [];
+      }
+    });
+  }
+
+  /**
+   * Associate a role to the current user
+   *
+   * @param roleId
+   * @param  {Object}   [options]       The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  addPersonRole(roleId, options = {}) {
+    return this.tenant.execute(requests.addPersonRole(roleId), options);
+  }
+
+  /**
+   * Remove a role from the current user
+   *
+   * @param roleId
+   * @param  {Object}   [options]       The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  removePersonRole(roleId, options = {}) {
+    return this.tenant.execute(requests.removePersonRole(roleId), options);
+  }
+
 }

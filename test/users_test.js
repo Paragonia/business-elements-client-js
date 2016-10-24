@@ -190,5 +190,77 @@ describe("Users", () => {
     });
   });
 
+  /** @test {Users#getPerson} */
+  describe("#getPerson", () => {
+    const data = {id: uuid.v4(), userId: uuid.v4(), roles: [uuid.v4()]};
+
+    beforeEach(()=> {
+      sandbox.stub(root, "fetch").returns(fakeServerResponse(200, data, {}));
+    });
+
+    it("should return the person details", () => {
+      return users.getPerson().should.eventually.become(data);
+    });
+  });
+
+  /** @test {Users#getRoles} */
+  describe("#getRoles", () => {
+    const data = [{id: "a"}, {id: "b"}];
+    const actual = {
+      "_embedded": {
+        "be:instance": data
+      }
+    };
+
+    beforeEach(()=> {
+      sandbox.stub(root, "fetch").returns(fakeServerResponse(200, data, {}));
+      sandbox.stub(client, "execute").returns(Promise.resolve(actual));
+    });
+
+    it("should return the available roles for person", () => {
+      return users.getRoles().should.eventually.become(data);
+    });
+  });
+
+  /** @test {Users#addPersonRole} */
+  describe("#addPersonRole", () => {
+    const roleId = uuid.v4();
+    const data = {id: uuid.v4(), userId: uuid.v4(), roles: [roleId]};
+
+    beforeEach(()=> {
+      sandbox.stub(root, "fetch").returns(fakeServerResponse(200, data, {}));
+      sandbox.spy(requests, "addPersonRole");
+    });
+
+    it("should execute the request", () => {
+      users.addPersonRole(roleId);
+      sinon.assert.calledWithMatch(requests.addPersonRole, roleId);
+    });
+
+    it("should succeed and return the new person", () => {
+      return users.addPersonRole(roleId).should.eventually.become(data);
+    });
+  });
+
+  /** @test {Users#removePersonRole} */
+  describe("#removePersonRole", () => {
+    const roleId = uuid.v4();
+    const data = {id: uuid.v4(), userId: uuid.v4(), roles: []};
+
+    beforeEach(()=> {
+      sandbox.stub(root, "fetch").returns(fakeServerResponse(200, data, {}));
+      sandbox.spy(requests, "removePersonRole");
+    });
+
+    it("should execute the request", () => {
+      users.removePersonRole(roleId);
+      sinon.assert.calledWithMatch(requests.removePersonRole, roleId);
+    });
+
+    it("should succeed and return the new person", () => {
+      return users.removePersonRole(roleId).should.eventually.become(data);
+    });
+  });
+
 
 });
