@@ -14,6 +14,7 @@ import Concepts from "./concepts";
 import BeProxy from "./be-proxy";
 import Applications from "./applications";
 import Queries from "./queries";
+import Bouts from "./bouts";
 import endpoint from "./endpoint";
 import * as requests from "./requests";
 
@@ -194,6 +195,15 @@ export default class Tenant {
    */
   queries() {
     return new Queries(this);
+  }
+
+  /**
+   * Provides access to tenant bouts.
+   *
+   * @return {Bouts}
+   */
+  bouts() {
+    return new Bouts(this);
   }
 
   /**

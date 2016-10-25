@@ -43,7 +43,7 @@ export default class BoutEvents {
    * @param {BoutEvent.eventCallback} listener
    */
   on(event, listener) {
-    this.eventSource.addEventListener(event.value, listener, false);
+    this.eventSource.addEventListener(event.bout, listener, false);
   }
 
   /**
