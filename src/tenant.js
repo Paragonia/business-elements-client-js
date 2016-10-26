@@ -5,6 +5,7 @@ import Values from "./values";
 import Captures from "./captures";
 import Organizations from "./organizations";
 import Projects from "./projects";
+import Instances from "./instances";
 import Users from "./users";
 import UploadOptions from "./upload-options";
 import Invitation from "./invitation";
@@ -117,6 +118,15 @@ export default class Tenant {
    */
   projects() {
     return new Projects(this);
+  }
+
+  /**
+   * Provides access to tenant instances.
+   *
+   * @return {Instances}
+   */
+  instances() {
+    return new Instances(this);
   }
 
   /**

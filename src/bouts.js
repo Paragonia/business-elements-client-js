@@ -1,6 +1,4 @@
-import endpoint from "./endpoint";
 import BoutEvents from "./bout-events";
-import * as requests from "./requests";
 
 /**
  * Abstract representation of bouts.

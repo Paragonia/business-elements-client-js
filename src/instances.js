@@ -1,7 +1,6 @@
 "use strict";
 
 import Instance from "./instance";
-import * as requests from "./requests";
 
 /**
  * Abstract representation of Instances.
@@ -12,9 +11,8 @@ export default class Instances {
    * Constructor.
    *
    * @param  {Tenant} tenant The tenant instance.
-   * @param  {Object} project from which the instances is linked to.
    */
-  constructor(tenant, project) {
+  constructor(tenant) {
 
     /**
      * The tenant.
@@ -22,48 +20,6 @@ export default class Instances {
      */
     this.tenant = tenant;
 
-    /**
-     * The project id.
-     * @type {String}
-     */
-    this.projectId = project.projectId;
-  }
-
-  /**
-   * Search for instances by conceptId and projectId in the current tenant.
-   *
-   * @param  {String} conceptId       The concept id from which the instances is searched for.
-   * @param  {Object} options         The options object.
-   * @return {Promise<Array<Object>, Error>}
-   */
-  searchByConceptId(conceptId, options = {}) {
-    return this.tenant.execute(requests.searchInstances(this.projectId, conceptId), options)
-      // return empty string when response is missing certain fields to help client logic
-      .then((response) => {
-        if (response["_embedded"]) {
-          return response["_embedded"]["be:instance"];
-        } else {
-          return [];
-        }
-      });
-  }
-
-  /**
-   * List instance relations.
-   *
-   * @param  {String} instanceId       The instance id for which the relations are returned.
-   * @param  {Object} options         The options object.
-   * @return {Promise<Array<Object>, Error>}
-   */
-  listInstanceRelations(instanceId, options = {}) {
-    return this.tenant.execute(requests.listInstanceRelations(instanceId), options)
-      .then((response) => {
-        if (response["_embedded"]) {
-          return response["_embedded"]["be:instance"];
-        } else {
-          return [];
-        }
-      });
   }
 
   /**
@@ -73,23 +29,7 @@ export default class Instances {
    * @return {Instance}
    */
   instance(id) {
-    return new Instance(this.tenant, this.projectId, id);
+    return new Instance(this.tenant, id);
   }
 
-  /**
-   * Creates the instance with the specified properties.
-   *
-   * @param  {String} conceptHandle  The handle of the concept.
-   * @param  {Array}  properties     The array containing attribute-handle, path and value
-   * @param  {Array}  relations      The array of concept-handles on which instance has relations with
-   *
-   * @param  {Object} options        The options object.
-   * @return {Promise<Object, Error>}
-   */
-  create(conceptHandle, properties, relations, options = {}) {
-    return this.tenant.execute(
-      requests.createInstance(this.projectId, conceptHandle, properties, relations),
-      options
-    );
-  }
 }

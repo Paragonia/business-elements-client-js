@@ -4,7 +4,7 @@ import endpoint from "./endpoint";
 import * as requests from "./requests";
 import ProjectContexts from "./project-contexts";
 import Teams from "./teams";
-import Instances from "./instances";
+import ProjectInstances from "./project-instances";
 
 /**
  * Abstract representation of a project.
@@ -91,9 +91,9 @@ export default class Project {
   /**
    * Provides access to instances.
    *
-   * @return {Instances}
+   * @return {ProjectInstances}
    */
   instances() {
-    return new Instances(this.tenant, this);
+    return new ProjectInstances(this.tenant, this);
   }
 }
