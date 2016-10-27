@@ -52,9 +52,10 @@ const ENDPOINTS = {
 
   // Instances
   instances:                                      (projectId) => `/projects/${projectId}/instances`,
-  instance:                           (projectId, instanceId) => `/projects/${projectId}/instances/${instanceId}`,
+  projectInstance:                    (projectId, instanceId) => `/projects/${projectId}/instances/${instanceId}`,
   instanceRelation:  (projectId, instanceId, specificationId) => `/projects/${projectId}/instances/${instanceId}/relation/${specificationId}`,
   searchInstances:                                         () => "/search/instances",
+  instance:                                      (instanceId) => `/instances/${instanceId}`,
   instancesRelations:                            (instanceId) => `/instances/${instanceId}/relations`,
 
   // Resources
@@ -138,8 +139,10 @@ const ENDPOINTS = {
 
   // Queries
   queries:                        () => "/queries",
-  query:                        (id) => `/queries/${id}`
+  query:                        (id) => `/queries/${id}`,
 
+  //Bouts
+  boutsEvents:                    () => "/bouts/events"
 };
 
 /**

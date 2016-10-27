@@ -15,7 +15,7 @@ const FAKE_SERVER_URL = "http://api.fake-server";
 
 /** @test {Instance} */
 describe("Instance", () => {
-  let sandbox, client, projectId, instanceId, instance;
+  let sandbox, client, projectId, instanceId, instance, projectInstance;
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
@@ -23,23 +23,24 @@ describe("Instance", () => {
     projectId = uuid.v4();
     instanceId = uuid.v4();
 
-    instance = client.tenant("example.com").projects().project(projectId).instances().instance(instanceId);
+    projectInstance = client.tenant("example.com").projects().project(projectId).instances().instance(instanceId);
+    instance = client.tenant("example.com").instances().instance(instanceId);
   });
 
   afterEach(() => {
     sandbox.restore();
   });
 
-  /** @test {Instance#get} */
-  describe("#get()", () => {
+  /** @test {Instance#getProjectInstance} */
+  describe("#getProjectInstance()", () => {
     const data = {id: instanceId};
 
     beforeEach(() => {
       sandbox.stub(client, "execute").returns(Promise.resolve(data));
     });
 
-    it("should get instance", () => {
-      instance.get();
+    it("should get project instance", () => {
+      projectInstance.getProjectInstance();
 
       sinon.assert.calledWithMatch(client.execute, {
         path: `/projects/${projectId}/instances/${instanceId}`
@@ -47,7 +48,28 @@ describe("Instance", () => {
     });
 
     it("should return instance data", () => {
-      return instance.get().should.become(data);
+      return projectInstance.getProjectInstance().should.become(data);
+    });
+  });
+
+  /** @test {Instance#getInstance} */
+  describe("#getInstance()", () => {
+    const data = {id: instanceId};
+
+    beforeEach(() => {
+      sandbox.stub(client, "execute").returns(Promise.resolve(data));
+    });
+
+    it("should get instance", () => {
+      instance.getInstance();
+
+      sinon.assert.calledWithMatch(client.execute, {
+        path: `/instances/${instanceId}`
+      });
+    });
+
+    it("should return instance data", () => {
+      return instance.getInstance().should.become(data);
     });
   });
 
@@ -60,13 +82,13 @@ describe("Instance", () => {
     });
 
     it("should delete the instance", () => {
-      instance.remove({});
+      projectInstance.remove({});
 
       sinon.assert.calledWithMatch(requests.deleteInstance, projectId, instanceId);
     });
 
     it("should return success", () => {
-      return instance.remove({}).should.eventually.become(response);
+      return projectInstance.remove({}).should.eventually.become(response);
     });
   });
 
@@ -82,13 +104,13 @@ describe("Instance", () => {
     });
 
     it("should update the instance", () => {
-      instance.update(updateOperations, relations, {});
+      projectInstance.update(updateOperations, relations, {});
 
       sinon.assert.calledWithMatch(requests.updateInstance, projectId, instanceId, updateOperations, relations);
     });
 
     it("should return success", () => {
-      return instance.update({}).should.eventually.become(response);
+      return projectInstance.update({}).should.eventually.become(response);
     });
   });
 
@@ -107,13 +129,13 @@ describe("Instance", () => {
     });
 
     it("should specify the instance relation", () => {
-      instance.specifyInstanceRelation(specificationId, subjectId, subjectType, objectId, objectType, {});
+      projectInstance.specifyInstanceRelation(specificationId, subjectId, subjectType, objectId, objectType, {});
 
       sinon.assert.calledWithMatch(requests.specifyInstanceRelation, projectId, instanceId, specificationId, subjectId, subjectType, objectId, objectType);
     });
 
     it("should return success", () => {
-      return instance.update({}).should.eventually.become(response);
+      return projectInstance.update({}).should.eventually.become(response);
     });
   });
 
