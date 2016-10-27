@@ -772,14 +772,14 @@ export function listInstanceRelations(instanceId) {
 export function deleteInstance(projectId, instanceId) {
   return {
     method: "DELETE",
-    path: endpoint("instance", projectId, instanceId)
+    path: endpoint("projectInstance", projectId, instanceId)
   };
 }
 
 export function updateInstance(projectId, instanceId, operations, relations) {
   return {
     method: "PATCH",
-    path: endpoint("instance", projectId, instanceId),
+    path: endpoint("projectInstance", projectId, instanceId),
     body: {
       operations,
       relations
