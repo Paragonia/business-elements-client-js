@@ -53,6 +53,7 @@ BoutEvent.BOUT = new BoutEvent("BOUT", "bout");
 BoutEvent.BOUT_STARTED = new BoutEvent("BOUT_STARTED", "boutStarted");
 BoutEvent.BOUT_FINISHED = new BoutEvent("BOUT_FINISHED", "boutFinished");
 BoutEvent.BOUT_DELETED = new BoutEvent("BOUT_DELETED", "boutDeleted");
+BoutEvent.BOUT_THRESHOLD_REACHED = new BoutEvent("BOUT_THRESHOLD_REACHED", "boutThresholdReached");
 
 
 // Do not allow changes
