@@ -839,3 +839,10 @@ export function removePersonRole(roleId) {
   };
 }
 
+export function deleteBout(boutId) {
+  return {
+    method: "DELETE",
+    path: endpoint("boutDelete", boutId)
+  };
+}
+

@@ -142,7 +142,8 @@ const ENDPOINTS = {
   query:                        (id) => `/queries/${id}`,
 
   //Bouts
-  boutsEvents:                    () => "/bouts/events"
+  boutsEvents:                    () => "/bouts/events",
+  boutDelete:                     (boutId) => `/bouts/${boutId}`
 };
 
 /**
