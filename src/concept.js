@@ -1,6 +1,7 @@
 "use strict";
 
 import endpoint from "./endpoint";
+import * as requests from "./requests";
 
 /**
  * Abstract representation of a concept.
@@ -39,6 +40,20 @@ export default class Concept {
       {
         path: endpoint("concept", this.conceptId)
       },
+      options
+    );
+  }
+
+  /**
+   * Updates current concept
+   *
+   * @param {Object} schema          Concept schema
+   * @param  {Object} options             The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  edit(schema, options = {}) {
+    return this.tenant.execute(
+      requests.updateConcept(this.conceptId, schema),
       options
     );
   }

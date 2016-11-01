@@ -4,6 +4,7 @@ import chai from "chai";
 import chaiAsPromised from "chai-as-promised";
 import sinon from "sinon";
 import BusinessElementsClient from "../src";
+import * as requests from "../src/requests";
 import uuid from "uuid";
 
 chai.use(chaiAsPromised);
@@ -45,6 +46,25 @@ describe("Concept", () => {
 
     it("should return concept data", () => {
       return concept.get().should.become(data);
+    });
+  });
+
+  /** @test {Concept#edit} */
+  describe("#edit()", () => {
+    const response = {status: "Ok"};
+    beforeEach(() => {
+      sandbox.stub(client, "execute").returns(Promise.resolve(response));
+      sandbox.spy(requests, "updateConcept");
+    });
+
+    it("should edit the concept", () => {
+      concept.edit({"title": "My concept"}, {});
+
+      sinon.assert.calledWithMatch(requests.updateConcept, conceptId, {"title": "My concept"});
+    });
+
+    it("should return success", () => {
+      return concept.edit({"title": "My concept"}, {}).should.eventually.become(response);
     });
   });
 

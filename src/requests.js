@@ -725,6 +725,22 @@ export function createConcept(handle, schema) {
   };
 }
 
+export function updateConcept(conceptId, schema) {
+  if (!conceptId) {
+    throw new Error("A concept handle is required");
+  }
+  if (!schema) {
+    throw new Error("A concept schema object is required.");
+  }
+  return {
+    method: "PUT",
+    path: endpoint("concept", conceptId),
+    body: {
+      schema
+    }
+  };
+}
+
 //Instances
 export function createInstance(projectId, concept, properties, relations) {
   if (!concept) {
