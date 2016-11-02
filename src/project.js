@@ -48,6 +48,21 @@ export default class Project {
   }
 
   /**
+   * Export project.
+   *
+   * @param  {Object} options         The options object.
+   * @return {Promise<Object, Error>}
+   */
+  projectExport(options = {}) {
+    return this.tenant.execute(
+      {
+        path: endpoint("projectExport", this.projectId)
+      },
+      options
+    );
+  }
+
+  /**
    * Updates current project
    *
    * @param {String} name                 Project name
