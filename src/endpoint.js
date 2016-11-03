@@ -50,7 +50,7 @@ const ENDPOINTS = {
   concepts:                                  () => "/concepts",
   concept:                          (conceptId) => `/concepts/${conceptId}`,
   conceptCategory:                  (conceptId) => `/concepts/${conceptId}/category`,
-  conceptForm:                      (conceptId) => `/concepts/${conceptId}/forms`,
+  conceptForm:                      (conceptId) => `/concepts/${conceptId}/form`,
 
   // Instances
   instances:                                      (projectId) => `/projects/${projectId}/instances`,
