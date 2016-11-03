@@ -749,12 +749,27 @@ export function updateConceptCategory(conceptId, category) {
   if (!category) {
     throw new Error("A concept category is required.");
   }
-  debugger;
   return {
     method: "PUT",
     path: endpoint("conceptCategory", conceptId),
     body: {
       category
+    }
+  };
+}
+
+export function updateConceptForm(conceptId, form) {
+  if (!conceptId) {
+    throw new Error("A concept conceptId is required");
+  }
+  if (!form) {
+    throw new Error("A concept form is required.");
+  }
+  return {
+    method: "PUT",
+    path: endpoint("conceptForm", conceptId),
+    body: {
+      form
     }
   };
 }

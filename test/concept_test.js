@@ -87,4 +87,23 @@ describe("Concept", () => {
     });
   });
 
+  /** @test {Concept#editform} */
+  describe("#editForm()", () => {
+    const response = {status: "Ok"};
+    beforeEach(() => {
+      sandbox.stub(client, "execute").returns(Promise.resolve(response));
+      sandbox.spy(requests, "updateConceptForm");
+    });
+
+    it("should edit the concept form", () => {
+      concept.editForm([{"key": "name"}, {"type": "text"}], {});
+
+      sinon.assert.calledWithMatch(requests.updateConceptForm, conceptId, [{"key": "name"}, {"type": "text"}]);
+    });
+
+    it("should return success", () => {
+      return concept.editCategory([{"key": "name"}, {"type": "text"}], {}).should.eventually.become(response);
+    });
+  });
+
 });

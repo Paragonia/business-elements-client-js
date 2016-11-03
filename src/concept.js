@@ -84,4 +84,18 @@ export default class Concept {
       options
     );
   }
+
+  /**
+   * Updates current concept form
+   *
+   * @param {Object} form          Concept form
+   * @param  {Object} options             The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  editForm(form, options = {}) {
+    return this.tenant.execute(
+      requests.updateConceptForm(this.conceptId, form),
+      options
+    );
+  }
 }
