@@ -30,11 +30,18 @@ export default class HTTP {
     };
   }
 
+  static get jsonContentTypes() {
+    return [
+      "application/json",
+      "application/hal+json"
+    ];
+  }
+
   /**
    * Constructor.
    *
    * Options:
-   * - {Number} timeout      The request timeout in ms (default: `5000`).
+   * - {Number} timeout      The request timeout in ms (default: `30000`).
    * - {String} requestMode  The HTTP request mode (default: `"cors"`).
    * - {String} credentials  Whether to include credentials (default: `"include"`).
    *
@@ -113,15 +120,12 @@ export default class HTTP {
         headers = res.headers;
         status = res.status;
         statusText = res.statusText;
-        return res.text();
-      })
-      // Check if we have a body; if so parse it as JSON.
-      .then(text => {
-        if (text.length === 0) {
-          return null;
+
+        if (HTTP.jsonContentTypes.findIndex(contentType => headers.get("content-type").indexOf(contentType) !== -1) !== -1) {
+          return response.json();
+        } else {
+          return response.text();
         }
-        // Note: we can't consume the response body twice.
-        return JSON.parse(text);
       })
       .catch(err => {
         const error = new Error(`HTTP ${status || 0}; ${err}`);
