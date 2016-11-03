@@ -78,7 +78,7 @@ export default class Concept {
    * @param  {Object} options             The options object.
    * @returns {Promise.<Object, Error>}
    */
-  editCategory(category, options = {}) {
+  updateConceptCategory(category, options = {}) {
     return this.tenant.execute(
       requests.updateConceptCategory(this.conceptId, category),
       options

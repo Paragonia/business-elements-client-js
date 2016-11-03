@@ -742,18 +742,18 @@ export function updateConcept(conceptId, schema) {
   };
 }
 
-export function updateConceptCategory(conceptId, category) {
+export function updateConceptCategory(conceptId, conceptCategory) {
   if (!conceptId) {
     throw new Error("A concept conceptId is required");
   }
-  if (!category) {
+  if (!conceptCategory) {
     throw new Error("A concept category is required.");
   }
   return {
     method: "PUT",
     path: endpoint("conceptCategory", conceptId),
     body: {
-      category
+      conceptCategory
     }
   };
 }
