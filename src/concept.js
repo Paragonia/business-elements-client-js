@@ -70,4 +70,18 @@ export default class Concept {
       options
     );
   }
+
+  /**
+   * Updates current concept category
+   *
+   * @param {Object} category          Concept category
+   * @param  {Object} options             The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  editCategory(category, options = {}) {
+    return this.tenant.execute(
+      requests.updateConceptCategory(this.conceptId, category),
+      options
+    );
+  }
 }

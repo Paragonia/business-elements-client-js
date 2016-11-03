@@ -708,6 +708,7 @@ export function deleteExhibition(exhibitionId) {
   };
 }
 
+//Concepts
 export function createConcept(handle, schema) {
   if (!handle) {
     throw new Error("A concept handle is required");
@@ -737,6 +738,23 @@ export function updateConcept(conceptId, schema) {
     path: endpoint("concept", conceptId),
     body: {
       schema
+    }
+  };
+}
+
+export function updateConceptCategory(conceptId, category) {
+  if (!conceptId) {
+    throw new Error("A concept conceptId is required");
+  }
+  if (!category) {
+    throw new Error("A concept category is required.");
+  }
+  debugger;
+  return {
+    method: "PUT",
+    path: endpoint("conceptCategory", conceptId),
+    body: {
+      category
     }
   };
 }

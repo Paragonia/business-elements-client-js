@@ -68,4 +68,23 @@ describe("Concept", () => {
     });
   });
 
+  /** @test {Concept#editCategory} */
+  describe("#editCategory()", () => {
+    const response = {status: "Ok"};
+    beforeEach(() => {
+      sandbox.stub(client, "execute").returns(Promise.resolve(response));
+      sandbox.spy(requests, "updateConceptCategory");
+    });
+
+    it("should edit the concept category", () => {
+      concept.editCategory({"conceptCategory": "Reason"}, {});
+
+      sinon.assert.calledWithMatch(requests.updateConceptCategory, conceptId, {"conceptCategory": "Reason"});
+    });
+
+    it("should return success", () => {
+      return concept.editCategory({"conceptCategory": "Reason"}, {}).should.eventually.become(response);
+    });
+  });
+
 });

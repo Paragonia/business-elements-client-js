@@ -49,6 +49,7 @@ const ENDPOINTS = {
   // Concepts
   concepts:                                  () => "/concepts",
   concept:                          (conceptId) => `/concepts/${conceptId}`,
+  conceptCategory:                  (conceptId) => `/concepts/${conceptId}/category`,
 
   // Instances
   instances:                                      (projectId) => `/projects/${projectId}/instances`,
