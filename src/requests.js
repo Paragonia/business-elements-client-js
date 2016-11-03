@@ -741,6 +741,14 @@ export function updateConcept(conceptId, schema) {
   };
 }
 
+export function deleteConcept(conceptId) {
+  return {
+    method: "DELETE",
+    path: endpoint("concept", conceptId),
+    body: {}
+  };
+}
+
 //Instances
 export function createInstance(projectId, concept, properties, relations) {
   if (!concept) {

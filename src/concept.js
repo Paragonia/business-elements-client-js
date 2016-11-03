@@ -47,13 +47,26 @@ export default class Concept {
   /**
    * Updates current concept
    *
-   * @param {Object} schema          Concept schema
-   * @param  {Object} options             The options object.
+   * @param {Object} schema             Concept schema
+   * @param  {Object} options           The options object.
    * @returns {Promise.<Object, Error>}
    */
   edit(schema, options = {}) {
     return this.tenant.execute(
       requests.updateConcept(this.conceptId, schema),
+      options
+    );
+  }
+
+  /**
+   * Delete current concept
+   *
+   * @param  {Object} options           The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  remove(options = {}) {
+    return this.tenant.execute(
+      requests.deleteConcept(this.conceptId),
       options
     );
   }
