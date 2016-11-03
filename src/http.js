@@ -41,7 +41,7 @@ export default class HTTP {
     if (Object.keys(obj).length === 0 && obj.constructor === Object) {
       return "";
     } else {
-      return "?" + Object.keys(obj).reduce((a, k) => {
+      return "?" + Object.keys(obj).sort().reduce((a, k) => {
         const v = obj[k];
         if (v) {
           a.push(`${encodeURIComponent(k)}=${encodeURIComponent(v)}`);
@@ -135,12 +135,18 @@ export default class HTTP {
         status = res.status;
         statusText = res.statusText;
 
-        const contentTypeResponseHeader = headers.get("content-type");
+        const contentTypeResponseHeader = headers.get("Content-Type");
 
-        if (contentTypeResponseHeader && HTTP.jsonContentTypes.findIndex(contentType => contentTypeResponseHeader.indexOf(contentType) !== -1) !== -1) {
+        if (!contentTypeResponseHeader) {
+          // Assume JSON when no content type header is set
+          const text = response.text();
+          return text.length === 0 ? null : JSON.parse(text);
+        } else if (HTTP.jsonContentTypes.findIndex(contentType => contentTypeResponseHeader.indexOf(contentType) !== -1) !== -1) {
+          // Json response
           return response.json();
         } else {
-          return response.text();
+          // In any other case, return the raw response
+          return response;
         }
       })
       .catch(err => {

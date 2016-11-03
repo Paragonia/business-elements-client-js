@@ -236,7 +236,7 @@ export default class Tenant {
    * @param  {Boolean}    [includeCredentials]  Optionally include credentials in the request.
    * @return {String} Download uri.
    */
-  getDownloadUri(resourceUri, qualifier = null, includeCredentials = false) {
+  getDownloadUri(resourceUri, qualifier = null, includeCredentials = true) {
     return this._getDirectUri(endpoint("download", resourceUri), { qualifier }, includeCredentials);
   }
 
@@ -261,7 +261,7 @@ export default class Tenant {
     return this._getDirectUri(endpoint("projectExport", projectId), { }, true);
   }
 
-  _getDirectUri(endpointString, params = {}, includeCredentials = false) {
+  _getDirectUri(endpointString, params = {}, includeCredentials) {
     const baseUri = this.client.remote + endpointString;
 
     if (includeCredentials) {
