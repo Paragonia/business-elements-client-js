@@ -41,13 +41,13 @@ export default class HTTP {
     if (Object.keys(obj).length === 0 && obj.constructor === Object) {
       return "";
     } else {
-      return '?' + Object.keys(obj).reduce((a, k) => {
-          const v = obj[k];
-          if (v) {
-            a.push(`${encodeURIComponent(k)}=${encodeURIComponent(v)}`);
-          }
-          return a;
-        }, []).join('&');
+      return "?" + Object.keys(obj).reduce((a, k) => {
+        const v = obj[k];
+        if (v) {
+          a.push(`${encodeURIComponent(k)}=${encodeURIComponent(v)}`);
+        }
+        return a;
+      }, []).join("&");
     }
   }
 
