@@ -116,7 +116,7 @@ describe("HTTP class", () => {
     });
 
     describe("Malformed JSON response", () => {
-      xit("should reject with an appropriate message", () => {
+      it("should reject with an appropriate message", () => {
         sandbox.stub(root, "fetch").returns(Promise.resolve({
           status: 200,
           headers: {

@@ -117,7 +117,7 @@ export default class HTTP {
         isTimeout = true;
         reject(new Error("Request timeout."));
       }, this.timeout);
-      fetch(url, options).then(res => {
+      fetch(url, options) .then(res => {
         if (!isTimeout) {
           clearTimeout(_timeoutId);
           resolve(res);
@@ -134,20 +134,15 @@ export default class HTTP {
         headers = res.headers;
         status = res.status;
         statusText = res.statusText;
-
-        const contentTypeResponseHeader = headers.get("Content-Type");
-
-        if (!contentTypeResponseHeader) {
-          // Assume JSON when no content type header is set
-          const text = response.text();
-          return text.length === 0 ? null : JSON.parse(text);
-        } else if (HTTP.jsonContentTypes.findIndex(contentType => contentTypeResponseHeader.indexOf(contentType) !== -1) !== -1) {
-          // Json response
-          return response.json();
-        } else {
-          // In any other case, return the raw response
-          return response;
+        return res.text();
+      })
+      // Check if we have a body; if so parse it as JSON.
+      .then(text => {
+        if (text.length === 0) {
+          return null;
         }
+        // Note: we can't consume the response body twice.
+        return JSON.parse(text);
       })
       .catch(err => {
         const error = new Error(`HTTP ${status || 0}; ${err}`);
@@ -157,7 +152,7 @@ export default class HTTP {
       })
       .then(json => {
         if (json && status >= 400) {
-          let message = `HTTP ${status} ${json.error || ""}: `;
+          let message = `HTTP ${status} ${json.error||""}: `;
           message += statusText || "";
           const error = new Error(message.trim());
           error.response = response;
