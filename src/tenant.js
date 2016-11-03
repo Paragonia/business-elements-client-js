@@ -1,5 +1,6 @@
 "use strict";
 
+import HTTP from "./http";
 import Attributes from "./attributes";
 import Values from "./values";
 import Captures from "./captures";
@@ -59,7 +60,7 @@ export default class Tenant {
    * @param  {Object} options The options to merge.
    * @return {Object}         The merged options.
    */
-  createTenantOptions(options={}) {
+  createTenantOptions(options = {}) {
     return {
       ...this._tenantOptions,
       ...options,
@@ -230,17 +231,13 @@ export default class Tenant {
   /**
    * Get the download uri for the specified resource.
    *
-   * Relies on session cookies for authentication and authorization.
-   *
    * @param  {String}     resourceUri           The resource uri.
    * @param  {String}     [qualifier]           Optional qualifier.
    * @param  {Boolean}    [includeCredentials]  Optionally include credentials in the request.
    * @return {String} Download uri.
    */
   getDownloadUri(resourceUri, qualifier = null, includeCredentials = false) {
-    const baseUri = this.client.remote + endpoint("download", resourceUri) + `?Tenant=${this.domainName}`;
-    const baseUriWithCredentials = includeCredentials ? baseUri + `&Authentication-Token=${this.client.authenticationToken}` : baseUri;
-    return baseUriWithCredentials + (qualifier ? `&qualifier=${qualifier}` : "");
+    return this._getDirectUri(endpoint("download", resourceUri), { qualifier }, includeCredentials);
   }
 
   /**
@@ -251,7 +248,28 @@ export default class Tenant {
    * @return {String} Public download uri.
    */
   getPublicDownloadUri(resourceUri, qualifier = null) {
-    return this.client.remote + endpoint("downloadPublic", this.domainName, resourceUri) + (qualifier ? `?qualifier=${qualifier}` : "");
+    return this._getDirectUri(endpoint("downloadPublic", this.domainName, resourceUri), { qualifier }, false);
+  }
+
+  /**
+   * Get the download uri for the specified resource.
+   *
+   * @param  {String}     projectId             The project id.
+   * @return {String} Project export uri.
+   */
+  getProjectExportUri(projectId) {
+    return this._getDirectUri(endpoint("projectExport", projectId), { }, true);
+  }
+
+  _getDirectUri(endpointString, params = {}, includeCredentials = false) {
+    const baseUri = this.client.remote + endpointString;
+
+    if (includeCredentials) {
+      params["Tenant"] = this.domainName;
+      params["Authentication-Token"] = this.client.authenticationToken;
+    }
+
+    return baseUri + HTTP.toQueryString(params);
   }
 
   /**

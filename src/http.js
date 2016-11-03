@@ -37,6 +37,20 @@ export default class HTTP {
     ];
   }
 
+  static toQueryString(obj) {
+    if (Object.keys(obj).length === 0 && obj.constructor === Object) {
+      return "";
+    } else {
+      return '?' + Object.keys(obj).reduce((a, k) => {
+          const v = obj[k];
+          if (v) {
+            a.push(`${encodeURIComponent(k)}=${encodeURIComponent(v)}`);
+          }
+          return a;
+        }, []).join('&');
+    }
+  }
+
   /**
    * Constructor.
    *
@@ -47,7 +61,7 @@ export default class HTTP {
    *
    * @param {Object}       options The options object.
    */
-  constructor(options={}) {
+  constructor(options = {}) {
 
     options = Object.assign({}, HTTP.defaultOptions, options);
 
@@ -86,7 +100,7 @@ export default class HTTP {
    * @param  {Object} options The fetch() options object.
    * @return {Promise}
    */
-  request(url, options={headers:{}}) {
+  request(url, options = {headers: {}}) {
     let response, status, statusText, headers, isTimeout;
 
     // Ensure default request headers are always set
@@ -103,7 +117,7 @@ export default class HTTP {
         isTimeout = true;
         reject(new Error("Request timeout."));
       }, this.timeout);
-      fetch(url, options) .then(res => {
+      fetch(url, options).then(res => {
         if (!isTimeout) {
           clearTimeout(_timeoutId);
           resolve(res);
@@ -121,7 +135,9 @@ export default class HTTP {
         status = res.status;
         statusText = res.statusText;
 
-        if (HTTP.jsonContentTypes.findIndex(contentType => headers.get("content-type").indexOf(contentType) !== -1) !== -1) {
+        const contentTypeResponseHeader = headers.get("content-type");
+
+        if (contentTypeResponseHeader && HTTP.jsonContentTypes.findIndex(contentType => contentTypeResponseHeader.indexOf(contentType) !== -1) !== -1) {
           return response.json();
         } else {
           return response.text();
@@ -135,7 +151,7 @@ export default class HTTP {
       })
       .then(json => {
         if (json && status >= 400) {
-          let message = `HTTP ${status} ${json.error||""}: `;
+          let message = `HTTP ${status} ${json.error || ""}: `;
           message += statusText || "";
           const error = new Error(message.trim());
           error.response = response;
