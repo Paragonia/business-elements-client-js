@@ -69,7 +69,7 @@ describe("Concept", () => {
   });
 
   /** @test {Concept#editCategory} */
-  describe("#editCategory()", () => {
+  describe("#updateConceptCategory()", () => {
     const response = {status: "Ok"};
     beforeEach(() => {
       sandbox.stub(client, "execute").returns(Promise.resolve(response));
@@ -77,13 +77,13 @@ describe("Concept", () => {
     });
 
     it("should edit the concept category", () => {
-      concept.editCategory({"conceptCategory": "Reason"}, {});
+      concept.updateConceptCategory({"conceptCategory": "Reason"}, {});
 
       sinon.assert.calledWithMatch(requests.updateConceptCategory, conceptId, {"conceptCategory": "Reason"});
     });
 
     it("should return success", () => {
-      return concept.editCategory({"conceptCategory": "Reason"}, {}).should.eventually.become(response);
+      return concept.updateConceptCategory({"conceptCategory": "Reason"}, {}).should.eventually.become(response);
     });
   });
 
@@ -102,7 +102,7 @@ describe("Concept", () => {
     });
 
     it("should return success", () => {
-      return concept.editCategory([{"key": "name"}, {"type": "text"}], {}).should.eventually.become(response);
+      return concept.updateConceptCategory([{"key": "name"}, {"type": "text"}], {}).should.eventually.become(response);
     });
   });
 
