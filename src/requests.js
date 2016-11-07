@@ -708,6 +708,7 @@ export function deleteExhibition(exhibitionId) {
   };
 }
 
+//Concepts
 export function createConcept(handle, schema) {
   if (!handle) {
     throw new Error("A concept handle is required");
@@ -722,6 +723,62 @@ export function createConcept(handle, schema) {
       handle,
       schema
     }
+  };
+}
+
+export function updateConcept(conceptId, schema) {
+  if (!conceptId) {
+    throw new Error("A concept handle is required");
+  }
+  if (!schema) {
+    throw new Error("A concept schema object is required.");
+  }
+  return {
+    method: "PUT",
+    path: endpoint("concept", conceptId),
+    body: {
+      schema
+    }
+  };
+}
+
+export function updateConceptCategory(conceptId, conceptCategory) {
+  if (!conceptId) {
+    throw new Error("A concept conceptId is required");
+  }
+  if (!conceptCategory) {
+    throw new Error("A concept category is required.");
+  }
+  return {
+    method: "PUT",
+    path: endpoint("conceptCategory", conceptId),
+    body: {
+      conceptCategory
+    }
+  };
+}
+
+export function updateConceptForm(conceptId, form) {
+  if (!conceptId) {
+    throw new Error("A concept conceptId is required");
+  }
+  if (!form) {
+    throw new Error("A concept form is required.");
+  }
+  return {
+    method: "PUT",
+    path: endpoint("conceptForm", conceptId),
+    body: {
+      form
+    }
+  };
+}
+
+export function deleteConcept(conceptId) {
+  return {
+    method: "DELETE",
+    path: endpoint("concept", conceptId),
+    body: {}
   };
 }
 

@@ -3,6 +3,7 @@
 import endpoint from "./endpoint";
 import Concept from "./concept";
 import * as requests from "./requests";
+import ConceptCategory from "./concept-category";
 
 /**
  * Abstract representation of Concepts.
@@ -65,5 +66,22 @@ export default class Concepts {
       requests.createConcept(handle, schema),
       options
     );
+  }
+
+  listConceptCategories() {
+    return [
+      ConceptCategory.OBJECT,
+      ConceptCategory.PROCESS,
+      ConceptCategory.SCHEMA,
+      ConceptCategory.SCRIPT,
+      ConceptCategory.JUNCTURE,
+      ConceptCategory.PARTICIPATION,
+      ConceptCategory.DESCRIPTION,
+      ConceptCategory.HISTORY,
+      ConceptCategory.STRUCTURE,
+      ConceptCategory.SITUATION,
+      ConceptCategory.REASON,
+      ConceptCategory.PURPOSE
+    ];
   }
 }

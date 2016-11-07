@@ -1,6 +1,7 @@
 "use strict";
 
 import endpoint from "./endpoint";
+import * as requests from "./requests";
 
 /**
  * Abstract representation of a concept.
@@ -39,6 +40,61 @@ export default class Concept {
       {
         path: endpoint("concept", this.conceptId)
       },
+      options
+    );
+  }
+
+  /**
+   * Updates current concept
+   *
+   * @param {Object} schema             Concept schema
+   * @param  {Object} options           The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  edit(schema, options = {}) {
+    return this.tenant.execute(
+      requests.updateConcept(this.conceptId, schema),
+      options
+    );
+  }
+
+  /**
+   * Delete current concept
+   *
+   * @param  {Object} options           The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  remove(options = {}) {
+    return this.tenant.execute(
+      requests.deleteConcept(this.conceptId),
+      options
+    );
+  }
+
+  /**
+   * Updates current concept category
+   *
+   * @param {Object} category          Concept category
+   * @param  {Object} options             The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  updateConceptCategory(category, options = {}) {
+    return this.tenant.execute(
+      requests.updateConceptCategory(this.conceptId, category),
+      options
+    );
+  }
+
+  /**
+   * Updates current concept form
+   *
+   * @param {Object} form          Concept form
+   * @param  {Object} options             The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  editForm(form, options = {}) {
+    return this.tenant.execute(
+      requests.updateConceptForm(this.conceptId, form),
       options
     );
   }
