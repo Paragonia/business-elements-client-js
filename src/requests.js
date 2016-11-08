@@ -903,3 +903,44 @@ export function deleteBout(boutId) {
   };
 }
 
+// Attribute
+export function createAttribute(handle, schema) {
+  if (!handle) {
+    throw new Error("An attribute handle is required");
+  }
+  if (!schema) {
+    throw new Error("A attribute schema object is required.");
+  }
+  return {
+    method: "POST",
+    path: endpoint("attributes"),
+    body: {handle, schema}
+  };
+}
+
+export function updateAttribute(attributeId, schema) {
+  if (!attributeId) {
+    throw new Error("An attribute id is required");
+  }
+  if (!schema) {
+    throw new Error("A attribute schema object is required.");
+  }
+  return {
+    method: "PUT",
+    path: endpoint("attribute", attributeId),
+    body: {
+      schema
+    }
+  };
+}
+
+export function deleteAttribute(attributeId) {
+  if (!attributeId) {
+    throw new Error("An attribute id is required");
+  }
+  return {
+    method: "DELETE",
+    path: endpoint("attribute", attributeId),
+    body: {}
+  };
+}
