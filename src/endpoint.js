@@ -53,6 +53,10 @@ const ENDPOINTS = {
   conceptForm:                             (conceptId) => `/concepts/${conceptId}/form`,
   conceptRelationSpecification:            (conceptId) => `/concepts/${conceptId}/specifications`,
   specifyRelationCategory:   (relationSpecificationId) => `/concepts/specifications/${relationSpecificationId}/category`,
+  specifyRelationSubject:    (relationSpecificationId) => `/concepts/specifications/${relationSpecificationId}/subject`,
+  specifyRelationObject:     (relationSpecificationId) => `/concepts/specifications/${relationSpecificationId}/object`,
+  specifyRelationDirection:  (relationSpecificationId) => `/concepts/specifications/${relationSpecificationId}/direction`,
+  deleteRelation:            (relationSpecificationId) => `/concepts/specifications/${relationSpecificationId}`,
 
 // Instances
   instances:                                      (projectId) => `/projects/${projectId}/instances`,

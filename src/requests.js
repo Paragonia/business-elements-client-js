@@ -806,6 +806,59 @@ export function specifyRelationCategory(relationSpecificationId, relationCategor
   };
 }
 
+export function specifyRelationSubjectCriteria(relationSpecificationId, subjectCriteria) {
+  if (!relationSpecificationId) {
+    throw new Error("A concept relationSpecificationId is required");
+  }
+
+  return {
+    method: "PUT",
+    path: endpoint("specifyRelationSubject", relationSpecificationId),
+    body: {
+      subjectCriteria
+    }
+  };
+}
+
+export function specifyRelationObjectCriteria(relationSpecificationId, objectCategory) {
+  if (!relationSpecificationId) {
+    throw new Error("A concept relationSpecificationId is required");
+  }
+
+  return {
+    method: "PUT",
+    path: endpoint("specifyRelationObject", relationSpecificationId),
+    body: {
+      objectCategory
+    }
+  };
+}
+
+export function specifyRelationDirection(relationSpecificationId, direction) {
+  if (!relationSpecificationId) {
+    throw new Error("A concept relationSpecificationId is required");
+  }
+
+  return {
+    method: "PUT",
+    path: endpoint("specifyRelationDirection", relationSpecificationId),
+    body: {
+      direction
+    }
+  };
+}
+
+export function deleteRelationSpecification(relationSpecificationId) {
+  if (!relationSpecificationId) {
+    throw new Error("A concept relationSpecificationId is required");
+  }
+
+  return {
+    method: "PUT",
+    path: endpoint("deleteRelation", relationSpecificationId)
+  };
+}
+
 export function deleteConcept(conceptId) {
   return {
     method: "DELETE",
