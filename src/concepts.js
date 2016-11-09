@@ -4,7 +4,7 @@ import endpoint from "./endpoint";
 import Concept from "./concept";
 import * as requests from "./requests";
 import ConceptCategory from "./concept-category";
-import RelationCategory from "./relation-category";
+import Relations from "./relations";
 
 /**
  * Abstract representation of Concepts.
@@ -69,6 +69,10 @@ export default class Concepts {
     );
   }
 
+  relations() {
+    return new Relations(this.tenant);
+  }
+
   listConceptCategories() {
     return [
       ConceptCategory.OBJECT,
@@ -83,21 +87,6 @@ export default class Concepts {
       ConceptCategory.SITUATION,
       ConceptCategory.REASON,
       ConceptCategory.PURPOSE
-    ];
-  }
-
-  listConceptsRelationCategories() {
-    return [
-      RelationCategory.ASSOCIATION,
-      RelationCategory.ATTRIBUTION,
-      RelationCategory.CATEGORIZATION,
-      RelationCategory.COMPOSITION,
-      RelationCategory.CONSTITUTION,
-      RelationCategory.CONSTRUCTION,
-      RelationCategory.FORMULATION,
-      RelationCategory.MEMBERSHIP,
-      RelationCategory.OPERATION,
-      RelationCategory.SPATIALIZATION
     ];
   }
 }

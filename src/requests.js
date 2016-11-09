@@ -792,6 +792,20 @@ export function createRelationSpecification(conceptId, specificationHandle, rela
   };
 }
 
+export function specifyRelationCategory(relationSpecificationId, relationCategory) {
+  if (!relationSpecificationId) {
+    throw new Error("A concept relationSpecificationId is required");
+  }
+
+  return {
+    method: "PUT",
+    path: endpoint("specifyRelationCategory", relationSpecificationId),
+    body: {
+      relationCategory
+    }
+  };
+}
+
 export function deleteConcept(conceptId) {
   return {
     method: "DELETE",

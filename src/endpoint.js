@@ -47,11 +47,12 @@ const ENDPOINTS = {
   proxyYoutube:                             (id) => `/assets/proxy/youtube/preview/${id}`,
 
   // Concepts
-  concepts:                                  () => "/concepts",
-  concept:                          (conceptId) => `/concepts/${conceptId}`,
-  conceptCategory:                  (conceptId) => `/concepts/${conceptId}/category`,
-  conceptForm:                      (conceptId) => `/concepts/${conceptId}/form`,
-  conceptRelationSpecification:     (conceptId) => `/concepts/${conceptId}/specifications`,
+  concepts:                                         () => "/concepts",
+  concept:                                 (conceptId) => `/concepts/${conceptId}`,
+  conceptCategory:                         (conceptId) => `/concepts/${conceptId}/category`,
+  conceptForm:                             (conceptId) => `/concepts/${conceptId}/form`,
+  conceptRelationSpecification:            (conceptId) => `/concepts/${conceptId}/specifications`,
+  specifyRelationCategory:   (relationSpecificationId) => `/concepts/specifications/${relationSpecificationId}/category`,
 
 // Instances
   instances:                                      (projectId) => `/projects/${projectId}/instances`,
