@@ -774,6 +774,24 @@ export function updateConceptForm(conceptId, form) {
   };
 }
 
+export function createRelationSpecification(conceptId, specificationHandle, relationCategory, subjectCriteria, objectCriteria, direction) {
+  if (!conceptId) {
+    throw new Error("A concept conceptId is required");
+  }
+
+  return {
+    method: "POST",
+    path: endpoint("conceptRelationSpecification", conceptId),
+    body: {
+      specificationHandle,
+      relationCategory,
+      subjectCriteria,
+      objectCriteria,
+      direction
+    }
+  };
+}
+
 export function deleteConcept(conceptId) {
   return {
     method: "DELETE",
