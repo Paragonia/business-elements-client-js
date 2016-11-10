@@ -774,6 +774,91 @@ export function updateConceptForm(conceptId, form) {
   };
 }
 
+export function createRelationSpecification(conceptId, specificationHandle, relationCategory, subjectCriteria, objectCriteria, direction) {
+  if (!conceptId) {
+    throw new Error("A concept conceptId is required");
+  }
+
+  return {
+    method: "POST",
+    path: endpoint("conceptRelationSpecification", conceptId),
+    body: {
+      specificationHandle,
+      relationCategory,
+      subjectCriteria,
+      objectCriteria,
+      direction
+    }
+  };
+}
+
+export function specifyRelationCategory(relationSpecificationId, relationCategory) {
+  if (!relationSpecificationId) {
+    throw new Error("A concept relationSpecificationId is required");
+  }
+
+  return {
+    method: "PUT",
+    path: endpoint("specifyRelationCategory", relationSpecificationId),
+    body: {
+      relationCategory
+    }
+  };
+}
+
+export function specifyRelationSubjectCriteria(relationSpecificationId, subjectCriteria) {
+  if (!relationSpecificationId) {
+    throw new Error("A concept relationSpecificationId is required");
+  }
+
+  return {
+    method: "PUT",
+    path: endpoint("specifyRelationSubject", relationSpecificationId),
+    body: {
+      subjectCriteria
+    }
+  };
+}
+
+export function specifyRelationObjectCriteria(relationSpecificationId, objectCategory) {
+  if (!relationSpecificationId) {
+    throw new Error("A concept relationSpecificationId is required");
+  }
+
+  return {
+    method: "PUT",
+    path: endpoint("specifyRelationObject", relationSpecificationId),
+    body: {
+      objectCategory
+    }
+  };
+}
+
+export function specifyRelationDirection(relationSpecificationId, direction) {
+  if (!relationSpecificationId) {
+    throw new Error("A concept relationSpecificationId is required");
+  }
+
+  return {
+    method: "PUT",
+    path: endpoint("specifyRelationDirection", relationSpecificationId),
+    body: {
+      direction
+    }
+  };
+}
+
+export function deleteRelationSpecification(relationSpecificationId) {
+  if (!relationSpecificationId) {
+    throw new Error("A concept relationSpecificationId is required");
+  }
+
+  return {
+    method: "DELETE",
+    path: endpoint("deleteRelation", relationSpecificationId)
+  };
+}
+
 export function deleteConcept(conceptId) {
   return {
     method: "DELETE",

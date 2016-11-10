@@ -4,6 +4,7 @@ import endpoint from "./endpoint";
 import Concept from "./concept";
 import * as requests from "./requests";
 import ConceptCategory from "./concept-category";
+import Relations from "./relations";
 
 /**
  * Abstract representation of Concepts.
@@ -66,6 +67,10 @@ export default class Concepts {
       requests.createConcept(handle, schema),
       options
     );
+  }
+
+  relations() {
+    return new Relations(this.tenant);
   }
 
   listConceptCategories() {

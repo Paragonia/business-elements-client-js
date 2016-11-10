@@ -47,12 +47,18 @@ const ENDPOINTS = {
   proxyYoutube:                             (id) => `/assets/proxy/youtube/preview/${id}`,
 
   // Concepts
-  concepts:                                  () => "/concepts",
-  concept:                          (conceptId) => `/concepts/${conceptId}`,
-  conceptCategory:                  (conceptId) => `/concepts/${conceptId}/category`,
-  conceptForm:                      (conceptId) => `/concepts/${conceptId}/form`,
+  concepts:                                         () => "/concepts",
+  concept:                                 (conceptId) => `/concepts/${conceptId}`,
+  conceptCategory:                         (conceptId) => `/concepts/${conceptId}/category`,
+  conceptForm:                             (conceptId) => `/concepts/${conceptId}/form`,
+  conceptRelationSpecification:            (conceptId) => `/concepts/${conceptId}/specifications`,
+  specifyRelationCategory:   (relationSpecificationId) => `/concepts/specifications/${relationSpecificationId}/category`,
+  specifyRelationSubject:    (relationSpecificationId) => `/concepts/specifications/${relationSpecificationId}/subject`,
+  specifyRelationObject:     (relationSpecificationId) => `/concepts/specifications/${relationSpecificationId}/object`,
+  specifyRelationDirection:  (relationSpecificationId) => `/concepts/specifications/${relationSpecificationId}/direction`,
+  deleteRelation:            (relationSpecificationId) => `/concepts/specifications/${relationSpecificationId}`,
 
-  // Instances
+// Instances
   instances:                                      (projectId) => `/projects/${projectId}/instances`,
   projectInstance:                    (projectId, instanceId) => `/projects/${projectId}/instances/${instanceId}`,
   instanceRelation:  (projectId, instanceId, specificationId) => `/projects/${projectId}/instances/${instanceId}/relation/${specificationId}`,
