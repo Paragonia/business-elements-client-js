@@ -854,7 +854,7 @@ export function deleteRelationSpecification(relationSpecificationId) {
   }
 
   return {
-    method: "PUT",
+    method: "DELETE",
     path: endpoint("deleteRelation", relationSpecificationId)
   };
 }
