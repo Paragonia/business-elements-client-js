@@ -1,10 +1,12 @@
 "use strict";
 
+import EventEmitter from "event-emitter-es6";
+
 /**
  * Enhanced HTTP client for the Business Elements protocol.
  * @private
  */
-export default class HTTP {
+export default class HTTP extends EventEmitter {
 
   /**
    * Default HTTP request headers applied to each outgoing request.
@@ -62,6 +64,16 @@ export default class HTTP {
    * @param {Object}       options The options object.
    */
   constructor(options = {}) {
+    super();
+
+    this.httpEvents = {
+      REQUEST_STARTED:"request-started",
+      REQUEST_ENDED:"request-ended",
+      FETCH_ERROR: "fetch-error",
+      COMMUNICATION_ERROR: "unmarshaling-response-error",
+      BUSINESS_ERROR: "business-error",
+      TIMEOUT_ERROR: "timeout-error"
+    };
 
     options = Object.assign({}, HTTP.defaultOptions, options);
 
@@ -113,8 +125,10 @@ export default class HTTP {
     options.credentials = this.credentials;
 
     return new Promise((resolve, reject) => {
+      this.emit(this.httpEvents.REQUEST_STARTED);
       const _timeoutId = setTimeout(() => {
         isTimeout = true;
+        this.emit(this.httpEvents.TIMEOUT_ERROR);
         reject(new Error("Request timeout."));
       }, this.timeout);
       fetch(url, options) .then(res => {
@@ -123,6 +137,7 @@ export default class HTTP {
           resolve(res);
         }
       }).catch(err => {
+        this.emit(this.httpEvents.FETCH_ERROR, err);
         if (!isTimeout) {
           clearTimeout(_timeoutId);
           reject(err);
@@ -145,18 +160,24 @@ export default class HTTP {
         return JSON.parse(text);
       })
       .catch(err => {
+        this.emit(this.httpEvents.COMMUNICATION_ERROR, err);
         const error = new Error(`HTTP ${status || 0}; ${err}`);
         error.response = response;
         error.stack = err.stack;
         throw error;
       })
       .then(json => {
-        if (json && status >= 400) {
-          let message = `HTTP ${status} ${json.error||""}: `;
+        this.emit(this.httpEvents.REQUEST_ENDED);
+        if(status >= 400) {
+          let message = `HTTP ${status}`;
+          if(json) {
+            message += json.error || "";
+          }
           message += statusText || "";
           const error = new Error(message.trim());
           error.response = response;
           error.data = json;
+          this.emit(this.httpEvents.BUSINESS_ERROR, error);
           throw error;
         }
         return {status, json, headers};
