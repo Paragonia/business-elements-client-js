@@ -171,8 +171,9 @@ export default class HTTP extends EventEmitter {
         if(status >= 400) {
           let message = `HTTP ${status}`;
           if(json) {
-            message += json.error||"";
+            message += json.error || "";
           }
+          message += statusText || "";
           const error = new Error(message.trim());
           error.response = response;
           error.data = json;
