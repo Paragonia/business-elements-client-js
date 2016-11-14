@@ -51,6 +51,7 @@
     "uuid": "^2.0.2"
   },
   "dependencies": {
+    "event-emitter-es6": "^1.1.5",
     "event-source-polyfill": "0.0.7",
     "isomorphic-fetch": "^2.2.1"
   }

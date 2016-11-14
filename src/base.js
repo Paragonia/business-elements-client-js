@@ -199,6 +199,16 @@ export default class BusinessElementsClientBase {
   }
 
   /**
+   * Listen to http event and execute function
+   * 
+   * @param {String}   event     the event to listen to
+   * @param {Function} callBack  the function to execute when the event is fired
+     */
+  onHttpEvent(event, callBack){
+    this.http.on(event, callBack);
+  }
+
+  /**
    * Authenticates the account on the server.
    *
    * The generated authentication token is stored in the instance and will be send with each subsequent request.
@@ -261,5 +271,14 @@ export default class BusinessElementsClientBase {
    */
   tenant(domainName) {
     return new Tenant(this, domainName);
+  }
+
+  /**
+   * Retrieve event names emitted in the request flow
+   * 
+   * @returns {string[]}
+     */
+  httpEvents(){
+    return this.http.httpEvents;
   }
 }
