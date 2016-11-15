@@ -2,7 +2,7 @@
 
 import endpoint from "./endpoint";
 import ProjectContextEvent from "./project-context-event";
-import ResumableEventSource from "./resumeable-event-source";
+import ResumableEventSource from "./resumable-event-source";
 
 /**
  * Abstract representation of a project.
