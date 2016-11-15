@@ -148,14 +148,12 @@ export default class HTTP extends EventEmitter {
       }, this.timeout);
       fetch(url, options) .then(res => {
         if (!isTimeout) {
-          this._removePendingRequest();
           clearTimeout(_timeoutId);
           resolve(res);
         }
       }).catch(err => {
         this.emit(this.httpEvents.FETCH_ERROR, err);
         if (!isTimeout) {
-          this._removePendingRequest();
           clearTimeout(_timeoutId);
           reject(err);
         }
@@ -177,6 +175,7 @@ export default class HTTP extends EventEmitter {
         return JSON.parse(text);
       })
       .catch(err => {
+        this._removePendingRequest();
         this.emit(this.httpEvents.COMMUNICATION_ERROR, err);
         const error = new Error(`HTTP ${status || 0}; ${err}`);
         error.response = response;
@@ -184,6 +183,7 @@ export default class HTTP extends EventEmitter {
         throw error;
       })
       .then(json => {
+        this._removePendingRequest();
         if(status >= 400) {
           let message = `HTTP ${status}`;
           if(json) {
