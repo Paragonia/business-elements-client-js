@@ -35,20 +35,44 @@ export default class ProjectContextEvents {
      */
     this.contextId = contextId;
 
-    /**
-     * The event source of context updates
-     *
-     * The remote part of the url has to be explicitly appended, otherwise the event source will be creates on the same origin.
-     *
-     * @type {EventSource}
-     * */
-    this.eventSource = new EventSource(this.tenant.client.remote + endpoint("projectContextEvents", this.project.projectId, this.contextId), { withCredentials: true } );
+
+    //The remote part of the url has to be explicitly appended, otherwise the event source will be creates on the same origin.
+    sessionStorage.sseUrl = this.tenant.client.remote + endpoint("projectContextEvents", this.project.projectId, this.contextId);
+    this.createConnection();
+
 
     /**
      * Event types enum.
      * @type {ProjectContextEvent}
      */
     this.type = ProjectContextEvent;
+
+    this.keepAliveTimer = null;
+
+    this.eventSource.onmessage = (e) => {
+      this.getAlive();
+      console.log(e.data);
+    };
+
+    this.eventSource.onerror = (e) => {
+      console.log(e.data);
+    };
+
+  }
+
+  /**
+   * The event source of context updates
+   * @type {EventSource}
+   * */
+  createConnection() {
+    this.eventSource = new EventSource(sessionStorage.sseUrl, {withCredentials: true});
+  }
+
+  getAlive(){
+    if (this.keepAliveTimer != null) {
+      clearTimeout(this.keepAliveTimer);
+    }
+    this.keepAliveTimer = setTimeout(this.createConnection.bind(this), 6000);
   }
 
   /**
