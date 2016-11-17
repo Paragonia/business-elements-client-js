@@ -89,6 +89,8 @@ const ENDPOINTS = {
   // Cells
   cells:                               (valueId) => `/values/${valueId}/cells`,
   cell:                        (valueId, cellId) => `/values/${valueId}/cells/${cellId}`,
+  markCell:                    (valueId, cellId) => `/values/${valueId}/cells/${cellId}/mark`,
+  unMarkCell:                  (valueId, cellId) => `/values/${valueId}/cells/${cellId}/unmark`,
 
   // Projects
 

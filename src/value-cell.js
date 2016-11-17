@@ -66,6 +66,34 @@ export default class ValueCell {
   }
 
   /**
+   * Marks the current cell
+   *
+   * @param {Object} marker     The Cell marker to use
+   * @param  {Object} options   The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  mark(marker, options = {}) {
+    return this.tenant.execute(
+      requests.markValueCell(this.valueId, this.cellId, marker),
+      options
+    );
+  }
+
+  /**
+   * Un marks the current cell
+   *
+   * @param {Object} marker     The Cell marker to use
+   * @param  {Object} options   The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  unMark(options = {}) {
+    return this.tenant.execute(
+      requests.unMarkValueCell(this.valueId, this.cellId),
+      options
+    );
+  }
+
+  /**
    * Delete current value cell
    *
    * @param  {Object} options             The options object.
