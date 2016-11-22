@@ -6,28 +6,21 @@ import * as requests from "./requests";
 /**
  * Abstract representation of a project.
  */
-export default class ValueCell {
+export default class MarkerCell {
 
   /**
    * Constructor.
    *
    * @param  {Tenant}  tenant     The tenant instance.
-   * @param  {String}  valueId    The value id.
    * @param  {String}  cellId     The cell id.
    */
-  constructor(tenant, valueId, cellId) {
+  constructor(tenant, cellId) {
 
     /**
      * The tenant.
      * @type {Tenant}
      */
     this.tenant = tenant;
-
-    /**
-     * The value id.
-     * @type {String}
-     */
-    this.valueId = valueId;
 
     /**
      * The cell.
@@ -45,7 +38,7 @@ export default class ValueCell {
   get(options = {}) {
     return this.tenant.execute(
       {
-        path: endpoint("cell", this.valueId, this.cellId)
+        path: endpoint("markerCell", this.cellId)
       },
       options
     );
@@ -54,26 +47,26 @@ export default class ValueCell {
   /**
    * Updates current cell
    *
-   * @param {Object} position                Cell position
-   * @param  {Object} options             The options object.
+   * @param {Object} name     Cell name
+   * @param  {Object} options The options object.
    * @returns {Promise.<Object, Error>}
    */
-  edit(position, options = {}) {
+  setMarkerCellName(name, options = {}) {
     return this.tenant.execute(
-      requests.editValueCell(this.valueId, this.cellId, position),
+      requests.setMarkerCellName(this.cellId, name),
       options
     );
   }
 
   /**
-   * Delete current value cell
+   * Delete current marker cell
    *
    * @param  {Object} options             The options object.
    * @returns {Promise.<Object, Error>}
    */
   remove(options = {}) {
     return this.tenant.execute(
-      requests.deleteValueCell(this.valueId, this.cellId),
+      requests.deleteMarkerCell(this.cellId),
       options
     );
   }

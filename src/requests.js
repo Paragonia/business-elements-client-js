@@ -656,28 +656,40 @@ export function editValueCell(valueId, cellId, position) {
   };
 }
 
-export function markValueCell(valueId, cellId, marker) {
-  return {
-    method: "PUT",
-    path: endpoint("markCell", valueId, cellId),
-    body: {
-      marker
-    }
-  };
-}
-
-export function unMarkValueCell(valueId, cellId) {
-  return {
-    method: "PUT",
-    path: endpoint("unMarkCell", valueId, cellId),
-    body: {}
-  };
-}
-
 export function deleteValueCell(valueId, cellId) {
   return {
     method: "DELETE",
     path: endpoint("cell", valueId, cellId),
+    body: {}
+  };
+}
+
+// Marker Cells
+export function createMarkerCell(contextId, position) {
+  return {
+    method: "POST",
+    path: endpoint("markerCells"),
+    body: {
+      contextId,
+      position
+    }
+  };
+}
+
+export function setMarkerCellName(markerCellId, name) {
+  return {
+    method: "PUT",
+    path: endpoint("markerCell", markerCellId),
+    body: {
+      name
+    }
+  };
+}
+
+export function deleteMarkerCell(markerCellId) {
+  return {
+    method: "DELETE",
+    path: endpoint("markerCell", markerCellId),
     body: {}
   };
 }
