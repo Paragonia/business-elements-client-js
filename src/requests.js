@@ -633,6 +633,13 @@ export function editValue(valueId, projectId, attributeHandle, data) {
   };
 }
 
+export function deleteValue(valueId) {
+  return {
+    method: "DELETE",
+    path: endpoint("value", valueId)
+  };
+}
+
 // Cells
 export function createValueCell(valueId, projectIdOption, projectContextId, position) {
   return {
