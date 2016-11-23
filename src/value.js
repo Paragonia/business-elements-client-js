@@ -72,7 +72,7 @@ export default class Value {
   remove(projectId, options = {}) {
     return this.tenant.execute(
       requests.deleteValue(this.valueId, projectId), options
-    )
+    );
   }
 
   cells(){
