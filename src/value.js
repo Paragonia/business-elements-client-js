@@ -64,13 +64,14 @@ export default class Value {
 
   /**
    * Deletes the value
-   * 
+   *
+   * @param  {String}  projectId        The project id. 
    * @param  {Object} options       The options object.
    * @returns {Promise.<Object, Error>}
      */
-  remove(options = {}) {
+  remove(projectId, options = {}) {
     return this.tenant.execute(
-      requests.deleteValue(this.valueId), options
+      requests.deleteValue(this.valueId, projectId), options
     )
   }
 

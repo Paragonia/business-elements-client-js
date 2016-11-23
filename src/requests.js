@@ -633,10 +633,13 @@ export function editValue(valueId, projectId, attributeHandle, data) {
   };
 }
 
-export function deleteValue(valueId) {
+export function deleteValue(valueId, projectId) {
   return {
     method: "DELETE",
-    path: endpoint("value", valueId)
+    path: endpoint("value", valueId),
+    body: {
+      projectId
+    }
   };
 }
 
