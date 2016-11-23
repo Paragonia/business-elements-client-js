@@ -64,7 +64,7 @@ describe("Marker Cells", () => {
     const position = "position";
 
     it("should execute request", () => {
-      markers.create(contextId, position, {});
+      markers.create(projectContextId, position, {});
       sinon.assert.calledWithMatch(requests.createMarkerCell, projectContextId, position);
     });
 
