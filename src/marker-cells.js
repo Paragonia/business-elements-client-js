@@ -58,9 +58,9 @@ export default class MarkerCells {
    * @param {Object} options    The options object
    * @returns {Promise.<Object, Error>}
    */
-  create(contextId, position, options = {}) {
+  create(projectContextId, position, options = {}) {
     return this.tenant.execute(
-      requests.createMarkerCell(contextId, position),
+      requests.createMarkerCell(projectContextId, position),
       options
     );
   }

@@ -665,12 +665,12 @@ export function deleteValueCell(valueId, cellId) {
 }
 
 // Marker Cells
-export function createMarkerCell(contextId, position) {
+export function createMarkerCell(projectContextId, position) {
   return {
     method: "POST",
     path: endpoint("markerCells"),
     body: {
-      contextId,
+      projectContextId,
       position
     }
   };
