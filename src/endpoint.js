@@ -58,7 +58,7 @@ const ENDPOINTS = {
   specifyRelationDirection:  (relationSpecificationId) => `/concepts/specifications/${relationSpecificationId}/direction`,
   deleteRelation:            (relationSpecificationId) => `/concepts/specifications/${relationSpecificationId}`,
 
-// Instances
+  // Instances
   instances:                                      (projectId) => `/projects/${projectId}/instances`,
   projectInstance:                    (projectId, instanceId) => `/projects/${projectId}/instances/${instanceId}`,
   instanceRelation:  (projectId, instanceId, specificationId) => `/projects/${projectId}/instances/${instanceId}/relation/${specificationId}`,
