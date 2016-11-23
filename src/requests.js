@@ -674,6 +674,36 @@ export function deleteValueCell(valueId, cellId) {
   };
 }
 
+// Marker Cells
+export function createMarkerCell(contextId, position) {
+  return {
+    method: "POST",
+    path: endpoint("markerCells"),
+    body: {
+      contextId,
+      position
+    }
+  };
+}
+
+export function setMarkerCellName(markerCellId, name) {
+  return {
+    method: "PUT",
+    path: endpoint("markerCell", markerCellId),
+    body: {
+      name
+    }
+  };
+}
+
+export function deleteMarkerCell(markerCellId) {
+  return {
+    method: "DELETE",
+    path: endpoint("markerCell", markerCellId),
+    body: {}
+  };
+}
+
 // Exhibition
 export function createExhibition(projectId, name, description, pictureUri) {
   return {

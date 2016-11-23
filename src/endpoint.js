@@ -90,6 +90,10 @@ const ENDPOINTS = {
   cells:                               (valueId) => `/values/${valueId}/cells`,
   cell:                        (valueId, cellId) => `/values/${valueId}/cells/${cellId}`,
 
+  // Marker Cells
+  markerCells:                                () => "/markers",
+  markerCell:                     (markerCellId) => `/markers/${markerCellId}`,
+
   // Projects
 
   projects:                                    () => "/projects",
