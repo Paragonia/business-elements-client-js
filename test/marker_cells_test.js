@@ -60,12 +60,12 @@ describe("Marker Cells", () => {
       sandbox.spy(requests, "createMarkerCell");
     });
 
-    const contextId = "context-id";
+    const projectContextId = "context-id";
     const position = "position";
 
     it("should execute request", () => {
-      markers.create(contextId, position, {});
-      sinon.assert.calledWithMatch(requests.createMarkerCell, contextId, position);
+      markers.create(projectContextId, position, {});
+      sinon.assert.calledWithMatch(requests.createMarkerCell, projectContextId, position);
     });
 
   });
