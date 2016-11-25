@@ -62,6 +62,19 @@ export default class Value {
     );
   }
 
+  /**
+   * Deletes the value
+   *
+   * @param  {String}  projectId        The project id. 
+   * @param  {Object} options       The options object.
+   * @returns {Promise.<Object, Error>}
+     */
+  remove(projectId, options = {}) {
+    return this.tenant.execute(
+      requests.deleteValue(this.valueId, projectId), options
+    );
+  }
+
   cells(){
     return new ValueCells(this.tenant, this.valueId);
   }
