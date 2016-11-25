@@ -52,7 +52,7 @@ export default class ProjectContextEvent {
 ProjectContextEvent.VALUE = new ProjectContextEvent("VALUE", "value");
 ProjectContextEvent.VALUE_CREATED = new ProjectContextEvent("VALUE_CREATED", "valueCreated");
 ProjectContextEvent.VALUE_UPDATED = new ProjectContextEvent("VALUE_UPDATED", "valueUpdated");
-ProjectContextEvent.VALUE_DELETED = new ProjectContextEvent("VALUE_DELETED", "valueDelete");
+ProjectContextEvent.VALUE_DELETED = new ProjectContextEvent("VALUE_DELETED", "valueDeleted");
 
 // Data events - value cells
 
@@ -60,6 +60,13 @@ ProjectContextEvent.VALUE_CELL = new ProjectContextEvent("VALUE_CELL", "valueCel
 ProjectContextEvent.VALUE_CELL_CREATED = new ProjectContextEvent("VALUE_CELL_CREATED", "valueCellCreated");
 ProjectContextEvent.VALUE_CELL_MOVED = new ProjectContextEvent("VALUE_CELL_MOVED", "valueCellMoved");
 ProjectContextEvent.VALUE_CELL_DELETED = new ProjectContextEvent("VALUE_CELL_DELETED", "valueCellDeleted");
+
+// // Data events - marker cells
+ProjectContextEvent.MARKER_CELL = new ProjectContextEvent("MARKER_CELL", "markerCell");
+ProjectContextEvent.MARKER_CELL_CREATED = new ProjectContextEvent("MARKER_CELL_CREATED", "markerCellCreated");
+ProjectContextEvent.MARKER_CELL_UPDATED = new ProjectContextEvent("MARKER_CELL_UPDATED", "markerCellUpdated");
+ProjectContextEvent.MARKER_CELL_DELETED = new ProjectContextEvent("MARKER_CELL_DELETED", "markerCellDeleted");
+
 
 // User events - Connection
 

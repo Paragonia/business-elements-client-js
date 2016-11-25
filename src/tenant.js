@@ -17,6 +17,7 @@ import BeProxy from "./be-proxy";
 import Applications from "./applications";
 import Queries from "./queries";
 import Bouts from "./bouts";
+import MarkerCells from "./marker-cells";
 import endpoint from "./endpoint";
 import * as requests from "./requests";
 
@@ -226,6 +227,10 @@ export default class Tenant {
 
   applications() {
     return new Applications(this);
+  }
+
+  markers() {
+    return new MarkerCells(this);
   }
 
   /**

@@ -633,6 +633,16 @@ export function editValue(valueId, projectId, attributeHandle, data) {
   };
 }
 
+export function deleteValue(valueId, projectId) {
+  return {
+    method: "DELETE",
+    path: endpoint("value", valueId),
+    body: {
+      projectId
+    }
+  };
+}
+
 // Cells
 export function createValueCell(valueId, projectIdOption, projectContextId, position) {
   return {
@@ -660,6 +670,36 @@ export function deleteValueCell(valueId, cellId) {
   return {
     method: "DELETE",
     path: endpoint("cell", valueId, cellId),
+    body: {}
+  };
+}
+
+// Marker Cells
+export function createMarkerCell(projectContextId, position) {
+  return {
+    method: "POST",
+    path: endpoint("markerCells"),
+    body: {
+      projectContextId,
+      position
+    }
+  };
+}
+
+export function setMarkerCellName(markerCellId, name) {
+  return {
+    method: "PUT",
+    path: endpoint("markerCell", markerCellId),
+    body: {
+      name
+    }
+  };
+}
+
+export function deleteMarkerCell(markerCellId) {
+  return {
+    method: "DELETE",
+    path: endpoint("markerCell", markerCellId),
     body: {}
   };
 }

@@ -58,7 +58,7 @@ const ENDPOINTS = {
   specifyRelationDirection:  (relationSpecificationId) => `/concepts/specifications/${relationSpecificationId}/direction`,
   deleteRelation:            (relationSpecificationId) => `/concepts/specifications/${relationSpecificationId}`,
 
-// Instances
+  // Instances
   instances:                                      (projectId) => `/projects/${projectId}/instances`,
   projectInstance:                    (projectId, instanceId) => `/projects/${projectId}/instances/${instanceId}`,
   instanceRelation:  (projectId, instanceId, specificationId) => `/projects/${projectId}/instances/${instanceId}/relation/${specificationId}`,
@@ -89,6 +89,10 @@ const ENDPOINTS = {
   // Cells
   cells:                               (valueId) => `/values/${valueId}/cells`,
   cell:                        (valueId, cellId) => `/values/${valueId}/cells/${cellId}`,
+
+  // Marker Cells
+  markerCells:                                () => "/markers",
+  markerCell:                     (markerCellId) => `/markers/${markerCellId}`,
 
   // Projects
 

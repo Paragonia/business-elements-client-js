@@ -24,7 +24,7 @@ export default class ResumableEventSource {
     this.listenOnKeepAlive();
   }
 
-  keepAlive(){
+  keepAlive() {
     if (this.keepAliveTimer != null) {
       clearTimeout(this.keepAliveTimer);
     }
@@ -50,5 +50,6 @@ export default class ResumableEventSource {
 
   close() {
     this.eventSource.close();
+    clearTimeout(this.keepAliveTimer);
   }
 }
