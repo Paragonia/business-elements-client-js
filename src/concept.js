@@ -98,4 +98,22 @@ export default class Concept {
       options
     );
   }
+
+  /**
+   * Creates relation for current concept
+   *
+   * @param {Object} specificationHandle        relation handle
+   * @param {Object} relationCategory          relation category
+   * @param {Object} subjectCriteria          relation subject criteria
+   * @param {Object} objectCriteria          relation object criteria
+   * @param {Object} direction              relation direction
+   * @param  {Object} options             The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  createRelationSpecification(specificationHandle, relationCategory, subjectCriteria, objectCriteria, direction, options = {}) {
+    return this.tenant.execute(
+      requests.createRelationSpecification(this.conceptId, specificationHandle, relationCategory, subjectCriteria, objectCriteria, direction),
+      options
+    );
+  }
 }

@@ -633,6 +633,16 @@ export function editValue(valueId, projectId, attributeHandle, data) {
   };
 }
 
+export function deleteValue(valueId, projectId) {
+  return {
+    method: "DELETE",
+    path: endpoint("value", valueId),
+    body: {
+      projectId
+    }
+  };
+}
+
 // Cells
 export function createValueCell(valueId, projectIdOption, projectContextId, position) {
   return {
@@ -660,6 +670,36 @@ export function deleteValueCell(valueId, cellId) {
   return {
     method: "DELETE",
     path: endpoint("cell", valueId, cellId),
+    body: {}
+  };
+}
+
+// Marker Cells
+export function createMarkerCell(projectContextId, position) {
+  return {
+    method: "POST",
+    path: endpoint("markerCells"),
+    body: {
+      projectContextId,
+      position
+    }
+  };
+}
+
+export function setMarkerCellName(markerCellId, name) {
+  return {
+    method: "PUT",
+    path: endpoint("markerCell", markerCellId),
+    body: {
+      name
+    }
+  };
+}
+
+export function deleteMarkerCell(markerCellId) {
+  return {
+    method: "DELETE",
+    path: endpoint("markerCell", markerCellId),
     body: {}
   };
 }
@@ -771,6 +811,91 @@ export function updateConceptForm(conceptId, form) {
     body: {
       form
     }
+  };
+}
+
+export function createRelationSpecification(conceptId, specificationHandle, relationCategory, subjectCriteria, objectCriteria, direction) {
+  if (!conceptId) {
+    throw new Error("A concept conceptId is required");
+  }
+
+  return {
+    method: "POST",
+    path: endpoint("conceptRelationSpecification", conceptId),
+    body: {
+      specificationHandle,
+      relationCategory,
+      subjectCriteria,
+      objectCriteria,
+      direction
+    }
+  };
+}
+
+export function specifyRelationCategory(relationSpecificationId, relationCategory) {
+  if (!relationSpecificationId) {
+    throw new Error("A concept relationSpecificationId is required");
+  }
+
+  return {
+    method: "PUT",
+    path: endpoint("specifyRelationCategory", relationSpecificationId),
+    body: {
+      relationCategory
+    }
+  };
+}
+
+export function specifyRelationSubjectCriteria(relationSpecificationId, subjectCriteria) {
+  if (!relationSpecificationId) {
+    throw new Error("A concept relationSpecificationId is required");
+  }
+
+  return {
+    method: "PUT",
+    path: endpoint("specifyRelationSubject", relationSpecificationId),
+    body: {
+      subjectCriteria
+    }
+  };
+}
+
+export function specifyRelationObjectCriteria(relationSpecificationId, objectCategory) {
+  if (!relationSpecificationId) {
+    throw new Error("A concept relationSpecificationId is required");
+  }
+
+  return {
+    method: "PUT",
+    path: endpoint("specifyRelationObject", relationSpecificationId),
+    body: {
+      objectCategory
+    }
+  };
+}
+
+export function specifyRelationDirection(relationSpecificationId, direction) {
+  if (!relationSpecificationId) {
+    throw new Error("A concept relationSpecificationId is required");
+  }
+
+  return {
+    method: "PUT",
+    path: endpoint("specifyRelationDirection", relationSpecificationId),
+    body: {
+      direction
+    }
+  };
+}
+
+export function deleteRelationSpecification(relationSpecificationId) {
+  if (!relationSpecificationId) {
+    throw new Error("A concept relationSpecificationId is required");
+  }
+
+  return {
+    method: "DELETE",
+    path: endpoint("deleteRelation", relationSpecificationId)
   };
 }
 

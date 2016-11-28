@@ -106,4 +106,23 @@ describe("Concept", () => {
     });
   });
 
+  /** @test {Concept#createRelationSpecification} */
+  describe("#createRelationSpecification()", () => {
+    const response = {status: "Ok"};
+    beforeEach(() => {
+      sandbox.stub(client, "execute").returns(Promise.resolve(response));
+      sandbox.spy(requests, "createRelationSpecification");
+    });
+
+    it("should create a concept relation", () => {
+      concept.createRelationSpecification("person-equipment", "Association", {});
+
+      sinon.assert.calledWithMatch(requests.createRelationSpecification, conceptId, "person-equipment", "Association");
+    });
+
+    it("should return success", () => {
+      return concept.createRelationSpecification("person-equipment", "Association", {}).should.eventually.become(response);
+    });
+  });
+
 });
