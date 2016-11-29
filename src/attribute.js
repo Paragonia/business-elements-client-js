@@ -1,6 +1,7 @@
 "use strict";
 
 import endpoint from "./endpoint";
+import * as requests from "./requests";
 
 /**
  * Abstract representation of a attribute.
@@ -39,6 +40,33 @@ export default class Attribute {
       {
         path: endpoint("attribute", this.attributeId)
       },
+      options
+    );
+  }
+
+  /**
+   * Updates current attribute.
+   *
+   * @param  {Object} schema            Attribute schema
+   * @param  {Object} options           The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  edit(schema, options = {}) {
+    return this.tenant.execute(
+      requests.updateAttribute(this.attributeId, schema),
+      options
+    );
+  }
+
+  /**
+   * Delete current attribute
+   *
+   * @param  {Object} options           The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  remove(options = {}) {
+    return this.tenant.execute(
+      requests.deleteAttribute(this.attributeId),
       options
     );
   }
