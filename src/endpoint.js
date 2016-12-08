@@ -156,7 +156,11 @@ const ENDPOINTS = {
 
   //Bouts
   boutsEvents:                    () => "/bouts/events",
-  boutDelete:                     (boutId) => `/bouts/${boutId}`
+  boutDelete:                     (boutId) => `/bouts/${boutId}`,
+
+  //Admin
+  adminTenants:                   () => "/admin/tenants",
+  adminUsers:             (tenantId) => `/admin/tenants/${tenantId}/users`
 };
 
 /**
