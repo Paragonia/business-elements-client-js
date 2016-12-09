@@ -686,12 +686,13 @@ export function createMarkerCell(projectContextId, position) {
   };
 }
 
-export function setMarkerCellName(markerCellId, name) {
+export function updateMarkerCell(markerCellId, name, color) {
   return {
     method: "PUT",
     path: endpoint("markerCell", markerCellId),
     body: {
-      name
+      name,
+      color
     }
   };
 }

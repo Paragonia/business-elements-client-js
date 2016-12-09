@@ -68,23 +68,24 @@ describe("MarkerCell", () => {
     });
   });
 
-  /** @test {MarkerCell#setMarkerCellName} */
-  describe("#setMarkerCellName()", () => {
+  /** @test {MarkerCell#updateMarkerCell} */
+  describe("#updateMarkerCell()", () => {
     const response = {status: "Ok"};
     const name = "Some Marker Cell Name";
+    const color = "rgb(1,1,1)";
     beforeEach(() => {
       sandbox.stub(client, "execute").returns(Promise.resolve(response));
-      sandbox.spy(requests, "setMarkerCellName");
+      sandbox.spy(requests, "updateMarkerCell");
     });
 
     it("should set marker cell name", () => {
-      markerCell.setMarkerCellName(name, {});
+      markerCell.updateMarkerCell(name, color, {});
 
-      sinon.assert.calledWithMatch(requests.setMarkerCellName, markerCellId, name);
+      sinon.assert.calledWithMatch(requests.updateMarkerCell, markerCellId, name, color);
     });
 
     it("should return success", () => {
-      return markerCell.setMarkerCellName({}).should.eventually.become(response);
+      return markerCell.updateMarkerCell({}).should.eventually.become(response);
     });
   });
 
