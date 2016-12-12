@@ -18,6 +18,7 @@ import Applications from "./applications";
 import Queries from "./queries";
 import Bouts from "./bouts";
 import MarkerCells from "./marker-cells";
+import Languages from "./languages";
 import endpoint from "./endpoint";
 import * as requests from "./requests";
 
@@ -231,6 +232,10 @@ export default class Tenant {
 
   markers() {
     return new MarkerCells(this);
+  }
+
+  languages() {
+    return new Languages(this);
   }
 
   /**

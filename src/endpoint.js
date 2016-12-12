@@ -94,6 +94,9 @@ const ENDPOINTS = {
   markerCells:                                () => "/markers",
   markerCell:                     (markerCellId) => `/markers/${markerCellId}`,
 
+  //Languages
+  languages:                                  () => "/languages/iso",
+
   // Projects
 
   projects:                                    () => "/projects",
