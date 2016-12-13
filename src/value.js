@@ -63,9 +63,27 @@ export default class Value {
   }
 
   /**
+   * Updates the value with the specified properties.
+   *
+   * @param  {String}  projectId        The project id.
+   * @param {String} attributeHandle    The selected attribute
+   * @param {String} languageCode    The selected language code
+   * @param {Object} value    The form data object
+   * @param  {Object} options       The options object.
+   * @return {Promise<Object, Error>}
+   */
+  specifyTranslation(projectId, attributeHandle, languageCode, value, options = {})
+  {
+    return this.tenant.execute(
+      requests.specifyTranslation(this.valueId, projectId, attributeHandle, languageCode, value),
+      options
+    );
+  }
+
+  /**
    * Deletes the value
    *
-   * @param  {String}  projectId        The project id. 
+   * @param  {String}  projectId        The project id.
    * @param  {Object} options       The options object.
    * @returns {Promise.<Object, Error>}
      */
