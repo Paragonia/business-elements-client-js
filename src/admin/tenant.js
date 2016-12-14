@@ -19,7 +19,7 @@ export default class Tenant {
 
     /**
      * The admin.
-     * @type {Admin}
+     * @type {Tenant}
      */
     this.admin = admin;
 
