@@ -1091,3 +1091,15 @@ export function createTenant(handle, name, ownerEmailAddress) {
     }
   };
 }
+
+export function updateTenant(tenantId, handle, addOwnerEmailAddresses, removeOwnerEmailAddresses) {
+  return {
+    method: "PUT",
+    path: endpoint("adminTenant", tenantId),
+    body: {
+      handle,
+      addOwnerEmailAddresses,
+      removeOwnerEmailAddresses
+    }
+  };
+}
