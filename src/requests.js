@@ -632,7 +632,9 @@ export function editValue(valueId, projectId, attributeHandle, data) {
     }
   };
 
-}export function specifyTranslation(valueId, projectId, attributeHandle, languageCode, data) {
+}
+
+export function specifyTranslation(valueId, projectId, attributeHandle, languageCode, data) {
   return {
     method: "PUT",
     path: endpoint("valueTranslation", valueId),
@@ -641,6 +643,17 @@ export function editValue(valueId, projectId, attributeHandle, data) {
       attributeHandle,
       languageCode,
       data
+    }
+  };
+}
+
+export function deleteTranslation(valueId, projectId, languageCode) {
+  return {
+    method: "DELETE",
+    path: endpoint("valueTranslation", valueId),
+    body: {
+      projectId,
+      languageCode
     }
   };
 }
