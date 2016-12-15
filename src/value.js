@@ -66,7 +66,7 @@ export default class Value {
    *
    * @param {String}  projectId         The project id.
    * @param {String} attributeHandle    The selected attribute
-   * @param {String} languageCode       The selected language code
+   * @param {Object} languageCode       The selected language code
    * @param {Object} value              The form data object
    * @param {Object} options            The options object.
    * @return {Promise<Object, Error>}
@@ -82,7 +82,7 @@ export default class Value {
    * Deletes the translation associated with the language code
    *
    * @param {String} projectId          The project id
-   * @param {String} languageCode       Language code of the translation
+   * @param {Object} languageCode       Language code of the translation
    * @param {Object} options            The options object
    * @returns {Promise.<Object, Error>}
    */
