@@ -41,6 +41,33 @@ export default class Tenant {
     );
   }
 
+  setHandle(handle, options = {}) {
+    return this.admin.execute({
+      method: "PUT",
+      path: endpoint("adminTenantHandle", this.id),
+      body: {
+        handle: handle
+      }
+    }, options);
+  }
+
+  addOwner(ownerEmailAddress, options = {}) {
+    return this.admin.execute({
+      method: "POST",
+      path: endpoint("adminTenantOwners", this.id),
+      body: {
+        ownerEmailAddress: ownerEmailAddress
+      }
+    }, options);
+  }
+
+  removeOwner(ownerEmailAddress, options = {}) {
+    return this.admin.execute({
+      method: "DELETE",
+      path: endpoint("adminTenantOwner", this.id, ownerEmailAddress)
+    }, options);
+  }
+
   toggleEnabled(enabledFlag, options = {}) {
     return this.admin.execute({
       method: "PUT",

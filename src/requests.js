@@ -1093,13 +1093,22 @@ export function createTenant(handle, name, ownerEmailAddress) {
 }
 
 export function updateTenant(tenantId, handle, addOwnerEmailAddresses, removeOwnerEmailAddresses) {
+
+  let bodyRequest = {};
+
+  if (handle === defined && handle !== null) {
+    bodyRequest.handle = handle;
+  }
+  if (addOwnerEmailAddresses === defined && addOwnerEmailAddresses.length > 0) {
+    bodyRequest.addOwnerEmailAddresses = addOwnerEmailAddresses;
+  }
+  if (removeOwnerEmailAddresses === defined && removeOwnerEmailAddresses.length > 0) {
+    bodyRequest.removeOwnerEmailAddresses = removeOwnerEmailAddresses;
+  }
+
   return {
     method: "PUT",
     path: endpoint("adminTenant", tenantId),
-    body: {
-      handle,
-      addOwnerEmailAddresses,
-      removeOwnerEmailAddresses
-    }
+    body: bodyRequest
   };
 }

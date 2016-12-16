@@ -159,10 +159,13 @@ const ENDPOINTS = {
   boutDelete:                     (boutId) => `/bouts/${boutId}`,
 
   //Admin
-  adminTenants:                   () => "/admin/tenants",
-  adminUsers:             (tenantId) => `/admin/tenants/${tenantId}/users`,
-  adminTenant:            (tenantId) => `/admin/tenants/${tenantId}`,
-  adminTenantEnabled:     (tenantId) => `/admin/tenants/${tenantId}/enabled`
+  adminTenants:                                      () => "/admin/tenants",
+  adminUsers:                                (tenantId) => `/admin/tenants/${tenantId}/users`,
+  adminTenant:                               (tenantId) => `/admin/tenants/${tenantId}`,
+  adminTenantOwners:                         (tenantId) => `/admin/tenants/${tenantId}/owners`,
+  adminTenantOwner:       (tenantId, ownerEmailAddress) => `/admin/tenants/${tenantId}/owners/${ownerEmailAddress}`,
+  adminTenantHandle :                        (tenantId) => `/admin/tenants/${tenantId}/handle`,
+  adminTenantEnabled:                        (tenantId) => `/admin/tenants/${tenantId}/enabled`
 };
 
 /**
