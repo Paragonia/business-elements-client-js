@@ -47,13 +47,14 @@ export default class MarkerCell {
   /**
    * Updates current cell
    *
-   * @param {Object} name     Cell name
+   * @param {Object} name      Cell name
+   * @param {Object} color     Cell color
    * @param  {Object} options The options object.
    * @returns {Promise.<Object, Error>}
    */
-  setMarkerCellName(name, options = {}) {
+  updateMarkerCell(name, color, options = {}) {
     return this.tenant.execute(
-      requests.setMarkerCellName(this.cellId, name),
+      requests.updateMarkerCell(this.cellId, name, color),
       options
     );
   }

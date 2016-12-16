@@ -17,7 +17,11 @@ export default class ResumableEventSource {
 
   reconnect() {
     this.eventSource.close();
-    this.eventSource = new EventSource(this.url + "?lastEventId=" + this.lastKeepAliveId, {withCredentials: true});
+    if (this.lastKeepAliveId > 0) {
+      this.eventSource = new EventSource(this.url + "?lastEventId=" + this.lastKeepAliveId, {withCredentials: true});
+    } else {
+      this.eventSource = new EventSource(this.url, {withCredentials: true});
+    }
     this.listeners.forEach((listener) => {
       this.eventSource.addEventListener(listener[0], listener[1], false);
     });

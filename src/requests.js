@@ -631,6 +631,31 @@ export function editValue(valueId, projectId, attributeHandle, data) {
       data
     }
   };
+
+}
+
+export function specifyTranslation(valueId, projectId, attributeHandle, languageCode, data) {
+  return {
+    method: "PUT",
+    path: endpoint("valueTranslation", valueId),
+    body: {
+      projectId,
+      attributeHandle,
+      languageCode,
+      data
+    }
+  };
+}
+
+export function deleteTranslation(valueId, projectId, languageCode) {
+  return {
+    method: "DELETE",
+    path: endpoint("valueTranslation", valueId),
+    body: {
+      projectId,
+      languageCode
+    }
+  };
 }
 
 export function deleteValue(valueId, projectId) {
@@ -686,12 +711,13 @@ export function createMarkerCell(projectContextId, position) {
   };
 }
 
-export function setMarkerCellName(markerCellId, name) {
+export function updateMarkerCell(markerCellId, name, color) {
   return {
     method: "PUT",
     path: endpoint("markerCell", markerCellId),
     body: {
-      name
+      name,
+      color
     }
   };
 }
