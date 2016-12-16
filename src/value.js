@@ -90,7 +90,7 @@ export default class Value {
     return this.tenant.execute(
       requests.deleteTranslation(this.valueId, projectId, languageCode),
       options
-    )
+    );
   }
 
   /**
