@@ -75,8 +75,6 @@ export default class HTTP extends EventEmitter {
       TIMEOUT_ERROR: "timeout-error"
     };
 
-    this.pendingRequests = 0;
-
     options = Object.assign({}, HTTP.defaultOptions, options);
 
     /**
@@ -97,18 +95,6 @@ export default class HTTP extends EventEmitter {
      * @type {String}
      */
     this.credentials = options.credentials;
-  }
-
-  _addPendingRequest() {
-    if (this.pendingRequests++ == 0){
-      this.emit(this.httpEvents.REQUEST_STARTED);
-    }
-  }
-
-  _removePendingRequest() {
-    if (--this.pendingRequests == 0){
-      this.emit(this.httpEvents.REQUEST_ENDED);
-    }
   }
 
   /**
@@ -139,9 +125,9 @@ export default class HTTP extends EventEmitter {
     options.credentials = this.credentials;
 
     return new Promise((resolve, reject) => {
-      this._addPendingRequest();
+      this.emit(this.httpEvents.REQUEST_STARTED);
       const _timeoutId = setTimeout(() => {
-        this._removePendingRequest();
+        this.emit(this.httpEvents.REQUEST_ENDED);
         isTimeout = true;
         this.emit(this.httpEvents.TIMEOUT_ERROR);
         reject(new Error("Request timeout."));
@@ -175,7 +161,7 @@ export default class HTTP extends EventEmitter {
         return JSON.parse(text);
       })
       .catch(err => {
-        this._removePendingRequest();
+        this.emit(this.httpEvents.REQUEST_ENDED);
         this.emit(this.httpEvents.COMMUNICATION_ERROR, err);
         const error = new Error(`HTTP ${status || 0}; ${err}`);
         error.response = response;
@@ -183,7 +169,7 @@ export default class HTTP extends EventEmitter {
         throw error;
       })
       .then(json => {
-        this._removePendingRequest();
+        this.emit(this.httpEvents.REQUEST_ENDED);
         if(status >= 400) {
           let message = `HTTP ${status}`;
           if(json) {
