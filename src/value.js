@@ -122,7 +122,7 @@ export default class Value {
       .then((response) => {
         const embedded = response["_embedded"];
         if (embedded) {
-          const values = embedded["be:valueHistory"];
+          const values = embedded["be:value_history"];
           if (values) {
             return values;
           }

@@ -93,7 +93,7 @@ describe("Value", () => {
     const data = [{id: "a"}, {id: "b"}];
     const actual = {
       "_embedded" : {
-        "be:valueHistory" : data
+        "be:value_history" : data
       }
     };
 
