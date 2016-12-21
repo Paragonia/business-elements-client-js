@@ -117,8 +117,8 @@ export default class Value {
    * @param  {Object} options         The options object.
    * @return {Promise<Array<Object>, Error>}
    */
-  listValueHistory(valueId, options = {}) {
-    return this.tenant.execute({path: endpoint("valuesHistory", valueId)}, options)
+  listValueHistory(options = {}) {
+    return this.tenant.execute({path: endpoint("valuesHistory", this.valueId)}, options)
       .then((response) => {
         const embedded = response["_embedded"];
         if (embedded) {
@@ -129,6 +129,16 @@ export default class Value {
         }
         return [];
       });
+  }
+
+  /**
+   * @param {Object} options            The options object.
+   * @return {Promise<Object, Error>}
+   */
+  getValueHistory(revision, options = {}) {
+    return this.tenant.execute(
+      requests.getValueHistory(this.valueId, revision), options
+    );
   }
 
 }
