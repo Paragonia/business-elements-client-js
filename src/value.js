@@ -109,6 +109,28 @@ export default class Value {
   cells() {
     return new ValueCells(this.tenant, this.valueId);
   }
+
+  /**
+   * Retrieves the list of values in the current tenant.
+   *
+   * @param {String}      The values project id field
+   * @param  {Object} options         The options object.
+   * @return {Promise<Array<Object>, Error>}
+   */
+  listValueHistory(valueId, options = {}) {
+    return this.tenant.execute({path: endpoint("valuesHistory", valueId)}, options)
+      .then((response) => {
+        const embedded = response["_embedded"];
+        if (embedded) {
+          const values = embedded["be:valueHistory"];
+          if (values) {
+            return values;
+          }
+        }
+        return [];
+      });
+  }
+
 }
 
 
