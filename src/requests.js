@@ -668,6 +668,13 @@ export function deleteValue(valueId, projectId) {
   };
 }
 
+export function getValueHistory(valueId, revision) {
+  return {
+    method: "GET",
+    path: endpoint("valueHistoryRevision", valueId, revision)
+  };
+}
+
 // Cells
 export function createValueCell(valueId, projectIdOption, projectContextId, position) {
   return {

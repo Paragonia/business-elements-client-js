@@ -65,15 +65,16 @@ ProjectContextEvent.VALUE_CELL_CREATED = new ProjectContextEvent("VALUE_CELL_CRE
 ProjectContextEvent.VALUE_CELL_MOVED = new ProjectContextEvent("VALUE_CELL_MOVED", "valueCellMoved");
 ProjectContextEvent.VALUE_CELL_DELETED = new ProjectContextEvent("VALUE_CELL_DELETED", "valueCellDeleted");
 
-// // Data events - marker cells
+// Data events - value history
+ProjectContextEvent.VALUE_HISTORY_ADDED = new ProjectContextEvent("VALUE_HISTORY_ADDED", "valueHistoryAdded");
+
+// Data events - marker cells
 ProjectContextEvent.MARKER_CELL = new ProjectContextEvent("MARKER_CELL", "markerCell");
 ProjectContextEvent.MARKER_CELL_CREATED = new ProjectContextEvent("MARKER_CELL_CREATED", "markerCellCreated");
 ProjectContextEvent.MARKER_CELL_UPDATED = new ProjectContextEvent("MARKER_CELL_UPDATED", "markerCellUpdated");
 ProjectContextEvent.MARKER_CELL_DELETED = new ProjectContextEvent("MARKER_CELL_DELETED", "markerCellDeleted");
 
-
 // User events - Connection
-
 ProjectContextEvent.ONLINE_USERS = new ProjectContextEvent("ONLINE_USERS", "onlineUsers");
 ProjectContextEvent.ONLINE_MEMBER_JOINED = new ProjectContextEvent("ONLINE_MEMBER_JOINED", "memberJoined");
 ProjectContextEvent.ONLINE_MEMBER_LEFT = new ProjectContextEvent("ONLINE_MEMBER_LEFT", "memberLeft");

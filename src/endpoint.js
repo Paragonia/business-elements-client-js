@@ -86,6 +86,8 @@ const ENDPOINTS = {
   value:                               (valueId) => `/values/${valueId}`,
   valueTranslation:                    (valueId) => `/values/${valueId}/translation`,
   valuesProject:                     (projectId) => `/values/project/${projectId}`,
+  valuesHistory:                       (valueId) => `/values/${valueId}/history`,
+  valueHistoryRevision:      (valueId, revision) => `/values/${valueId}/history/${revision}`,
 
   // Cells
   cells:                               (valueId) => `/values/${valueId}/cells`,
