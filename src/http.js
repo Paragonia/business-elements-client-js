@@ -127,7 +127,6 @@ export default class HTTP extends EventEmitter {
     return new Promise((resolve, reject) => {
       this.emit(this.httpEvents.REQUEST_STARTED);
       const _timeoutId = setTimeout(() => {
-        this.emit(this.httpEvents.REQUEST_ENDED);
         isTimeout = true;
         this.emit(this.httpEvents.TIMEOUT_ERROR);
         reject(new Error("Request timeout."));
