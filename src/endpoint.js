@@ -165,7 +165,8 @@ const ENDPOINTS = {
   adminTenantOwners:                         (tenantId) => `/admin/tenants/${tenantId}/owners`,
   adminTenantOwner:       (tenantId, ownerEmailAddress) => `/admin/tenants/${tenantId}/owners/${ownerEmailAddress}`,
   adminTenantHandle :                        (tenantId) => `/admin/tenants/${tenantId}/handle`,
-  adminTenantEnabled:                        (tenantId) => `/admin/tenants/${tenantId}/enabled`
+  adminTenantEnabled:                        (tenantId) => `/admin/tenants/${tenantId}/enabled`,
+  adminAccounts:                                     () => "/admin/accounts"
 };
 
 /**

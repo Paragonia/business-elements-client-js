@@ -1,6 +1,7 @@
 "use strict";
 
 import Tenants from "./tenants";
+import Accounts from "./accounts";
 
 /**
  * Deals with administrator related task on
@@ -34,5 +35,9 @@ export default class Admin {
 
   tenants() {
     return new Tenants(this);
+  }
+
+  accounts() {
+    return new Accounts(this);
   }
 }

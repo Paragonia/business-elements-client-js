@@ -5,9 +5,9 @@ import Tenant from "./tenant";
 import * as requests from "../requests";
 
 /**
- * Abstract representation of tenants.
+ * Abstract representation of accounts.
  */
-export default class Tenants {
+export default class Accounts {
 
   /**
    * Constructor.
@@ -30,10 +30,10 @@ export default class Tenants {
    * @return {Promise<Array<Object>, Error>}
    */
   list(options = {}) {
-    return this.admin.execute({path: endpoint("adminTenants")}, options)
+    return this.admin.execute({path: endpoint("adminAccounts")}, options)
       .then((response) => {
         if (response && response["_embedded"]) {
-          return response["_embedded"]["be-admin:tenant"];
+          return response["_embedded"]["be-admin:account"];
         } else {
           return [];
         }
@@ -50,10 +50,12 @@ export default class Tenants {
    * @return {Promise<Object, Error>}
    */
   create(handle, name, ownerEmailAddress, options = {}) {
+    /*
     return this.admin.execute(
       requests.createTenant(handle, name, ownerEmailAddress),
       options
     );
+    */
   }
 
   /**
@@ -63,6 +65,8 @@ export default class Tenants {
    * @return {Tenant}
    */
   tenant(id) {
+    /*
     return new Tenant(this.admin, id);
+    */
   }
 }
