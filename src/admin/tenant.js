@@ -68,6 +68,16 @@ export default class Tenant {
     }, options);
   }
 
+  addUser(userEmailAddress, options = {}) {
+    return this.admin.execute({
+      method: "POST",
+      path: endpoint("adminTenantUsers", this.id),
+      body: {
+        userEmailAddress: userEmailAddress
+      }
+    }, options);
+  }
+
   toggleEnabled(enabledFlag, options = {}) {
     return this.admin.execute({
       method: "PUT",

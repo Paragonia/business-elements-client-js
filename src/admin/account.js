@@ -31,12 +31,4 @@ export default class Account {
   users() {
     return new TenantUsers(this);
   }
-
-  addTenant(tenantHandle) {
-
-  }
-
-  removeTenant(tenantHandle) {
-
-  }
 }
