@@ -1,7 +1,7 @@
 "use strict";
 
 import endpoint from "../endpoint";
-import Tenant from "./tenant";
+import Account from "./account";
 import * as requests from "../requests";
 
 /**
@@ -24,7 +24,7 @@ export default class Accounts {
   }
 
   /**
-   * Retrieves the list of tenants.
+   * Retrieves the list of accounts.
    *
    * @param  {Object} options         The options object.
    * @return {Promise<Array<Object>, Error>}
@@ -41,32 +41,12 @@ export default class Accounts {
   }
 
   /**
-   * Creates the organization with the specified properties.
-   *
-   * @param  {String}  handle             The handle of the tenant.
-   * @param  {String}  name               The name of the tenant.
-   * @param  {String}  ownerEmailAddress  The emailaddress of owner of the tenant.
-   * @param  {Object} options             The options object.
-   * @return {Promise<Object, Error>}
-   */
-  create(handle, name, ownerEmailAddress, options = {}) {
-    /*
-    return this.admin.execute(
-      requests.createTenant(handle, name, ownerEmailAddress),
-      options
-    );
-    */
-  }
-
-  /**
-   * Retrieve a tenant object to perform operations on it.
+   * Retrieve a {Account} object to perform operations on it.
    *
    * @param  {String} id The id of the tenant.
-   * @return {Tenant}
+   * @return {Account}
    */
-  tenant(id) {
-    /*
-    return new Tenant(this.admin, id);
-    */
+  account(id) {
+    return new Account(this.admin, id);
   }
 }

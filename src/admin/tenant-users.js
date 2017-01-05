@@ -3,22 +3,22 @@
 import endpoint from "../endpoint";
 
 /**
- * Abstract representation of an admin users.
+ * Abstract representation of tenant-users.
  */
-export default class Users {
+export default class TenantUsers {
 
   /**
    * Constructor.
    *
-   * @param  {Tenant} tenant
+   * @param  {Account} account
    */
-  constructor(tenant) {
+  constructor(account) {
 
     /**
-     * The admin tenant.
-     * @type {Tenant}
+     * The admin account.
+     * @type {Account}
      */
-    this.tenant = tenant;
+    this.account = account;
   }
 
   /**
@@ -28,10 +28,10 @@ export default class Users {
    * @return {Promise<Array<Object>, Error>}
    */
   list(options = {}) {
-    return this.tenant.admin.execute({path: endpoint("adminTenantUsers", this.tenant.id)}, options)
+    return this.account.admin.execute({path: endpoint("adminAccountUsers", this.account.id)}, options)
       .then((response) => {
         if (response && response["_embedded"]) {
-          return response["_embedded"]["be-admin:user"];
+          return response["_embedded"]["be-admin:tenant_user"];
         } else {
           return [];
         }
