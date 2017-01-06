@@ -58,6 +58,96 @@ describe("Admin - Tenant", () => {
     });
   });
 
+  /** @test {Tenant#setHandle} */
+  describe("#setHandle()", () => {
+    const tenantHandle = "new tenant handle";
+    const tenantData = {
+      tenantId: "a"
+    };
+
+    beforeEach(() => {
+      sandbox.stub(client, "execute").returns(Promise.resolve(tenantData));
+    });
+
+    it("should set handle of tenant", () => {
+      tenant.setHandle(tenantHandle);
+      sinon.assert.calledWithMatch(client.execute, {
+        method: "PUT",
+        path: `/admin/tenants/${tenantId}/handle`,
+        body: {
+          handle: tenantHandle
+        }
+      });
+    });
+  });
+
+  /** @test {Tenant#addOwner} */
+  describe("#addOwner()", () => {
+    const ownerEmailAddress = "owner@test.test";
+    const tenantData = {
+      tenantId: "a"
+    };
+
+    beforeEach(() => {
+      sandbox.stub(client, "execute").returns(Promise.resolve(tenantData));
+    });
+
+    it("should add owner to tenant", () => {
+      tenant.addOwner(ownerEmailAddress);
+      sinon.assert.calledWithMatch(client.execute, {
+        method: "POST",
+        path: `/admin/tenants/${tenantId}/owners`,
+        body: {
+          ownerEmailAddress: ownerEmailAddress
+        }
+      });
+    });
+  });
+
+  /** @test {Tenant#addUser} */
+  describe("#addUser()", () => {
+    const userEmailAddress = "user@test.test";
+    const tenantUserData = {
+      tenantId: "a",
+      userId: "b"
+    };
+
+    beforeEach(() => {
+      sandbox.stub(client, "execute").returns(Promise.resolve(tenantUserData));
+    });
+
+    it("should add user to tenant", () => {
+      tenant.addUser(userEmailAddress);
+      sinon.assert.calledWithMatch(client.execute, {
+        method: "POST",
+        path: `/admin/tenants/${tenantId}/users`,
+        body: {
+          userEmailAddress: userEmailAddress
+        }
+      });
+    });
+  });
+
+  /** @test {Tenant#removeOwner} */
+  describe("#removeOwner()", () => {
+    const ownerEmailAddress = "owner@test.test";
+    const tenantData = {
+      tenantId: "a"
+    };
+
+    beforeEach(() => {
+      sandbox.stub(client, "execute").returns(Promise.resolve(tenantData));
+    });
+
+    it("should remove owner from tenant", () => {
+      tenant.removeOwner(ownerEmailAddress);
+      sinon.assert.calledWithMatch(client.execute, {
+        method: "DELETE",
+        path: `/admin/tenants/${tenantId}/owners/${ownerEmailAddress}`
+      });
+    });
+  });
+
   /** @test {Tenant#toggleEnabled} */
   describe("#toggleEnabled()", () => {
     const enabledFlag = false;
@@ -75,6 +165,7 @@ describe("Admin - Tenant", () => {
     it("should toggle tenant enabled flag", () => {
       tenant.toggleEnabled(enabledFlag);
       sinon.assert.calledWithMatch(client.execute, {
+        method: "PUT",
         path: `/admin/tenants/${tenantId}/enabled`,
         body: {
           enabled: enabledFlag
@@ -82,4 +173,6 @@ describe("Admin - Tenant", () => {
       });
     });
   });
+
+
 });

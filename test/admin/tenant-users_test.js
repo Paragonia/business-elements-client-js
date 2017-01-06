@@ -13,22 +13,22 @@ chai.config.includeStack = true;
 
 const FAKE_SERVER_URL = "http://api.fake-server";
 
-/** @test {Users} */
-describe("Admin - Users", () => {
-  let sandbox, client, tenantId, users;
+/** @test {TenantUsers} */
+describe("Admin - Tenant-Users", () => {
+  let sandbox, client, accountId, tenantUsers;
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
     client = new BusinessElementsClient(FAKE_SERVER_URL);
-    tenantId = uuid.v4();
-    users = client.admin().tenants().tenant(tenantId).users();
+    accountId = uuid.v4();
+    tenantUsers = client.admin().accounts().account(accountId).users();
   });
 
   afterEach(() => {
     sandbox.restore();
   });
 
-  /** @test {Users#list} */
+  /** @test {TenantUsers#list} */
   describe("#list()", () => {
     beforeEach(() => {
       sandbox.stub(root, "fetch").returns(fakeServerResponse(201, {}, {}));
@@ -37,7 +37,7 @@ describe("Admin - Users", () => {
     const data = [{id: "a"}, {id: "b"}];
     const actual = {
       "_embedded" : {
-        "be-admin:user" : data
+        "be-admin:tenant_user" : data
       }
     };
 
@@ -46,15 +46,15 @@ describe("Admin - Users", () => {
     });
 
     it("should call users list url", () => {
-      users.list({});
+      tenantUsers.list({});
 
       sinon.assert.calledWithMatch(client.execute, {
-        path: `/admin/tenants/${tenantId}/users`
+        path: `/admin/accounts/${accountId}/users`
       });
     });
 
     it("should return the list of users", () => {
-      return users.list({}).should.become(data);
+      return tenantUsers.list({}).should.become(data);
     });
   });
 });

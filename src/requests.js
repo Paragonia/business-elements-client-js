@@ -1127,7 +1127,7 @@ export function createTenant(handle, name, ownerEmailAddress) {
 
 export function updateTenant(tenantId, handle, addOwnerEmailAddresses, removeOwnerEmailAddresses) {
 
-  let bodyRequest = {};
+  const bodyRequest = {};
 
   if (handle !== null) {
     bodyRequest.handle = handle;
