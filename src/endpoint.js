@@ -84,7 +84,10 @@ const ENDPOINTS = {
   // Values
   values:                                     () => "/values",
   value:                               (valueId) => `/values/${valueId}`,
+  valueTranslation:                    (valueId) => `/values/${valueId}/translation`,
   valuesProject:                     (projectId) => `/values/project/${projectId}`,
+  valuesHistory:                       (valueId) => `/values/${valueId}/history`,
+  valueHistoryRevision:      (valueId, revision) => `/values/${valueId}/history/${revision}`,
 
   // Cells
   cells:                               (valueId) => `/values/${valueId}/cells`,
@@ -93,6 +96,9 @@ const ENDPOINTS = {
   // Marker Cells
   markerCells:                                () => "/markers",
   markerCell:                     (markerCellId) => `/markers/${markerCellId}`,
+
+  //Languages
+  languages:                                  () => "/languages/iso",
 
   // Projects
 
