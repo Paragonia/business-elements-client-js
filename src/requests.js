@@ -1096,13 +1096,13 @@ export function updateTenant(tenantId, handle, addOwnerEmailAddresses, removeOwn
 
   let bodyRequest = {};
 
-  if (handle === defined && handle !== null) {
+  if (handle !== null) {
     bodyRequest.handle = handle;
   }
-  if (addOwnerEmailAddresses === defined && addOwnerEmailAddresses.length > 0) {
+  if (addOwnerEmailAddresses !== null && addOwnerEmailAddresses.length > 0) {
     bodyRequest.addOwnerEmailAddresses = addOwnerEmailAddresses;
   }
-  if (removeOwnerEmailAddresses === defined && removeOwnerEmailAddresses.length > 0) {
+  if (removeOwnerEmailAddresses !== null && removeOwnerEmailAddresses.length > 0) {
     bodyRequest.removeOwnerEmailAddresses = removeOwnerEmailAddresses;
   }
 

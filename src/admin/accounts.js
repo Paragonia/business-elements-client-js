@@ -2,7 +2,6 @@
 
 import endpoint from "../endpoint";
 import Account from "./account";
-import * as requests from "../requests";
 
 /**
  * Abstract representation of accounts.
