@@ -1102,3 +1102,46 @@ export function deleteAttribute(attributeId) {
     body: {}
   };
 }
+
+// Admin
+export function createTenant(handle, name, ownerEmailAddress) {
+  if (!handle) {
+    throw new Error("An tenant handle is required.");
+  }
+  if (!name) {
+    throw new Error("An tenant name is required.");
+  }
+  if (!ownerEmailAddress) {
+    throw new Error("An tenant ownerEmailAddress is required.");
+  }
+  return {
+    method: "POST",
+    path: endpoint("adminTenants"),
+    body: {
+      handle,
+      name,
+      ownerEmailAddress
+    }
+  };
+}
+
+export function updateTenant(tenantId, handle, addOwnerEmailAddresses, removeOwnerEmailAddresses) {
+
+  const bodyRequest = {};
+
+  if (handle !== null) {
+    bodyRequest.handle = handle;
+  }
+  if (addOwnerEmailAddresses !== null && addOwnerEmailAddresses.length > 0) {
+    bodyRequest.addOwnerEmailAddresses = addOwnerEmailAddresses;
+  }
+  if (removeOwnerEmailAddresses !== null && removeOwnerEmailAddresses.length > 0) {
+    bodyRequest.removeOwnerEmailAddresses = removeOwnerEmailAddresses;
+  }
+
+  return {
+    method: "PUT",
+    path: endpoint("adminTenant", tenantId),
+    body: bodyRequest
+  };
+}

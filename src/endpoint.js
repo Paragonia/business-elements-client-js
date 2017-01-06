@@ -162,7 +162,18 @@ const ENDPOINTS = {
 
   //Bouts
   boutsEvents:                    () => "/bouts/events",
-  boutDelete:                     (boutId) => `/bouts/${boutId}`
+  boutDelete:                     (boutId) => `/bouts/${boutId}`,
+
+  //Admin
+  adminTenants:                                      () => "/admin/tenants",
+  adminTenantUsers:                          (tenantId) => `/admin/tenants/${tenantId}/users`,
+  adminTenant:                               (tenantId) => `/admin/tenants/${tenantId}`,
+  adminTenantOwners:                         (tenantId) => `/admin/tenants/${tenantId}/owners`,
+  adminTenantOwner:       (tenantId, ownerEmailAddress) => `/admin/tenants/${tenantId}/owners/${ownerEmailAddress}`,
+  adminTenantHandle :                        (tenantId) => `/admin/tenants/${tenantId}/handle`,
+  adminTenantEnabled:                        (tenantId) => `/admin/tenants/${tenantId}/enabled`,
+  adminAccounts:                                     () => "/admin/accounts",
+  adminAccountUsers:                        (accountId) => `/admin/accounts/${accountId}/users`,
 };
 
 /**

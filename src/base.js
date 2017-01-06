@@ -5,6 +5,7 @@ import endpoint from "./endpoint";
 import * as requests from "./requests";
 import * as optionUtils from "./options";
 import Tenant from "./tenant";
+import Admin from "./admin/admin";
 
 import LocationService from "./location";
 
@@ -271,6 +272,15 @@ export default class BusinessElementsClientBase {
    */
   tenant(domainName) {
     return new Tenant(this, domainName);
+  }
+
+  /**
+   * Retrieve a admin object to perform operations on it.
+   *
+   * @return {Admin}
+   */
+  admin() {
+    return new Admin(this);
   }
 
   /**
