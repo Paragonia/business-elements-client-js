@@ -1,6 +1,7 @@
 "use strict";
 
 import Users from "./users";
+import TenantFeatures from "./tenant-features";
 import endpoint from "../endpoint";
 import * as requests from "../requests";
 
@@ -32,6 +33,10 @@ export default class Tenant {
 
   users() {
     return new Users(this);
+  }
+
+  features() {
+    return new TenantFeatures(this);
   }
 
   edit(handle, addOwnerEmailAddresses, removeOwnerEmailAddresses, options = {}) {
