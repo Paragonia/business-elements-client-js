@@ -96,4 +96,20 @@ export default class Instance {
       options
     );
   }
+
+
+  /**
+   * Creates the instance cell.
+   * @param {String} projectId         The project id under which the instance cell is crated
+   * @param {String} projectContextId  The project context id under which the instance cell is crated
+   * @param {Object} position          Axial position of the value cell
+   * @param  {Object} options          The options object.
+   * @return {Promise<Object, Error>}
+   */
+  createInstanceCell(contextId, position, options = {}) {
+    return this.tenant.execute(
+      requests.createInstanceCell(this.instanceId, this.projectId, contextId, position),
+      options
+    );
+  }
 }
