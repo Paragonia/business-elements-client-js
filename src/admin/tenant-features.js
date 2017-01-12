@@ -49,9 +49,9 @@ export default class TenantFeatures {
   toggle(feature, toggleValue, options = {}) {
     return this.tenant.admin.execute({
       method: "PUT",
-      path: endpoint("adminTenantFeatures", this.tenant.id),
+      path: endpoint("adminTenantFeature", this.tenant.id),
       body: {
-        feature: feature,
+        name: feature,
         value: toggleValue
       }
     }, options);
