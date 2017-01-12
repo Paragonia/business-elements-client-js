@@ -65,6 +65,7 @@ const ENDPOINTS = {
   searchInstances:                                         () => "/search/instances",
   instance:                                      (instanceId) => `/instances/${instanceId}`,
   instancesRelations:                            (instanceId) => `/instances/${instanceId}/relations`,
+  instanceCell:                                  (instanceId) => `/instances/${instanceId}/cells`,
 
   // Resources
   resources:                                  () => "/resources",
