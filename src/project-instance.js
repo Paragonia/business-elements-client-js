@@ -100,8 +100,7 @@ export default class Instance {
 
   /**
    * Creates the instance cell.
-   * @param {String} projectId         The project id under which the instance cell is crated
-   * @param {String} projectContextId  The project context id under which the instance cell is crated
+   * @param {String} contextId         The project context id under which the instance cell is crated
    * @param {Object} position          Axial position of the value cell
    * @param  {Object} options          The options object.
    * @return {Promise<Object, Error>}
@@ -111,5 +110,20 @@ export default class Instance {
       requests.createInstanceCell(this.instanceId, this.projectId, contextId, position),
       options
     );
+  }
+
+  /**
+   * Update position of instance cell
+   *
+   * @param {String} instanceCellId   The instance cell it
+   * @param {Object} position         The updated position of the instance cell
+   * @param {Object} options          The options object
+   * @returns {Promise.<Object, Error>}
+   */
+  updateInstanceCell(instanceCellId, position, options = {}) {
+    return this.tenant.execute(
+      requests.updateInstanceCell(this.instanceId, instanceCellId, position),
+      options
+    )
   }
 }
