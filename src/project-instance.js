@@ -124,6 +124,6 @@ export default class Instance {
     return this.tenant.execute(
       requests.updateInstanceCell(this.instanceId, instanceCellId, position),
       options
-    )
+    );
   }
 }

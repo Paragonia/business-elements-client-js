@@ -1034,7 +1034,7 @@ export function updateInstanceCell(instanceId, instanceCellId, position) {
     body: {
       position
     }
-  }
+  };
 }
 
 export function createQuery(conceptId, collectionName) {
