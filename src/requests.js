@@ -1037,6 +1037,13 @@ export function updateInstanceCell(instanceId, instanceCellId, position) {
   };
 }
 
+export function deleteInstanceCell(instanceId, instanceCellId, position) {
+  return {
+    method: "DELETE",
+    path: endpoint("instanceCell", instanceId, instanceCellId)
+  };
+}
+
 export function createQuery(conceptId, collectionName) {
   return {
     method: "POST",
