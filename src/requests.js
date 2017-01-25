@@ -1018,11 +1018,21 @@ export function specifyInstanceRelation(projectId, instanceId, specificationId, 
 export function createInstanceCell(instanceId, projectIdOption, projectContextId, position) {
   return {
     method: "POST",
-    path: endpoint("instanceCell", instanceId),
+    path: endpoint("instanceCells", instanceId),
     body: {
       projectContextId,
       position,
       projectIdOption
+    }
+  };
+}
+
+export function updateInstanceCell(instanceId, instanceCellId, position) {
+  return {
+    method: "PUT",
+    path: endpoint("instanceCell", instanceId, instanceCellId),
+    body: {
+      position
     }
   };
 }
