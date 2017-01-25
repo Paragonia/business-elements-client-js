@@ -1,6 +1,7 @@
 "use strict";
 
 import endpoint from "./endpoint";
+import InstanceCells from "./instance-cells";
 
 /**
  * Abstract representation of a instance.
@@ -41,5 +42,15 @@ export default class Instance {
       },
       options
     );
+  }
+
+  /**
+   * Retrieve a instance object to perform operations on it.
+   *
+   * @param  {String} instanceId        The id of the instance.
+   * @return {InstanceCells}
+   */
+  cells() {
+    return new InstanceCells(this.tenant, this.instanceId);
   }
 }
