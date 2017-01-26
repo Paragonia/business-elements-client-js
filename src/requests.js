@@ -984,7 +984,7 @@ export function listValueInstances(projectId, valueId) {
 
   return {
     method: "GET",
-    path: endpoint("projectValueInstance", projectId, valueId)
+    path: endpoint("projectValueInstances", projectId, valueId)
   };
 }
 
