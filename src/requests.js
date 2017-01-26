@@ -1017,6 +1017,16 @@ export function updateInstance(projectId, instanceId, operations, relations) {
   };
 }
 
+export function addInstanceValues(projectId, instanceId, values) {
+  return {
+    method: "PATCH",
+    path: endpoint("projectInstanceValues", projectId, instanceId),
+    body: {
+      values
+    }
+  };
+}
+
 export function specifyInstanceRelation(projectId, instanceId, specificationId, subjectId, subjectType, objectId, objectType) {
   return {
     method: "POST",
