@@ -17,12 +17,13 @@ const FAKE_SERVER_URL = "http://api.fake-server";
 
 /** @test {Instances} */
 describe("Instances", () => {
-  let sandbox, client, instances, projectId, conceptId, instanceId;
+  let sandbox, client, instances, projectId, conceptId, instanceId, valueId;
 
   beforeEach(() => {
     projectId = uuid.v4();
     conceptId = uuid.v4();
     instanceId = uuid.v4();
+    valueId = uuid.v4();
     sandbox = sinon.sandbox.create();
     client = new BusinessElementsClient(FAKE_SERVER_URL);
     instances = client.tenant("example.com").projects().project(projectId).instances();
@@ -40,13 +41,13 @@ describe("Instances", () => {
         "be:instance" : data
       }
     };
-    
+
     beforeEach(() => {
       sandbox.stub(root, "fetch").returns(fakeServerResponse(201, {}, {}));
       sandbox.stub(client, "execute").returns(Promise.resolve(actual));
       sandbox.spy(requests, "searchInstances");
     });
-    
+
     it("should call instances url", () => {
       instances.searchByConceptId(conceptId);
 
@@ -88,6 +89,37 @@ describe("Instances", () => {
 
     it("should return the list of instances", () => {
       return instances.listInstanceRelations(instanceId).should.become(data);
+    });
+  });
+
+  /** @test {Instances#listValueInstances} */
+  describe("#listValueInstances()", () => {
+    beforeEach(() => {
+      sandbox.stub(root, "fetch").returns(fakeServerResponse(201, {}, {}));
+      sandbox.spy(requests, "listValueInstances");
+    });
+
+    const data = [{id: "a"}, {id: "b"}];
+    const actual = {
+      "_embedded" : {
+        "be:instance" : data
+      }
+    };
+
+    beforeEach(() => {
+      sandbox.stub(client, "execute").returns(Promise.resolve(actual));
+    });
+
+    it("should call instances url", () => {
+      instances.listValueInstances(valueId);
+
+      sinon.assert.calledWithMatch(client.execute, {
+        path: `/projects/${projectId}/value/${valueId}/instances`
+      });
+    });
+
+    it("should return the list of instances", () => {
+      return instances.listValueInstances(valueId).should.become(data);
     });
   });
 
