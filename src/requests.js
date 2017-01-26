@@ -973,6 +973,21 @@ export function searchInstances(projectId, conceptId) {
   };
 }
 
+export function listValueInstance(projectId, valueId) {
+  if (!projectId) {
+    throw new Error("A projectId is required");
+  }
+
+  if (!valueId) {
+    throw new Error("A valueId is required");
+  }
+
+  return {
+    method: "GET",
+    path: endpoint("projectValueInstance", projectId, valueId)
+  };
+}
+
 export function listInstanceRelations(instanceId) {
   if (!instanceId) {
     throw new Error("A instanceId is required");

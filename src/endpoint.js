@@ -61,6 +61,7 @@ const ENDPOINTS = {
   // Instances
   instances:                                      (projectId) => `/projects/${projectId}/instances`,
   projectInstance:                    (projectId, instanceId) => `/projects/${projectId}/instances/${instanceId}`,
+  projectValueInstance:                  (projectId, valueId) => `/projects/${projectId}/instances/${valueId}`,
   instanceRelation:  (projectId, instanceId, specificationId) => `/projects/${projectId}/instances/${instanceId}/relation/${specificationId}`,
   searchInstances:                                         () => "/search/instances",
   instance:                                      (instanceId) => `/instances/${instanceId}`,
