@@ -973,7 +973,7 @@ export function searchInstances(projectId, conceptId) {
   };
 }
 
-export function listValueInstance(projectId, valueId) {
+export function listValueInstances(projectId, valueId) {
   if (!projectId) {
     throw new Error("A projectId is required");
   }

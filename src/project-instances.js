@@ -83,8 +83,8 @@ export default class ProjectInstances {
    * @param  {Object} options         The options object.
    * @return {Promise<Array<Object>, Error>}
    */
-  listValueInstance(valueId, options = {}) {
-    return this.tenant.execute(requests.listValueInstance(this.projectId, valueId), options)
+  listValueInstances(valueId, options = {}) {
+    return this.tenant.execute(requests.listValueInstances(this.projectId, valueId), options)
       .then((response) => {
         if (response["_embedded"]) {
           return response["_embedded"]["be:instance"];
