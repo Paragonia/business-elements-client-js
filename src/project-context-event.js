@@ -68,6 +68,7 @@ ProjectContextEvent.VALUE_CELL_DELETED = new ProjectContextEvent("VALUE_CELL_DEL
 // Data events - instance cells
 ProjectContextEvent.INSTANCE = new ProjectContextEvent("INSTANCE", "instance");
 ProjectContextEvent.INSTANCE_VALUE_ADDED = new ProjectContextEvent("INSTANCE_VALUE_ADDED", "instanceValueAdded");
+ProjectContextEvent.INSTANCE_VALUE_REMOVED = new ProjectContextEvent("INSTANCE_VALUE_REMOVED", "instanceValueRemoved");
 ProjectContextEvent.INSTANCE_CREATED = new ProjectContextEvent("INSTANCE_CREATED", "instanceCreated");
 ProjectContextEvent.INSTANCE_DELETED = new ProjectContextEvent("INSTANCE_DELETED", "instanceDeleted");
 ProjectContextEvent.INSTANCE_CELL = new ProjectContextEvent("INSTANCE_CELL", "instanceCell");
