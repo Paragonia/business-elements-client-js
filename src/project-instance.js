@@ -80,6 +80,20 @@ export default class Instance {
   }
 
   /**
+   * Update instance by adding existing values to the instance's properties list
+   * 
+   * @param   {Array}   values      The existing values to add
+   * @param   {Object}  options     The options object
+   * @returns {Promise.<Object, Error>}
+     */
+  addInstanceValues(values, options = {}) {
+    return this.tenant.execute(
+      requests.addInstanceValues(this.projectId, this.instanceId, values),
+      options
+    );
+  }
+
+  /**
    * Specifies a relation for an instance
    *
    * @param {Object} specificationId  The id of the relation specification
@@ -96,4 +110,6 @@ export default class Instance {
       options
     );
   }
+
+
 }

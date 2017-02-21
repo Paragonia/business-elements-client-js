@@ -668,6 +668,13 @@ export function deleteValue(valueId, projectId) {
   };
 }
 
+export function getValueHistory(valueId, revision) {
+  return {
+    method: "GET",
+    path: endpoint("valueHistoryRevision", valueId, revision)
+  };
+}
+
 // Cells
 export function createValueCell(valueId, projectIdOption, projectContextId, position) {
   return {
@@ -966,6 +973,32 @@ export function searchInstances(projectId, conceptId) {
   };
 }
 
+export function listProjectInstances(projectId) {
+  if (!projectId) {
+    throw new Error("A projectId is required");
+  }
+
+  return {
+    method: "GET",
+    path: endpoint("instances", projectId)
+  };
+}
+
+export function listValueInstances(projectId, valueId) {
+  if (!projectId) {
+    throw new Error("A projectId is required");
+  }
+
+  if (!valueId) {
+    throw new Error("A valueId is required");
+  }
+
+  return {
+    method: "GET",
+    path: endpoint("projectValueInstances", projectId, valueId)
+  };
+}
+
 export function listInstanceRelations(instanceId) {
   if (!instanceId) {
     throw new Error("A instanceId is required");
@@ -995,6 +1028,16 @@ export function updateInstance(projectId, instanceId, operations, relations) {
   };
 }
 
+export function addInstanceValues(projectId, instanceId, values) {
+  return {
+    method: "PATCH",
+    path: endpoint("projectInstanceValues", projectId, instanceId),
+    body: {
+      values
+    }
+  };
+}
+
 export function specifyInstanceRelation(projectId, instanceId, specificationId, subjectId, subjectType, objectId, objectType) {
   return {
     method: "POST",
@@ -1005,6 +1048,35 @@ export function specifyInstanceRelation(projectId, instanceId, specificationId, 
       objectId,
       objectType
     }
+  };
+}
+
+export function createInstanceCell(instanceId, projectIdOption, projectContextId, position) {
+  return {
+    method: "POST",
+    path: endpoint("instanceCells", instanceId),
+    body: {
+      projectContextId,
+      position,
+      projectIdOption
+    }
+  };
+}
+
+export function updateInstanceCell(instanceId, instanceCellId, position) {
+  return {
+    method: "PUT",
+    path: endpoint("instanceCell", instanceId, instanceCellId),
+    body: {
+      position
+    }
+  };
+}
+
+export function deleteInstanceCell(instanceId, instanceCellId, position) {
+  return {
+    method: "DELETE",
+    path: endpoint("instanceCell", instanceId, instanceCellId)
   };
 }
 
@@ -1093,5 +1165,48 @@ export function deleteAttribute(attributeId) {
     method: "DELETE",
     path: endpoint("attribute", attributeId),
     body: {}
+  };
+}
+
+// Admin
+export function createTenant(handle, name, ownerEmailAddress) {
+  if (!handle) {
+    throw new Error("An tenant handle is required.");
+  }
+  if (!name) {
+    throw new Error("An tenant name is required.");
+  }
+  if (!ownerEmailAddress) {
+    throw new Error("An tenant ownerEmailAddress is required.");
+  }
+  return {
+    method: "POST",
+    path: endpoint("adminTenants"),
+    body: {
+      handle,
+      name,
+      ownerEmailAddress
+    }
+  };
+}
+
+export function updateTenant(tenantId, handle, addOwnerEmailAddresses, removeOwnerEmailAddresses) {
+
+  const bodyRequest = {};
+
+  if (handle !== null) {
+    bodyRequest.handle = handle;
+  }
+  if (addOwnerEmailAddresses !== null && addOwnerEmailAddresses.length > 0) {
+    bodyRequest.addOwnerEmailAddresses = addOwnerEmailAddresses;
+  }
+  if (removeOwnerEmailAddresses !== null && removeOwnerEmailAddresses.length > 0) {
+    bodyRequest.removeOwnerEmailAddresses = removeOwnerEmailAddresses;
+  }
+
+  return {
+    method: "PUT",
+    path: endpoint("adminTenant", tenantId),
+    body: bodyRequest
   };
 }

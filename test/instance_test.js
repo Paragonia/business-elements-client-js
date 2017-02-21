@@ -92,7 +92,7 @@ describe("Instance", () => {
     });
   });
 
-  /** @test {Instance#update} */
+  /** @test {ProjectInstance#update} */
   describe("#update()", () => {
     const response = {status: "Ok"};
     const updateOperations = [{"op": "add"}, {"op": "remove"}];
@@ -111,6 +111,28 @@ describe("Instance", () => {
 
     it("should return success", () => {
       return projectInstance.update({}).should.eventually.become(response);
+    });
+  });
+
+
+  /** @test {ProjectInstance#addInstanceValues} */
+  describe("#addInstanceValues()", () => {
+    const response = {status: "Ok"};
+    const values = [{"v1": uuid.v4()}, {"v2": uuid.v4()}];
+
+    beforeEach(() => {
+      sandbox.stub(client, "execute").returns(Promise.resolve(response));
+      sandbox.spy(requests, "addInstanceValues");
+    });
+
+    it("should update the instance", () => {
+      projectInstance.addInstanceValues(values, {});
+
+      sinon.assert.calledWithMatch(requests.addInstanceValues, projectId, instanceId, values);
+    });
+
+    it("should return success", () => {
+      return projectInstance.addInstanceValues({}).should.eventually.become(response);
     });
   });
 

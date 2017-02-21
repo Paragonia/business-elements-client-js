@@ -61,10 +61,14 @@ const ENDPOINTS = {
   // Instances
   instances:                                      (projectId) => `/projects/${projectId}/instances`,
   projectInstance:                    (projectId, instanceId) => `/projects/${projectId}/instances/${instanceId}`,
+  projectInstanceValues:              (projectId, instanceId) => `/projects/${projectId}/instances/${instanceId}/values`,
+  projectValueInstances:                  (projectId, valueId) => `/projects/${projectId}/value/${valueId}/instances`,
   instanceRelation:  (projectId, instanceId, specificationId) => `/projects/${projectId}/instances/${instanceId}/relation/${specificationId}`,
   searchInstances:                                         () => "/search/instances",
   instance:                                      (instanceId) => `/instances/${instanceId}`,
   instancesRelations:                            (instanceId) => `/instances/${instanceId}/relations`,
+  instanceCells:                                 (instanceId) => `/instances/${instanceId}/cells`,
+  instanceCell:                  (instanceId, instanceCellId) => `/instances/${instanceId}/cells/${instanceCellId}`,
 
   // Resources
   resources:                                  () => "/resources",
@@ -86,6 +90,8 @@ const ENDPOINTS = {
   value:                               (valueId) => `/values/${valueId}`,
   valueTranslation:                    (valueId) => `/values/${valueId}/translation`,
   valuesProject:                     (projectId) => `/values/project/${projectId}`,
+  valuesHistory:                       (valueId) => `/values/${valueId}/history`,
+  valueHistoryRevision:      (valueId, revision) => `/values/${valueId}/history/${revision}`,
 
   // Cells
   cells:                               (valueId) => `/values/${valueId}/cells`,
@@ -160,7 +166,20 @@ const ENDPOINTS = {
 
   //Bouts
   boutsEvents:                    () => "/bouts/events",
-  boutDelete:                     (boutId) => `/bouts/${boutId}`
+  boutDelete:                     (boutId) => `/bouts/${boutId}`,
+
+  //Admin
+  adminTenants:                                      () => "/admin/tenants",
+  adminTenantUsers:                          (tenantId) => `/admin/tenants/${tenantId}/users`,
+  adminTenant:                               (tenantId) => `/admin/tenants/${tenantId}`,
+  adminTenantOwners:                         (tenantId) => `/admin/tenants/${tenantId}/owners`,
+  adminTenantOwner:       (tenantId, ownerEmailAddress) => `/admin/tenants/${tenantId}/owners/${ownerEmailAddress}`,
+  adminTenantHandle :                        (tenantId) => `/admin/tenants/${tenantId}/handle`,
+  adminTenantEnabled:                        (tenantId) => `/admin/tenants/${tenantId}/enabled`,
+  adminTenantFeatures:                       (tenantId) => `/admin/tenants/${tenantId}/features`,
+  adminTenantFeature:                        (tenantId) => `/admin/tenants/${tenantId}/feature`,
+  adminAccounts:                                     () => "/admin/accounts",
+  adminAccountUsers:                        (accountId) => `/admin/accounts/${accountId}/users`,
 };
 
 /**

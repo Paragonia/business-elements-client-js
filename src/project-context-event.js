@@ -47,6 +47,10 @@ export default class ProjectContextEvent {
   }
 }
 
+// Connect/recovered events
+ProjectContextEvent.CONNECTED = new ProjectContextEvent("CONNECTED", "connected");
+ProjectContextEvent.RECOVERED = new ProjectContextEvent("RECOVERED", "recovered");
+
 // Data events - values
 
 ProjectContextEvent.VALUE = new ProjectContextEvent("VALUE", "value");
@@ -61,15 +65,27 @@ ProjectContextEvent.VALUE_CELL_CREATED = new ProjectContextEvent("VALUE_CELL_CRE
 ProjectContextEvent.VALUE_CELL_MOVED = new ProjectContextEvent("VALUE_CELL_MOVED", "valueCellMoved");
 ProjectContextEvent.VALUE_CELL_DELETED = new ProjectContextEvent("VALUE_CELL_DELETED", "valueCellDeleted");
 
-// // Data events - marker cells
+// Data events - instance cells
+ProjectContextEvent.INSTANCE = new ProjectContextEvent("INSTANCE", "instance");
+ProjectContextEvent.INSTANCE_VALUE_ADDED = new ProjectContextEvent("INSTANCE_VALUE_ADDED", "instanceValueAdded");
+ProjectContextEvent.INSTANCE_VALUE_REMOVED = new ProjectContextEvent("INSTANCE_VALUE_REMOVED", "instanceValueRemoved");
+ProjectContextEvent.INSTANCE_CREATED = new ProjectContextEvent("INSTANCE_CREATED", "instanceCreated");
+ProjectContextEvent.INSTANCE_DELETED = new ProjectContextEvent("INSTANCE_DELETED", "instanceDeleted");
+ProjectContextEvent.INSTANCE_CELL = new ProjectContextEvent("INSTANCE_CELL", "instanceCell");
+ProjectContextEvent.INSTANCE_CELL_CREATED = new ProjectContextEvent("INSTANCE_CELL_CREATED", "instanceCellCreated");
+ProjectContextEvent.INSTANCE_CELL_MOVED = new ProjectContextEvent("INSTANCE_CELL_MOVED", "instanceCellMoved");
+ProjectContextEvent.INSTANCE_CELL_DELETED = new ProjectContextEvent("INSTANCE_CELL_DELETED", "instanceCellDeleted");
+
+// Data events - value history
+ProjectContextEvent.VALUE_HISTORY_ADDED = new ProjectContextEvent("VALUE_HISTORY_ADDED", "valueHistoryAdded");
+
+// Data events - marker cells
 ProjectContextEvent.MARKER_CELL = new ProjectContextEvent("MARKER_CELL", "markerCell");
 ProjectContextEvent.MARKER_CELL_CREATED = new ProjectContextEvent("MARKER_CELL_CREATED", "markerCellCreated");
 ProjectContextEvent.MARKER_CELL_UPDATED = new ProjectContextEvent("MARKER_CELL_UPDATED", "markerCellUpdated");
 ProjectContextEvent.MARKER_CELL_DELETED = new ProjectContextEvent("MARKER_CELL_DELETED", "markerCellDeleted");
 
-
 // User events - Connection
-
 ProjectContextEvent.ONLINE_USERS = new ProjectContextEvent("ONLINE_USERS", "onlineUsers");
 ProjectContextEvent.ONLINE_MEMBER_JOINED = new ProjectContextEvent("ONLINE_MEMBER_JOINED", "memberJoined");
 ProjectContextEvent.ONLINE_MEMBER_LEFT = new ProjectContextEvent("ONLINE_MEMBER_LEFT", "memberLeft");
