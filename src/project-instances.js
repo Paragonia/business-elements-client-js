@@ -77,6 +77,24 @@ export default class ProjectInstances {
   }
 
   /**
+   * List instances by ProjectId.
+   *
+   * @param  {String} valueId   The value id for which the instances are returned.
+   * @param  {Object} options         The options object.
+   * @return {Promise<Array<Object>, Error>}
+   */
+  listProjectInstances(options = {}) {
+    return this.tenant.execute(requests.listProjectInstances(this.projectId), options)
+      .then((response) => {
+        if (response["_embedded"]) {
+          return response["_embedded"]["be:instance"];
+        } else {
+          return [];
+        }
+      });
+  }
+
+  /**
    * List instances by valueId.
    *
    * @param  {String} valueId   The value id for which the instances are returned.
