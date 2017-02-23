@@ -110,4 +110,16 @@ export default class ProjectContext {
       options
     );
   }
+
+  /**
+   * Publish an interaction on the context.
+   * @param {InteractionContent}  content   the content to be sent as interaction
+   * @param {Object}              options   the options object
+   */
+  interact(content, options = {}) {
+    return this.tenant.execute(
+      requests.sendInteraction(this.project.projectId, this.contextId, content),
+      options
+    );
+  }
 }

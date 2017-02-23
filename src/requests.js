@@ -1,6 +1,7 @@
 "use strict";
 
 import endpoint from "./endpoint";
+import InteractionContent from "./interaction-content";
 
 /**
  * @private
@@ -503,6 +504,19 @@ export function updateContextPosition(projectId, contextId, position) {
     method: "POST",
     path: endpoint("projectContextPositions", projectId, contextId),
     body: {position}
+  };
+}
+
+export function sendInteraction(projectId, contextId, content) {
+  if (!content || !(InteractionContent.isOfSameType(content))) {
+    throw new Error("InteractionContent is required.");
+  }
+  return {
+    method: "POST",
+    path: endpoint("projectContextInteractions", projectId, contextId),
+    body: {
+      content: content.jsonObject()
+    }
   };
 }
 
