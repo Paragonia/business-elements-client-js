@@ -97,7 +97,7 @@ ProjectContextEvent.ONLINE_GUEST_LEFT = new ProjectContextEvent("ONLINE_GUEST_JO
 ProjectContextEvent.ONLINE_MEMBER_POSITION_UPDATE = new ProjectContextEvent("ONLINE_MEMBER_POSITION_UPDATE", "positionUpdate");
 
 // Interactions
-ProjectContextEvent.INTERACTIONS = new ProjectContextEvent("INTERACTION", "interaction");
+ProjectContextEvent.INTERACTION = new ProjectContextEvent("INTERACTION", "interaction");
 
 // Do not allow changes
 Object.freeze(ProjectContextEvent);
