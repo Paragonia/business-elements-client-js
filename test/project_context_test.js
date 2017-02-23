@@ -5,7 +5,6 @@ import chaiAsPromised from "chai-as-promised";
 import sinon from "sinon";
 import BusinessElementsClient from "../src";
 import uuid from "uuid";
-import InteractionContent from "../src/interaction-content";
 import * as requests from "../src/requests";
 
 chai.use(chaiAsPromised);
@@ -33,7 +32,7 @@ describe("ProjectContext", () => {
   /** @test {ProjectContext#interact} */
   describe("#interact()", () => {
     const response = {status: "Ok"};
-    const textContent = InteractionContent.getTextInstance("hello test");
+    const textContent = "hello test";
 
     beforeEach(() => {
       sandbox.stub(client, "execute").returns(Promise.resolve(response));
@@ -51,12 +50,12 @@ describe("ProjectContext", () => {
       });
     });
 
-    it("should validate interaction content type", () => {
-      expect(() => projectContext.interact({"type": "an object value"})).to.Throw(Error, /InteractionContent is required./);
+    it("should validate interaction content type is a string", () => {
+      expect(() => projectContext.interact({})).to.Throw(Error, /Text is required and needs to be of type String/);
     });
 
     it("should validate interaction content type to be not null", () => {
-      expect(() => projectContext.interact(null)).to.Throw(Error, /InteractionContent is required./);
+      expect(() => projectContext.interact(null)).to.Throw(Error, /Text is required and needs to be of type String/);
     });
 
   });

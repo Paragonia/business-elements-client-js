@@ -20,7 +20,7 @@ export default class InteractionContent {
    * @returns {InteractionContent}
    */
   static getTextInstance(text) {
-    if ((text instanceof String)) {
+    if (!(typeof text === "string")) {
       throw new Error("Text is required and needs to be of type String");
     }
     return new InteractionContent("TextContent", {
