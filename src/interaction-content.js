@@ -6,6 +6,9 @@ export default class InteractionContent {
     const _name = name;
     const _data = data;
 
+    /**
+     * convert to json-representation, to sent to the backend
+     */
     this.jsonObject = function () {
       return {
         type: _name,
