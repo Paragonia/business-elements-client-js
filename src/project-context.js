@@ -2,6 +2,7 @@
 
 import endpoint from "./endpoint";
 import ProjectContextEvents from "./project-context-events";
+import ProjectContextInteractionEvents from "./project-context-interaction-events";
 import * as requests from "./requests";
 import InteractionContent from "./interaction-content";
 
@@ -125,5 +126,14 @@ export default class ProjectContext {
       requests.sendInteraction(this.project.projectId, this.contextId, textContent),
       options
     );
+  }
+
+  /**
+   * Provides access to project context interaction events.
+   *
+   * @return {ProjectContextInteractionEvents}
+   */
+  interactions() {
+    return new ProjectContextInteractionEvents(this.tenant, this.project, this.contextId);
   }
 }
