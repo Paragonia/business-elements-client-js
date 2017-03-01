@@ -81,11 +81,11 @@ export default class Instance {
 
   /**
    * Update instance by adding existing values to the instance's properties list
-   * 
+   *
    * @param   {Array}   values      The existing values to add
    * @param   {Object}  options     The options object
    * @returns {Promise.<Object, Error>}
-     */
+   */
   addInstanceValues(values, options = {}) {
     return this.tenant.execute(
       requests.addInstanceValues(this.projectId, this.instanceId, values),
@@ -107,6 +107,32 @@ export default class Instance {
   specifyInstanceRelation(specificationId, subjectId, subjectType, objectId, objectType, options = {}) {
     return this.tenant.execute(
       requests.specifyInstanceRelation(this.projectId, this.instanceId, specificationId, subjectId, subjectType, objectId, objectType),
+      options
+    );
+  }
+
+  /**
+   * Adds a tag to this instance
+   *
+   * @param {Object} tag          The tag to be added
+   * @param  {Object} options     The options object.
+   */
+  addInstanceTag(tag, options = {}) {
+    return this.tenant.execute(
+      requests.addInstanceTag(this.projectId, this.instanceId, tag),
+      options
+    );
+  }
+
+  /**
+   * Removes a tag from this instance
+   *
+   * @param {Object} tag          The tag to be removed
+   * @param  {Object} options     The options object.
+   */
+  removeInstanceTag(tag, options = {}) {
+    return this.tenant.execute(
+      requests.removeInstanceTag(this.projectId, this.instanceId, tag),
       options
     );
   }

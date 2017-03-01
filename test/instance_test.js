@@ -161,4 +161,38 @@ describe("Instance", () => {
     });
   });
 
+  /** @test {ProjectInstance#addInstanceTag} */
+  describe("#addInstanceTag()", () => {
+    const response = {status: "OK"};
+    const tag = "tag";
+
+    beforeEach(()=> {
+      sandbox.stub(client, "execute").returns(Promise.resolve(response));
+      sandbox.spy(requests, "addInstanceTag");
+    });
+
+    it("should add a tag to the instance", () => {
+      projectInstance.addInstanceTag(tag);
+
+      sinon.assert.calledWithMatch(requests.addInstanceTag, projectId, instanceId, tag);
+    });
+  });
+
+  /** @test {ProjectInstance#removeInstanceTag} */
+  describe("#removeInstanceTag()", () => {
+    const response = {status: "OK"};
+    const tag = "tag";
+
+    beforeEach(()=> {
+      sandbox.stub(client, "execute").returns(Promise.resolve(response));
+      sandbox.spy(requests, "removeInstanceTag");
+    });
+
+    it("should remove a tag from the instance", () => {
+      projectInstance.removeInstanceTag(tag);
+
+      sinon.assert.calledWithMatch(requests.removeInstanceTag, projectId, instanceId, tag);
+    });
+  });
+
 });

@@ -1080,6 +1080,26 @@ export function deleteInstanceCell(instanceId, instanceCellId, position) {
   };
 }
 
+export function addInstanceTag(projectId, instanceId, tag) {
+  return {
+    method: "PUT",
+    path: endpoint("projectInstanceTags", projectId, instanceId),
+    body: {
+      tag
+    }
+  };
+}
+
+export function removeInstanceTag(projectId, instanceId, tag) {
+  return {
+    method: "DELETE",
+    path: endpoint("projectInstanceTags", projectId, instanceId),
+    body: {
+      tag
+    }
+  };
+}
+
 export function createQuery(conceptId, collectionName) {
   return {
     method: "POST",
