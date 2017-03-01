@@ -44,7 +44,7 @@ describe("ProjectContext", () => {
 
 
       sinon.assert.calledWithMatch(client.execute, {
-        path: `/interactions/contexts/${contextId}`,
+        path: `/projects/${projectId}/contexts/${contextId}/interactions`,
         method: "POST",
         body: {content: {data: {text: "hello test"}, type: "TextContent"}}
       });
