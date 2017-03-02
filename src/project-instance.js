@@ -112,6 +112,23 @@ export default class Instance {
   }
 
   /**
+   * Searches for suggested tags depending on the project this instance is assigned to
+   *
+   * @param  {Object} options            The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  searchTags(options = {}) {
+    return this.tenant.execute(requests.searchTags(this.projectId), options)
+      .then((response) => {
+        if (response["_embedded"]) {
+          return response["_embedded"]["be:tag"];
+        } else {
+          return [];
+        }
+      });
+  }
+
+  /**
    * Adds a tag to this instance
    *
    * @param {Object} tag          The tag to be added

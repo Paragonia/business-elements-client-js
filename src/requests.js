@@ -1100,6 +1100,16 @@ export function removeInstanceTag(projectId, instanceId, tag) {
   };
 }
 
+export function searchTags(projectId) {
+  return {
+    method: "POST",
+    path: endpoint("searchTags"),
+    body: {
+      projectId
+    }
+  };
+}
+
 export function createQuery(conceptId, collectionName) {
   return {
     method: "POST",
