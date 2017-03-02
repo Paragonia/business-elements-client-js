@@ -106,14 +106,15 @@ const ENDPOINTS = {
 
   // Projects
 
-  projects:                                    () => "/projects",
-  project:                                   (id) => `/projects/${id}`,
-  projectContexts:                    (projectId) => `/projects/${projectId}/contexts`,
-  projectContext:          (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}`,
-  projectContextEvents:    (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/events`,
-  projectContextClusters:  (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/clusters`,
-  projectContextPositions: (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/positions`,
-  projectExport:                      (projectId) => `/exports/projects/${projectId}`,
+  projects:                                       () => "/projects",
+  project:                                      (id) => `/projects/${id}`,
+  projectContexts:                       (projectId) => `/projects/${projectId}/contexts`,
+  projectContext:             (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}`,
+  projectContextEvents:       (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/events`,
+  projectContextClusters:     (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/clusters`,
+  projectContextPositions:    (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/positions`,
+  projectContextInteractions: (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/interactions`,
+  projectExport:                         (projectId) => `/exports/projects/${projectId}`,
 
   // Organizations
 

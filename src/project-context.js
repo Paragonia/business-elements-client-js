@@ -3,6 +3,7 @@
 import endpoint from "./endpoint";
 import ProjectContextEvents from "./project-context-events";
 import * as requests from "./requests";
+import InteractionContent from "./interaction-content";
 
 /**
  * Abstract representation of a project.
@@ -107,6 +108,21 @@ export default class ProjectContext {
   positionUpdate(position, options = {}) {
     return this.tenant.execute(
       requests.updateContextPosition(this.project.projectId, this.contextId, position),
+      options
+    );
+  }
+
+  /**
+   * Publish an interaction of type text on the context.
+   * @param {InteractionContent}  content   the content to be sent as interaction
+   * @param {Object}              options   the options object
+   */
+  interact(content, options = {}) {
+    // only supports text for now
+    const textContent = InteractionContent.getTextInstance(content);
+
+    return this.tenant.execute(
+      requests.sendInteraction(this.project.projectId, this.contextId, textContent),
       options
     );
   }
