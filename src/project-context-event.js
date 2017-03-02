@@ -75,6 +75,8 @@ ProjectContextEvent.INSTANCE_CELL = new ProjectContextEvent("INSTANCE_CELL", "in
 ProjectContextEvent.INSTANCE_CELL_CREATED = new ProjectContextEvent("INSTANCE_CELL_CREATED", "instanceCellCreated");
 ProjectContextEvent.INSTANCE_CELL_MOVED = new ProjectContextEvent("INSTANCE_CELL_MOVED", "instanceCellMoved");
 ProjectContextEvent.INSTANCE_CELL_DELETED = new ProjectContextEvent("INSTANCE_CELL_DELETED", "instanceCellDeleted");
+ProjectContextEvent.INSTANCE_TAG_ADDED = new ProjectContextEvent("INSTANCE_TAG_ADDED", "instanceTagAdded");
+ProjectContextEvent.INSTANCE_TAG_REMOVED = new ProjectContextEvent("INSTANCE_TAG_REMOVED", "instanceTagRemoved");
 
 // Data events - value history
 ProjectContextEvent.VALUE_HISTORY_ADDED = new ProjectContextEvent("VALUE_HISTORY_ADDED", "valueHistoryAdded");
