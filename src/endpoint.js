@@ -159,10 +159,11 @@ const ENDPOINTS = {
   exhibitionCluster: (exhibitionId, clusterHeadId) => `/exhibitions/${exhibitionId}/published/clusters/${clusterHeadId}`,
 
   // Applications
-  applications:                                                   () => "/applications",
-  application:                                   (applicationHandle) => `/applications/${applicationHandle}`,
-  applicationConfig:               (applicationHandle, configHandle) => `/applications/${applicationHandle}/configs/${configHandle}`,
-  applicationLocalization:   (applicationHandle, localizationHandle) => `/applications/${applicationHandle}/localizations/${localizationHandle}`,
+  applications:                                                                 () => "/applications",
+  application:                                                 (applicationHandle) => `/applications/${applicationHandle}`,
+  applicationConfig:                             (applicationHandle, configHandle) => `/applications/${applicationHandle}/configs/${configHandle}`,
+  applicationLocalization:                 (applicationHandle, localizationHandle) => `/applications/${applicationHandle}/localizations/${localizationHandle}`,
+  applicationConceptForm:    (applicationHandle, conceptId, applicationFormHandle) => `/applications/${applicationHandle}/concepts/${conceptId}/forms/${applicationFormHandle}`,
 
   // Queries
   queries:                        () => "/queries",

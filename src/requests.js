@@ -224,6 +224,24 @@ export function checkRegistrationStatus(emailAddress) {
   };
 }
 
+// Applications
+
+export function createApplicationConceptForm(applicationHandle, conceptId, applicationFormHandle, form) {
+  return {
+    method: "POST",
+    path: endpoint("applicationConceptForm", applicationHandle, conceptId, applicationFormHandle),
+    body: {form}
+  }
+}
+
+export function updateApplicationConceptForm(applicationHandle, conceptId, applicationFormHandle, form) {
+  return {
+    method: "PATCH",
+    path: endpoint("applicationConceptForm", applicationHandle, conceptId, applicationFormHandle),
+    body: {form}
+  }
+}
+
 // Organizations
 
 export function createOrganization(name) {
