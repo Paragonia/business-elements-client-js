@@ -1,6 +1,7 @@
 "use strict";
 
 import endpoint from "./endpoint";
+import Applicationforms from "./application-forms"
 
 /**
  * Abstract representation of a application.
@@ -46,6 +47,7 @@ export default class Application {
   /**
    * Retrieves the application config.
    *
+   * @param {String}  configHandle    The config handle
    * @param  {Object} options         The options object.
    * @return {Promise<Object, Error>}
    */
@@ -61,7 +63,8 @@ export default class Application {
   /**
    * Retrieves the application localization.
    *
-   * @param  {Object} options         The options object.
+   * @param {String}  localizationHandle  The localization handle
+   * @param  {Object} options             The options object.
    * @return {Promise<Object, Error>}
    */
   getLocalization(localizationHandle, options = {}) {
@@ -71,5 +74,14 @@ export default class Application {
       },
       options
     );
+  }
+
+  /**
+   * Provides access to application forms
+   *
+   * @returns {ApplicationForms}
+   */
+  forms() {
+    return new Applicationforms(this.tenant, this);
   }
 }

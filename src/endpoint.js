@@ -159,12 +159,14 @@ const ENDPOINTS = {
   exhibitionCluster: (exhibitionId, clusterHeadId) => `/exhibitions/${exhibitionId}/published/clusters/${clusterHeadId}`,
 
   // Applications
-  applications:                                                                 () => "/applications",
-  application:                                                 (applicationHandle) => `/applications/${applicationHandle}`,
-  applicationConfig:                             (applicationHandle, configHandle) => `/applications/${applicationHandle}/configs/${configHandle}`,
-  applicationLocalization:                 (applicationHandle, localizationHandle) => `/applications/${applicationHandle}/localizations/${localizationHandle}`,
-  applicationConceptForm:    (applicationHandle, conceptId, applicationFormHandle) => `/applications/${applicationHandle}/concepts/${conceptId}/forms/${applicationFormHandle}`,
-  applicationAttributesForm:          (applicationHandle, attributeId, formHandle) => `/applications/${applicationHandle}/attributes/${attributeId}/forms/${formHandle}`,
+  applications:                                                                         () => "/applications",
+  application:                                                         (applicationHandle) => `/applications/${applicationHandle}`,
+  applicationConfig:                                     (applicationHandle, configHandle) => `/applications/${applicationHandle}/configs/${configHandle}`,
+  applicationLocalization:                         (applicationHandle, localizationHandle) => `/applications/${applicationHandle}/localizations/${localizationHandle}`,
+  applicationForms:                                                    (applicationHandle) => `/applications/${applicationHandle}/forms`,
+  applicationConceptForm:            (applicationHandle, conceptId, applicationFormHandle) => `/applications/${applicationHandle}/concepts/${conceptId}/forms/${applicationFormHandle}`,
+  applicationAttributeForm:        (applicationHandle, attributeId, applicationFormHandle) => `/applications/${applicationHandle}/attributes/${attributeId}/forms/${applicationFormHandle}`,
+
   // Queries
   queries:                        () => "/queries",
   query:                        (id) => `/queries/${id}`,
@@ -184,7 +186,7 @@ const ENDPOINTS = {
   adminTenantFeatures:                       (tenantId) => `/admin/tenants/${tenantId}/features`,
   adminTenantFeature:                        (tenantId) => `/admin/tenants/${tenantId}/feature`,
   adminAccounts:                                     () => "/admin/accounts",
-  adminAccountUsers:                        (accountId) => `/admin/accounts/${accountId}/users`,
+  adminAccountUsers:                        (accountId) => `/admin/accounts/${accountId}/users`
 };
 
 /**
