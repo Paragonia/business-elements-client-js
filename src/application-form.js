@@ -75,7 +75,7 @@ export default class ApplicationForm {
    * @param {Object} options     The options object
    * @returns {Promise.<Object, Error>}
    */
-  updateConcepForm(conceptId, form, options = {}) {
+  updateConceptForm(conceptId, form, options = {}) {
     return this.tenant.execute(
       requests.updateApplicationConceptForm(this.application.applicationHandle, conceptId, this.applicationFormHandle, form),
       options
