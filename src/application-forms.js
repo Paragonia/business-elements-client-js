@@ -1,6 +1,7 @@
 "use strict";
 
-import ApplicationForm from './application-form'
+import ApplicationForm from "./application-form";
+import endpoint from "./endpoint";
 
 
 /**
@@ -53,6 +54,6 @@ export default class ApplicationForms {
    * @returns {ApplicationForm}
    */
   form(formHandle) {
-    return new ApplicationForm(this.tenant, this.application, handle);
+    return new ApplicationForm(this.tenant, this.application, formHandle);
   }
 }

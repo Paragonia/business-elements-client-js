@@ -1,7 +1,7 @@
 "use strict";
 
 import endpoint from "./endpoint";
-import Applicationforms from "./application-forms"
+import Applicationforms from "./application-forms";
 
 /**
  * Abstract representation of a application.
@@ -11,8 +11,8 @@ export default class Application {
   /**
    * Constructor.
    *
-   * @param  {Tenant} tenant     The tenant instance.
-   * @param  {String} applicationId  The application id.
+   * @param  {Tenant} tenant              The tenant instance.
+   * @param  {String} applicationHandle   The application handle.
    */
   constructor(tenant, applicationHandle) {
 

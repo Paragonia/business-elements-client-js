@@ -239,7 +239,7 @@ export function createApplicationConceptForm(applicationHandle, conceptId, appli
     method: "POST",
     path: endpoint("applicationConceptForm", applicationHandle, conceptId, applicationFormHandle),
     body: {form}
-  }
+  };
 }
 
 export function updateApplicationConceptForm(applicationHandle, conceptId, applicationFormHandle, form) {
@@ -255,7 +255,7 @@ export function updateApplicationConceptForm(applicationHandle, conceptId, appli
     method: "PATCH",
     path: endpoint("applicationConceptForm", applicationHandle, conceptId, applicationFormHandle),
     body: {form}
-  }
+  };
 }
 
 export function createApplicationAttributeForm(applicationHandle, attributeId, applicationFormHandle, form) {
@@ -271,7 +271,7 @@ export function createApplicationAttributeForm(applicationHandle, attributeId, a
     method: "POST",
     path: endpoint("applicationConceptForm", applicationHandle, attributeId, applicationFormHandle),
     body: {form}
-  }
+  };
 }
 
 export function updateApplicationAttributeForm(applicationHandle, attributeId, applicationFormHandle, form) {
@@ -287,7 +287,7 @@ export function updateApplicationAttributeForm(applicationHandle, attributeId, a
     method: "PATCH",
     path: endpoint("applicationConceptForm", applicationHandle, attributeId, applicationFormHandle),
     body: {form}
-  }
+  };
 }
 
 

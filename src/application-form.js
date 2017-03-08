@@ -1,6 +1,6 @@
 "use strict";
 
-import endpoint from "./endpoint"
+import endpoint from "./endpoint";
 import * as requests from "./requests";
 
 
@@ -49,7 +49,7 @@ export default class ApplicationForm {
         path: endpoint("applicationForm", this.application.applicationHandle, this.applicationFormHandle),
         options
       }
-    )
+    );
   }
 
   /**
@@ -57,9 +57,10 @@ export default class ApplicationForm {
    *
    * @param {String} conceptId   The concept id
    * @param {Object} form        The form object as json
+   * @param {Object} options     The options object
    * @returns {Promise.<Object, Error>}
    */
-  createConceptForm(conceptId, form) {
+  createConceptForm(conceptId, form, options = {}) {
     return this.tenant.execute(
       requests.createApplicationConceptForm(this.application.applicationHandle, conceptId, this.applicationFormHandle, form),
       options
@@ -71,9 +72,10 @@ export default class ApplicationForm {
    *
    * @param {String} conceptId   The concept id
    * @param {Object} form        The form object as json
+   * @param {Object} options     The options object
    * @returns {Promise.<Object, Error>}
    */
-  updateConcepForm(conceptId, form) {
+  updateConcepForm(conceptId, form, options = {}) {
     return this.tenant.execute(
       requests.updateApplicationConceptForm(this.application.applicationHandle, conceptId, this.applicationFormHandle, form),
       options
@@ -85,9 +87,10 @@ export default class ApplicationForm {
    *
    * @param {String} attributeId          The attribute id
    * @param {Object} form                 The form object as json
+   * @param {Object} options              The options object
    * @returns {Promise.<Object, Error>}
    */
-  createAttributeForm(attributeId, form) {
+  createAttributeForm(attributeId, form, options = {}) {
     return this.tenant.execute(
       requests.createApplicationAttributeForm(this.application.applicationHandle, attributeId, this.applicationFormHandle, form),
       options
@@ -99,9 +102,10 @@ export default class ApplicationForm {
    *
    * @param {String} attributeId          The attribute id
    * @param {Object} form                 The form object as json
+   * @param {Object} options              The options object
    * @returns {Promise.<Object, Error>}
    */
-  updateAttributeForm(attributeId, form) {
+  updateAttributeForm(attributeId, form, options = {}) {
     return this.tenant.execute(
       requests.updateApplicationAttributeForm(this.application.applicationHandle, attributeId, this.applicationFormHandle, form),
       options
