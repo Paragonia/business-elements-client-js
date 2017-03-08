@@ -39,7 +39,7 @@ export default class OrganizationExhibitions {
       .then((response) => {
         const embedded = response["_embedded"];
         if (embedded) {
-          const exhibitions = embedded["be:exhibition"];
+          const exhibitions = embedded["be:organization_exhibition"];
           if (exhibitions) {
             return exhibitions;
           }
