@@ -1,7 +1,7 @@
 "use strict";
 
 import endpoint from "./endpoint";
-import Applicationforms from "./application-forms";
+import ApplicationForms from "./application-forms";
 
 /**
  * Abstract representation of a application.
@@ -82,6 +82,6 @@ export default class Application {
    * @returns {ApplicationForms}
    */
   forms() {
-    return new Applicationforms(this.tenant, this);
+    return new ApplicationForms(this.tenant, this);
   }
 }
