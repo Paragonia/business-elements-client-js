@@ -1,5 +1,8 @@
 "use strict";
 
+import ApplicationForm from './application-form'
+
+
 /**
  * Abstract representation of Application Forms.
  */
@@ -41,5 +44,15 @@ export default class ApplicationForms {
           return [];
         }
       });
+  }
+
+  /**
+   * Retrieves an application form object
+   *
+   * @param {String}              formHandle The handle of the application form
+   * @returns {ApplicationForm}
+   */
+  form(formHandle) {
+    return new ApplicationForm(this.tenant, this.application, handle);
   }
 }
