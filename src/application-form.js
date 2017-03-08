@@ -59,7 +59,7 @@ export default class ApplicationForm {
    * @param {Object} form        The form object as json
    * @returns {Promise.<Object, Error>}
    */
-  createConceptform(conceptId, form) {
+  createConceptForm(conceptId, form) {
     return this.tenant.execute(
       requests.createApplicationConceptForm(this.application.applicationHandle, conceptId, this.applicationFormHandle, form),
       options
@@ -73,7 +73,7 @@ export default class ApplicationForm {
    * @param {Object} form        The form object as json
    * @returns {Promise.<Object, Error>}
    */
-  updateConceptform(conceptId, form) {
+  updateConcepForm(conceptId, form) {
     return this.tenant.execute(
       requests.updateApplicationConceptForm(this.application.applicationHandle, conceptId, this.applicationFormHandle, form),
       options
