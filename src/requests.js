@@ -258,6 +258,25 @@ export function updateApplicationConceptForm(applicationHandle, conceptId, appli
   };
 }
 
+export function createApplicationForm(applicationHandle, applicationFormHandle, applicationFormDescription) {
+  if (!applicationHandle) {
+    throw new Error("An application handle is required.");
+  }
+
+  if (!applicationFormHandle) {
+    throw new Error("An application form handle is required.");
+  }
+
+  return {
+    method: "POST",
+    path: endpoint("applicationForms", applicationHandle),
+    body: {
+      applicationFormHandle,
+      applicationFormDescription
+    }
+  };
+}
+
 export function createApplicationAttributeForm(applicationHandle, attributeId, applicationFormHandle, form) {
   if (!applicationHandle) {
     throw new Error("An application handle is required.");

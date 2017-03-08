@@ -2,6 +2,7 @@
 
 import ApplicationForm from "./application-form";
 import endpoint from "./endpoint";
+import * as requests from "./requests";
 
 
 /**
@@ -45,6 +46,21 @@ export default class ApplicationForms {
           return [];
         }
       });
+  }
+
+  /**
+   * Creates a new application form
+   *
+   * @param {String} formHandle         The form handle
+   * @param {String} formDescription    The form description(optional)
+   * @param {Object} options            The options object
+   * @returns {Promise.<Object, Error>}
+   */
+  create(formHandle, formDescription, options) {
+    return this.tenant.execute(
+      requests.createApplicationForm(this.application.applicationHandle, formHandle, formDescription),
+      options
+    );
   }
 
   /**
