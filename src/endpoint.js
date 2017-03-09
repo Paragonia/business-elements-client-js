@@ -165,8 +165,8 @@ const ENDPOINTS = {
   applicationLocalization:                         (applicationHandle, localizationHandle) => `/applications/${applicationHandle}/localizations/${localizationHandle}`,
   applicationForms:                                                    (applicationHandle) => `/applications/${applicationHandle}/forms`,
   applicationForm:                              (applicationHandle, applicationFormHandle) => `/applications/${applicationHandle}/forms/${applicationFormHandle}`,
-  applicationConceptForm:            (applicationHandle, conceptId, applicationFormHandle) => `/applications/${applicationHandle}/concepts/${conceptId}/forms/${applicationFormHandle}`,
-  applicationAttributeForm:        (applicationHandle, attributeId, applicationFormHandle) => `/applications/${applicationHandle}/attributes/${attributeId}/forms/${applicationFormHandle}`,
+  applicationConceptForm:            (applicationHandle, conceptId, applicationFormHandle) => `/applications/${applicationHandle}/concepts/${conceptId}/form/${applicationFormHandle}`,
+  applicationAttributeForm:        (applicationHandle, attributeId, applicationFormHandle) => `/applications/${applicationHandle}/attributes/${attributeId}/form/${applicationFormHandle}`,
 
   // Queries
   queries:                        () => "/queries",

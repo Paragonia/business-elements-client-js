@@ -288,7 +288,7 @@ export function createApplicationAttributeForm(applicationHandle, attributeId, a
 
   return {
     method: "POST",
-    path: endpoint("applicationConceptForm", applicationHandle, attributeId, applicationFormHandle),
+    path: endpoint("applicationAttributeForm", applicationHandle, attributeId, applicationFormHandle),
     body: {form}
   };
 }
@@ -304,7 +304,7 @@ export function updateApplicationAttributeForm(applicationHandle, attributeId, a
 
   return {
     method: "PATCH",
-    path: endpoint("applicationConceptForm", applicationHandle, attributeId, applicationFormHandle),
+    path: endpoint("applicationAttributeForm", applicationHandle, attributeId, applicationFormHandle),
     body: {form}
   };
 }
