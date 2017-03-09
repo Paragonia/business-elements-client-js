@@ -224,6 +224,92 @@ export function checkRegistrationStatus(emailAddress) {
   };
 }
 
+// Applications
+
+export function createApplicationConceptForm(applicationHandle, conceptId, applicationFormHandle, form) {
+  if (!applicationHandle) {
+    throw new Error("An application handle is required.");
+  }
+
+  if (!applicationFormHandle) {
+    throw new Error("An application form handle is required.");
+  }
+
+  return {
+    method: "POST",
+    path: endpoint("applicationConceptForm", applicationHandle, conceptId, applicationFormHandle),
+    body: {form}
+  };
+}
+
+export function updateApplicationConceptForm(applicationHandle, conceptId, applicationFormHandle, form) {
+  if (!applicationHandle) {
+    throw new Error("An application handle is required.");
+  }
+
+  if (!applicationFormHandle) {
+    throw new Error("An application form handle is required.");
+  }
+
+  return {
+    method: "PATCH",
+    path: endpoint("applicationConceptForm", applicationHandle, conceptId, applicationFormHandle),
+    body: {form}
+  };
+}
+
+export function createApplicationForm(applicationHandle, applicationFormHandle, applicationFormDescription) {
+  if (!applicationHandle) {
+    throw new Error("An application handle is required.");
+  }
+
+  if (!applicationFormHandle) {
+    throw new Error("An application form handle is required.");
+  }
+
+  return {
+    method: "POST",
+    path: endpoint("applicationForms", applicationHandle),
+    body: {
+      applicationFormHandle,
+      applicationFormDescription
+    }
+  };
+}
+
+export function createApplicationAttributeForm(applicationHandle, attributeId, applicationFormHandle, form) {
+  if (!applicationHandle) {
+    throw new Error("An application handle is required.");
+  }
+
+  if (!applicationFormHandle) {
+    throw new Error("An application form handle is required.");
+  }
+
+  return {
+    method: "POST",
+    path: endpoint("applicationAttributeForm", applicationHandle, attributeId, applicationFormHandle),
+    body: {form}
+  };
+}
+
+export function updateApplicationAttributeForm(applicationHandle, attributeId, applicationFormHandle, form) {
+  if (!applicationHandle) {
+    throw new Error("An application handle is required.");
+  }
+
+  if (!applicationFormHandle) {
+    throw new Error("An application form handle is required.");
+  }
+
+  return {
+    method: "PATCH",
+    path: endpoint("applicationAttributeForm", applicationHandle, attributeId, applicationFormHandle),
+    body: {form}
+  };
+}
+
+
 // Organizations
 
 export function createOrganization(name) {
