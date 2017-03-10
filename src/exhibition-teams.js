@@ -1,7 +1,6 @@
 "use strict";
 
 import ExhibitionTeam from "./exhibition-team";
-import * as requests from "./requests";
 import endpoint from "./endpoint";
 
 /**

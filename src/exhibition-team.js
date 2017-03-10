@@ -1,6 +1,5 @@
 "use strict";
 
-import * as requests from "./requests";
 import endpoint from "./endpoint";
 
 /**
@@ -62,17 +61,16 @@ export default class ExhibitionTeam {
    */
   edit(permission, options = {}) {
     return this.tenant.execute({
-        method: "PUT",
-        path: endpoint(
-            "organizationExhibitionTeam",
-            this.exhibition.organization.organizationId,
-            this.exhibition.exhibitionId,
-            this.teamId
-        ),
-        body: {permission}
-      },
-      options
-    );
+      method: "PUT",
+      path: endpoint(
+        "organizationExhibitionTeam",
+        this.exhibition.organization.organizationId,
+        this.exhibition.exhibitionId,
+        this.teamId
+      ),
+      body: {permission}
+    },
+    options);
   }
 
   /**
@@ -91,7 +89,6 @@ export default class ExhibitionTeam {
         this.teamId
       )
     },
-      options
-    );
+    options);
   }
 }
