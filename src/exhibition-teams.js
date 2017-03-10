@@ -73,11 +73,15 @@ export default class ExhibitionTeams {
    */
   create(teamId, permission, options = {}) {
     return this.tenant.execute(
-      requests.createOrganizationExhibitionTeam(
-        this.exhibition.organization.organizationId,
-        this.exhibition.exhibitionId,
-        teamId,
-        permission),
+      {
+        method: "POST",
+        path: endpoint(
+          "organizationExhibitionTeams",
+          this.exhibition.organization.organizationId,
+          this.exhibition.exhibitionId
+        ),
+        body: {teamId, permission}
+      },
       options
     );
   }

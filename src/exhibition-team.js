@@ -60,13 +60,17 @@ export default class ExhibitionTeam {
    * @param  {Object} options             The options object.
    * @returns {Promise.<Object, Error>}
    */
-  edit(permissions, options = {}) {
-    return this.tenant.execute(
-      requests.editExhibitionTeam(
-        this.exhibition.organization.organizationId,
-        this.exhibition.exhibitionId,
-        this.teamId, permissions
-      ),
+  edit(permission, options = {}) {
+    return this.tenant.execute({
+        method: "PUT",
+        path: endpoint(
+            "organizationExhibitionTeam",
+            this.exhibition.organization.organizationId,
+            this.exhibition.exhibitionId,
+            this.teamId
+        ),
+        body: {permission}
+      },
       options
     );
   }
@@ -78,12 +82,15 @@ export default class ExhibitionTeam {
    * @returns {Promise.<Object, Error>}
    */
   remove(options = {}) {
-    return this.tenant.execute(
-      requests.deleteExhibitionTeam(
+    return this.tenant.execute({
+      method: "DELETE",
+      path: endpoint(
+        "organizationExhibitionTeam",
         this.exhibition.organization.organizationId,
         this.exhibition.exhibitionId,
         this.teamId
-      ),
+      )
+    },
       options
     );
   }
