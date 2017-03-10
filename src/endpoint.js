@@ -164,10 +164,14 @@ const ENDPOINTS = {
   exhibitionCluster: (exhibitionId, clusterHeadId) => `/exhibitions/${exhibitionId}/published/clusters/${clusterHeadId}`,
 
   // Applications
-  applications:                                                   () => "/applications",
-  application:                                   (applicationHandle) => `/applications/${applicationHandle}`,
-  applicationConfig:               (applicationHandle, configHandle) => `/applications/${applicationHandle}/configs/${configHandle}`,
-  applicationLocalization:   (applicationHandle, localizationHandle) => `/applications/${applicationHandle}/localizations/${localizationHandle}`,
+  applications:                                                                         () => "/applications",
+  application:                                                         (applicationHandle) => `/applications/${applicationHandle}`,
+  applicationConfig:                                     (applicationHandle, configHandle) => `/applications/${applicationHandle}/configs/${configHandle}`,
+  applicationLocalization:                         (applicationHandle, localizationHandle) => `/applications/${applicationHandle}/localizations/${localizationHandle}`,
+  applicationForms:                                                    (applicationHandle) => `/applications/${applicationHandle}/forms`,
+  applicationForm:                              (applicationHandle, applicationFormHandle) => `/applications/${applicationHandle}/forms/${applicationFormHandle}`,
+  applicationConceptForm:            (applicationHandle, conceptId, applicationFormHandle) => `/applications/${applicationHandle}/concepts/${conceptId}/form/${applicationFormHandle}`,
+  applicationAttributeForm:        (applicationHandle, attributeId, applicationFormHandle) => `/applications/${applicationHandle}/attributes/${attributeId}/form/${applicationFormHandle}`,
 
   // Queries
   queries:                        () => "/queries",
@@ -188,7 +192,7 @@ const ENDPOINTS = {
   adminTenantFeatures:                       (tenantId) => `/admin/tenants/${tenantId}/features`,
   adminTenantFeature:                        (tenantId) => `/admin/tenants/${tenantId}/feature`,
   adminAccounts:                                     () => "/admin/accounts",
-  adminAccountUsers:                        (accountId) => `/admin/accounts/${accountId}/users`,
+  adminAccountUsers:                        (accountId) => `/admin/accounts/${accountId}/users`
 };
 
 /**
