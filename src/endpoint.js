@@ -121,13 +121,18 @@ const ENDPOINTS = {
 
   // Organizations
 
-  organizations:                                      () => "/organizations",
-  organization:                                  (orgId) => `/organizations/${orgId}`,
-  organizationLogo:                              (orgId) => `/organizations/${orgId}/logo`,
-  organizationProjects:                          (orgId) => `/organizations/${orgId}/projects`,
-  organizationProject:                (orgId, projectId) => `/organizations/${orgId}/projects/${projectId}`,
-  organizationProjectTeams:           (orgId, projectId) => `/organizations/${orgId}/projects/${projectId}/teams`,
-  organizationProjectTeam:    (orgId, projectId, teamId) => `/organizations/${orgId}/projects/${projectId}/teams/${teamId}`,
+  organizations:                                         () => "/organizations",
+  organization:                                     (orgId) => `/organizations/${orgId}`,
+  organizationLogo:                                 (orgId) => `/organizations/${orgId}/logo`,
+  organizationProjects:                             (orgId) => `/organizations/${orgId}/projects`,
+  organizationProject:                   (orgId, projectId) => `/organizations/${orgId}/projects/${projectId}`,
+  organizationProjectTeams:              (orgId, projectId) => `/organizations/${orgId}/projects/${projectId}/teams`,
+  organizationProjectTeam:       (orgId, projectId, teamId) => `/organizations/${orgId}/projects/${projectId}/teams/${teamId}`,
+  organizationExhibitions:                          (orgId) => `/organizations/${orgId}/exhibitions`,
+  organizationExhibition:             (orgId, exhibitionId) => `/organizations/${orgId}/exhibitions/${exhibitionId}`,
+  organizationExhibitionTeams:        (orgId, exhibitionId) => `/organizations/${orgId}/exhibitions/${exhibitionId}/teams`,
+  organizationExhibitionTeam: (orgId, exhibitionId, teamId) => `/organizations/${orgId}/exhibitions/${exhibitionId}/teams/${teamId}`,
+
 
   // Teams
 
