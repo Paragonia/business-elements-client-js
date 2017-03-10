@@ -70,6 +70,7 @@ ProjectContextEvent.INSTANCE = new ProjectContextEvent("INSTANCE", "instance");
 ProjectContextEvent.INSTANCE_VALUE_ADDED = new ProjectContextEvent("INSTANCE_VALUE_ADDED", "instanceValueAdded");
 ProjectContextEvent.INSTANCE_VALUE_REMOVED = new ProjectContextEvent("INSTANCE_VALUE_REMOVED", "instanceValueRemoved");
 ProjectContextEvent.INSTANCE_CREATED = new ProjectContextEvent("INSTANCE_CREATED", "instanceCreated");
+ProjectContextEvent.INSTANCE_RELATION_ADDED = new ProjectContextEvent("INSTANCE_RELATION", "instanceRelationAdded");
 ProjectContextEvent.INSTANCE_DELETED = new ProjectContextEvent("INSTANCE_DELETED", "instanceDeleted");
 ProjectContextEvent.INSTANCE_CELL = new ProjectContextEvent("INSTANCE_CELL", "instanceCell");
 ProjectContextEvent.INSTANCE_CELL_CREATED = new ProjectContextEvent("INSTANCE_CELL_CREATED", "instanceCellCreated");
