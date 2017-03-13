@@ -69,6 +69,9 @@ const ENDPOINTS = {
   instancesRelations:                            (instanceId) => `/instances/${instanceId}/relations`,
   instanceCells:                                 (instanceId) => `/instances/${instanceId}/cells`,
   instanceCell:                  (instanceId, instanceCellId) => `/instances/${instanceId}/cells/${instanceCellId}`,
+  projectInstanceTags:                (projectId, instanceId) => `/projects/${projectId}/instances/${instanceId}/tag`,
+  searchTags:                                     (projectId) => "/search/tags",
+
 
   // Resources
   resources:                                  () => "/resources",
@@ -106,24 +109,30 @@ const ENDPOINTS = {
 
   // Projects
 
-  projects:                                    () => "/projects",
-  project:                                   (id) => `/projects/${id}`,
-  projectContexts:                    (projectId) => `/projects/${projectId}/contexts`,
-  projectContext:          (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}`,
-  projectContextEvents:    (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/events`,
-  projectContextClusters:  (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/clusters`,
-  projectContextPositions: (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/positions`,
-  projectExport:                      (projectId) => `/exports/projects/${projectId}`,
+  projects:                                       () => "/projects",
+  project:                                      (id) => `/projects/${id}`,
+  projectContexts:                       (projectId) => `/projects/${projectId}/contexts`,
+  projectContext:             (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}`,
+  projectContextEvents:       (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/events`,
+  projectContextClusters:     (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/clusters`,
+  projectContextPositions:    (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/positions`,
+  projectContextInteractions: (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/interactions`,
+  projectExport:                         (projectId) => `/exports/projects/${projectId}`,
 
   // Organizations
 
-  organizations:                                      () => "/organizations",
-  organization:                                  (orgId) => `/organizations/${orgId}`,
-  organizationLogo:                              (orgId) => `/organizations/${orgId}/logo`,
-  organizationProjects:                          (orgId) => `/organizations/${orgId}/projects`,
-  organizationProject:                (orgId, projectId) => `/organizations/${orgId}/projects/${projectId}`,
-  organizationProjectTeams:           (orgId, projectId) => `/organizations/${orgId}/projects/${projectId}/teams`,
-  organizationProjectTeam:    (orgId, projectId, teamId) => `/organizations/${orgId}/projects/${projectId}/teams/${teamId}`,
+  organizations:                                         () => "/organizations",
+  organization:                                     (orgId) => `/organizations/${orgId}`,
+  organizationLogo:                                 (orgId) => `/organizations/${orgId}/logo`,
+  organizationProjects:                             (orgId) => `/organizations/${orgId}/projects`,
+  organizationProject:                   (orgId, projectId) => `/organizations/${orgId}/projects/${projectId}`,
+  organizationProjectTeams:              (orgId, projectId) => `/organizations/${orgId}/projects/${projectId}/teams`,
+  organizationProjectTeam:       (orgId, projectId, teamId) => `/organizations/${orgId}/projects/${projectId}/teams/${teamId}`,
+  organizationExhibitions:                          (orgId) => `/organizations/${orgId}/exhibitions`,
+  organizationExhibition:             (orgId, exhibitionId) => `/organizations/${orgId}/exhibitions/${exhibitionId}`,
+  organizationExhibitionTeams:        (orgId, exhibitionId) => `/organizations/${orgId}/exhibitions/${exhibitionId}/teams`,
+  organizationExhibitionTeam: (orgId, exhibitionId, teamId) => `/organizations/${orgId}/exhibitions/${exhibitionId}/teams/${teamId}`,
+
 
   // Teams
 
@@ -155,10 +164,14 @@ const ENDPOINTS = {
   exhibitionCluster: (exhibitionId, clusterHeadId) => `/exhibitions/${exhibitionId}/published/clusters/${clusterHeadId}`,
 
   // Applications
-  applications:                                                   () => "/applications",
-  application:                                   (applicationHandle) => `/applications/${applicationHandle}`,
-  applicationConfig:               (applicationHandle, configHandle) => `/applications/${applicationHandle}/configs/${configHandle}`,
-  applicationLocalization:   (applicationHandle, localizationHandle) => `/applications/${applicationHandle}/localizations/${localizationHandle}`,
+  applications:                                                                         () => "/applications",
+  application:                                                         (applicationHandle) => `/applications/${applicationHandle}`,
+  applicationConfig:                                     (applicationHandle, configHandle) => `/applications/${applicationHandle}/configs/${configHandle}`,
+  applicationLocalization:                         (applicationHandle, localizationHandle) => `/applications/${applicationHandle}/localizations/${localizationHandle}`,
+  applicationForms:                                                    (applicationHandle) => `/applications/${applicationHandle}/forms`,
+  applicationForm:                              (applicationHandle, applicationFormHandle) => `/applications/${applicationHandle}/forms/${applicationFormHandle}`,
+  applicationConceptForm:            (applicationHandle, conceptId, applicationFormHandle) => `/applications/${applicationHandle}/concepts/${conceptId}/form/${applicationFormHandle}`,
+  applicationAttributeForm:        (applicationHandle, attributeId, applicationFormHandle) => `/applications/${applicationHandle}/attributes/${attributeId}/form/${applicationFormHandle}`,
 
   // Queries
   queries:                        () => "/queries",
@@ -179,7 +192,7 @@ const ENDPOINTS = {
   adminTenantFeatures:                       (tenantId) => `/admin/tenants/${tenantId}/features`,
   adminTenantFeature:                        (tenantId) => `/admin/tenants/${tenantId}/feature`,
   adminAccounts:                                     () => "/admin/accounts",
-  adminAccountUsers:                        (accountId) => `/admin/accounts/${accountId}/users`,
+  adminAccountUsers:                        (accountId) => `/admin/accounts/${accountId}/users`
 };
 
 /**

@@ -2,6 +2,7 @@
 
 import chai from "chai";
 import chaiAsPromised from "chai-as-promised";
+import {fakeServerResponse} from "./test_utils.js";
 import sinon from "sinon";
 import BusinessElementsClient from "../src";
 import uuid from "uuid";
@@ -158,6 +159,68 @@ describe("Instance", () => {
 
     it("should return success", () => {
       return projectInstance.update({}).should.eventually.become(response);
+    });
+  });
+
+  /** @test {Instance#searchTags} */
+  describe("#searchTags", () => {
+    const tags = [{tag: "a"}, {tag: "b"}];
+    const actual = {
+      "_embedded": {
+        "be:tag": tags
+      }
+    };
+
+    beforeEach(()=> {
+      sandbox.stub(root, "fetch").returns(fakeServerResponse(201, {}, {}));
+      sandbox.stub(client, "execute").returns(Promise.resolve(actual));
+      sandbox.spy(requests, "searchTags");
+    });
+
+    it("should call tags url", () => {
+      projectInstance.searchTags();
+
+      sinon.assert.calledWithMatch(client.execute, {
+        path: "/search/tags"
+      });
+    });
+
+    it("should return the list of tags", () => {
+      return projectInstance.searchTags().should.become(tags);
+    });
+  });
+
+  /** @test {ProjectInstance#addInstanceTag} */
+  describe("#addInstanceTag()", () => {
+    const response = {status: "OK"};
+    const tag = "tag";
+
+    beforeEach(()=> {
+      sandbox.stub(client, "execute").returns(Promise.resolve(response));
+      sandbox.spy(requests, "addInstanceTag");
+    });
+
+    it("should add a tag to the instance", () => {
+      projectInstance.addInstanceTag(tag);
+
+      sinon.assert.calledWithMatch(requests.addInstanceTag, projectId, instanceId, tag);
+    });
+  });
+
+  /** @test {ProjectInstance#removeInstanceTag} */
+  describe("#removeInstanceTag()", () => {
+    const response = {status: "OK"};
+    const tag = "tag";
+
+    beforeEach(()=> {
+      sandbox.stub(client, "execute").returns(Promise.resolve(response));
+      sandbox.spy(requests, "removeInstanceTag");
+    });
+
+    it("should remove a tag from the instance", () => {
+      projectInstance.removeInstanceTag(tag);
+
+      sinon.assert.calledWithMatch(requests.removeInstanceTag, projectId, instanceId, tag);
     });
   });
 

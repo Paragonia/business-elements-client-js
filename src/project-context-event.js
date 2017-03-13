@@ -70,11 +70,14 @@ ProjectContextEvent.INSTANCE = new ProjectContextEvent("INSTANCE", "instance");
 ProjectContextEvent.INSTANCE_VALUE_ADDED = new ProjectContextEvent("INSTANCE_VALUE_ADDED", "instanceValueAdded");
 ProjectContextEvent.INSTANCE_VALUE_REMOVED = new ProjectContextEvent("INSTANCE_VALUE_REMOVED", "instanceValueRemoved");
 ProjectContextEvent.INSTANCE_CREATED = new ProjectContextEvent("INSTANCE_CREATED", "instanceCreated");
+ProjectContextEvent.INSTANCE_RELATION_ADDED = new ProjectContextEvent("INSTANCE_RELATION", "instanceRelationAdded");
 ProjectContextEvent.INSTANCE_DELETED = new ProjectContextEvent("INSTANCE_DELETED", "instanceDeleted");
 ProjectContextEvent.INSTANCE_CELL = new ProjectContextEvent("INSTANCE_CELL", "instanceCell");
 ProjectContextEvent.INSTANCE_CELL_CREATED = new ProjectContextEvent("INSTANCE_CELL_CREATED", "instanceCellCreated");
 ProjectContextEvent.INSTANCE_CELL_MOVED = new ProjectContextEvent("INSTANCE_CELL_MOVED", "instanceCellMoved");
 ProjectContextEvent.INSTANCE_CELL_DELETED = new ProjectContextEvent("INSTANCE_CELL_DELETED", "instanceCellDeleted");
+ProjectContextEvent.INSTANCE_TAG_ADDED = new ProjectContextEvent("INSTANCE_TAG_ADDED", "instanceTagAdded");
+ProjectContextEvent.INSTANCE_TAG_REMOVED = new ProjectContextEvent("INSTANCE_TAG_REMOVED", "instanceTagRemoved");
 
 // Data events - value history
 ProjectContextEvent.VALUE_HISTORY_ADDED = new ProjectContextEvent("VALUE_HISTORY_ADDED", "valueHistoryAdded");
@@ -95,6 +98,9 @@ ProjectContextEvent.ONLINE_GUEST_LEFT = new ProjectContextEvent("ONLINE_GUEST_JO
 // User events - Interaction
 
 ProjectContextEvent.ONLINE_MEMBER_POSITION_UPDATE = new ProjectContextEvent("ONLINE_MEMBER_POSITION_UPDATE", "positionUpdate");
+
+// Interactions
+ProjectContextEvent.INTERACTION = new ProjectContextEvent("INTERACTION", "interaction");
 
 // Do not allow changes
 Object.freeze(ProjectContextEvent);

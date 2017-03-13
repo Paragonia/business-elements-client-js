@@ -4,6 +4,7 @@ import endpoint from "./endpoint";
 import Teams from "./teams";
 import * as requests from "./requests";
 import OrganizationProjects from "./organization-projects";
+import OrganizationExhibitions from "./organization-exhibitions";
 
 /**
  * Abstract representation of a selected organization.
@@ -96,5 +97,9 @@ export default class Organization {
 
   projects() {
     return new OrganizationProjects(this.tenant, this);
+  }
+
+  exhibitions() {
+    return new OrganizationExhibitions(this.tenant, this);
   }
 }

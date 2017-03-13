@@ -1,6 +1,7 @@
 "use strict";
 
 import endpoint from "./endpoint";
+import InteractionContent from "./interaction-content";
 
 /**
  * @private
@@ -222,6 +223,92 @@ export function checkRegistrationStatus(emailAddress) {
     body: {emailAddress}
   };
 }
+
+// Applications
+
+export function createApplicationConceptForm(applicationHandle, conceptId, applicationFormHandle, form) {
+  if (!applicationHandle) {
+    throw new Error("An application handle is required.");
+  }
+
+  if (!applicationFormHandle) {
+    throw new Error("An application form handle is required.");
+  }
+
+  return {
+    method: "POST",
+    path: endpoint("applicationConceptForm", applicationHandle, conceptId, applicationFormHandle),
+    body: {form}
+  };
+}
+
+export function updateApplicationConceptForm(applicationHandle, conceptId, applicationFormHandle, form) {
+  if (!applicationHandle) {
+    throw new Error("An application handle is required.");
+  }
+
+  if (!applicationFormHandle) {
+    throw new Error("An application form handle is required.");
+  }
+
+  return {
+    method: "PATCH",
+    path: endpoint("applicationConceptForm", applicationHandle, conceptId, applicationFormHandle),
+    body: {form}
+  };
+}
+
+export function createApplicationForm(applicationHandle, applicationFormHandle, applicationFormDescription) {
+  if (!applicationHandle) {
+    throw new Error("An application handle is required.");
+  }
+
+  if (!applicationFormHandle) {
+    throw new Error("An application form handle is required.");
+  }
+
+  return {
+    method: "POST",
+    path: endpoint("applicationForms", applicationHandle),
+    body: {
+      applicationFormHandle,
+      applicationFormDescription
+    }
+  };
+}
+
+export function createApplicationAttributeForm(applicationHandle, attributeId, applicationFormHandle, form) {
+  if (!applicationHandle) {
+    throw new Error("An application handle is required.");
+  }
+
+  if (!applicationFormHandle) {
+    throw new Error("An application form handle is required.");
+  }
+
+  return {
+    method: "POST",
+    path: endpoint("applicationAttributeForm", applicationHandle, attributeId, applicationFormHandle),
+    body: {form}
+  };
+}
+
+export function updateApplicationAttributeForm(applicationHandle, attributeId, applicationFormHandle, form) {
+  if (!applicationHandle) {
+    throw new Error("An application handle is required.");
+  }
+
+  if (!applicationFormHandle) {
+    throw new Error("An application form handle is required.");
+  }
+
+  return {
+    method: "PATCH",
+    path: endpoint("applicationAttributeForm", applicationHandle, attributeId, applicationFormHandle),
+    body: {form}
+  };
+}
+
 
 // Organizations
 
@@ -503,6 +590,19 @@ export function updateContextPosition(projectId, contextId, position) {
     method: "POST",
     path: endpoint("projectContextPositions", projectId, contextId),
     body: {position}
+  };
+}
+
+export function sendInteraction(projectId, contextId, content) {
+  if (!content || !(InteractionContent.isOfSameType(content))) {
+    throw new Error("InteractionContent is required.");
+  }
+  return {
+    method: "POST",
+    path: endpoint("projectContextInteractions", projectId, contextId),
+    body: {
+      content: content.jsonObject()
+    }
   };
 }
 
@@ -1077,6 +1177,36 @@ export function deleteInstanceCell(instanceId, instanceCellId, position) {
   return {
     method: "DELETE",
     path: endpoint("instanceCell", instanceId, instanceCellId)
+  };
+}
+
+export function addInstanceTag(projectId, instanceId, tag) {
+  return {
+    method: "PUT",
+    path: endpoint("projectInstanceTags", projectId, instanceId),
+    body: {
+      tag
+    }
+  };
+}
+
+export function removeInstanceTag(projectId, instanceId, tag) {
+  return {
+    method: "DELETE",
+    path: endpoint("projectInstanceTags", projectId, instanceId),
+    body: {
+      tag
+    }
+  };
+}
+
+export function searchTags(projectId) {
+  return {
+    method: "POST",
+    path: endpoint("searchTags"),
+    body: {
+      projectId
+    }
   };
 }
 
