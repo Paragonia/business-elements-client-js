@@ -47,9 +47,15 @@ export default class ProjectContextEvent {
   }
 }
 
+// Errors
+ProjectContextEvent.ERROR = new ProjectContextEvent("ERROR", "error");
+
 // Connect/recovered events
 ProjectContextEvent.CONNECTED = new ProjectContextEvent("CONNECTED", "connected");
+ProjectContextEvent.RECOVERING = new ProjectContextEvent("RECOVERING", "recovering");
 ProjectContextEvent.RECOVERED = new ProjectContextEvent("RECOVERED", "recovered");
+ProjectContextEvent.INITIALIZING = new ProjectContextEvent("INITIALIZING", "initializing");
+ProjectContextEvent.INITIALIZED = new ProjectContextEvent("INITIALIZED", "initialized");
 
 // Data events - values
 
