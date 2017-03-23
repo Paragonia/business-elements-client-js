@@ -75,6 +75,38 @@ export default class Exhibition {
   }
 
   /**
+   * Assign project to the exhibition.
+   *
+   * @param {String} projectId    The id of project to assign.
+   * @param {Object} options      The options object.
+   */
+  assignProjectToExhibition(projectId, options = {}) {
+    return this.tenant.execute({
+      method: "PUT",
+      path: endpoint("exhibitionProject", this.exhibitionId),
+      body: {
+        projectId
+      }
+    }, options);
+  }
+
+  /**
+   * Remove assigned project from the exhibition.
+   *
+   * @param {String} projectId  The id of project to remove.
+   * @param {Object} options    The options object
+   */
+  removeProjectFromExhibition(projectId, options = {}) {
+    return this.tenant.execute({
+      method: "DELETE",
+      path: endpoint("exhibitionProject", this.exhibitionId),
+      body: {
+        projectId
+      }
+    }, options);
+  }
+
+  /**
    * Delete current exhibition
    *
    * @param  {Object} options             The options object.
