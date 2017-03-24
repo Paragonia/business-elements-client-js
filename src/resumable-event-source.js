@@ -1,3 +1,7 @@
+import ProjectContextEvent from "./project-context-event";
+
+const KEEP_ALIVE_TIMER_DEFAULT_TIMEOUT = 31000; // the keep alive timout in seconds
+
 export default class ResumableEventSource {
   constructor(url) {
     this.listeners = new Map();
@@ -53,6 +57,10 @@ export default class ResumableEventSource {
       if (eventCallback && typeof(eventCallback) === "function") {
         eventCallback(data.data);
       }
+      // in case of "connected" events process the timeout coming from server.
+      if(eventName === ProjectContextEvent.CONNECTED.value) {
+        this.keepAliveTimerTimeout = data.data.timeout;
+      }
     }
   }
 
@@ -63,6 +71,6 @@ export default class ResumableEventSource {
     }
     this.keepAliveTimer = setTimeout(() => {
       this.reconnect();
-    }, 31000);
+    }, this.keepAliveTimerTimeout ? this.keepAliveTimerTimeout : KEEP_ALIVE_TIMER_DEFAULT_TIMEOUT);
   }
 }
