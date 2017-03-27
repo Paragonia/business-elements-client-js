@@ -48,11 +48,11 @@ export default class ResumableEventSource {
   _fireEventCallback(e) {
     if (e.data) {
       // parse event payload
-      let data = JSON.parse(e.data);
+      const data = JSON.parse(e.data);
       // get the event name for the event data payload
-      let eventName = data.name;
+      const eventName = data.name;
       // get the listener register for this specific event
-      let eventCallback = this.listeners.get(eventName);
+      const eventCallback = this.listeners.get(eventName);
       // invoke the listener
       if (eventCallback && typeof(eventCallback) === "function") {
         eventCallback(data.data);
