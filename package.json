@@ -1,6 +1,6 @@
 {
   "name": "business-elements",
-  "version": "0.0.97",
+  "version": "0.0.98",
   "description": "JavaScript HTTP client for the Business Elements API.",
   "main": "lib/index.js",
   "scripts": {
@@ -52,7 +52,7 @@
   },
   "dependencies": {
     "event-emitter-es6": "^1.1.5",
-    "event-source-polyfill": "0.0.7",
+    "event-source-polyfill": "0.0.9",
     "isomorphic-fetch": "^2.2.1"
   }
 }
