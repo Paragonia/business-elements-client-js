@@ -75,6 +75,87 @@ export default class Exhibition {
   }
 
   /**
+   * Assign project to the exhibition.
+   *
+   * @param {String} projectId    The id of project to assign.
+   * @param {Object} options      The options object.
+   */
+  assignProjectToExhibition(projectId, options = {}) {
+    return this.tenant.execute({
+      method: "PUT",
+      path: endpoint("exhibitionProject", this.exhibitionId),
+      body: {
+        projectId
+      }
+    }, options);
+  }
+
+  /**
+   * Remove assigned project from the exhibition.
+   *
+   * @param {String} projectId  The id of project to remove.
+   * @param {Object} options    The options object
+   */
+  removeProjectFromExhibition(projectId, options = {}) {
+    return this.tenant.execute({
+      method: "DELETE",
+      path: endpoint("exhibitionProject", this.exhibitionId),
+      body: {
+        projectId
+      }
+    }, options);
+  }
+
+  /**
+   * Assign project context to the exhibition.
+   *
+   * @param {String} projectContextId    The id of project context to assign.
+   * @param {Object} options             The options object.
+   */
+  assignProjectContextToExhibition(projectContextId, options = {}) {
+    return this.tenant.execute({
+      method: "PUT",
+      path: endpoint("exhibitionProjectContext", this.exhibitionId),
+      body: {
+        projectContextId
+      }
+    }, options);
+  }
+
+  /**
+   * Remove assigned project context from the exhibition.
+   *
+   * @param {String} projectContextId  The id of project context to remove.
+   * @param {Object} options           The options object
+   */
+  removeProjectContextFromExhibition(projectContextId, options = {}) {
+    return this.tenant.execute({
+      method: "DELETE",
+      path: endpoint("exhibitionProjectContext", this.exhibitionId),
+      body: {
+        projectContextId
+      }
+    }, options);
+  }
+
+  /**
+   * Retrieves the list of project contexts for the current exhibition.
+   *
+   * @param  {Object} options         The options object.
+   * @return {Promise<Array<Object>, Error>}
+   */
+  listProjectContexts(options = {}) {
+    return this.tenant.execute({path: endpoint("exhibitionProjectContexts", (this.exhibitionId))}, options)
+      .then((response) => {
+        if (response["_embedded"]) {
+          return response["_embedded"]["be:project_context"];
+        } else {
+          return [];
+        }
+      });
+  }
+
+  /**
    * Delete current exhibition
    *
    * @param  {Object} options             The options object.
