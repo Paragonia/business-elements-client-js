@@ -145,7 +145,7 @@ export default class Exhibition {
    * @return {Promise<Array<Object>, Error>}
    */
   listProjectContexts(options = {}) {
-    return this.tenant.execute({path: endpoint("exhibitionProjectContexts", (this.exhibitionId))}, options)
+    return this.tenant.execute({path: endpoint("exhibitionProjectContexts", this.exhibitionId)}, options)
       .then((response) => {
         if (response["_embedded"]) {
           return response["_embedded"]["be:project_context"];
@@ -169,87 +169,15 @@ export default class Exhibition {
   }
 
   /**
-   * Retrieves exhibition clusters.
-   *
+   * Retrieve exhibition content root.
    * @param  {Object} options         The options object.
    * @return {Promise<Object, Error>}
    */
-  getPublishedClusters(options = {}) {
-    return this.tenant.execute(
-      {
-        path: endpoint("exhibitionClusters", this.exhibitionId)
-      },
-      options
-    ).then((response) => {
-      if (response["_embedded"]) {
-        response["_embedded"]["be:exhibition_clusters"].forEach((cluster) => {
-          cluster.users = response["_embedded"]["be:user"];
-        });
-        return response["_embedded"]["be:exhibition_clusters"];
-      } else {
-        return [];
-      }
-    });
-  }
-
-  /**
-   * Retrieves exhibition cluster.
-   * @param  {String} clusterHeadId      The id of the cluster head.
-   * @param  {Object} options         The options object.
-   * @return {Promise<Object, Error>}
-   */
-  getPublishedCluster(clusterHeadId, options = {}) {
-    return this.tenant.execute(
-      {
-        path: endpoint("exhibitionCluster", this.exhibitionId, clusterHeadId)
-      },
-      options
-    ).then((response) => {
-      response.users = response["_embedded"]["be:user"];
-      return response;
-    });
-  }
-
-  /**
-   * Retrieves exhibition instances.
-   *
-   * @param  {Object} options         The options object.
-   * @return {Promise<Object, Error>}
-   */
-  getPublishedInstances(options = {}) {
-    return this.tenant.execute(
-      {
-        path: endpoint("exhibitionInstances", this.exhibitionId)
-      },
-      options
-    ).then((response) => {
-      if (response["_embedded"]) {
-        response["_embedded"]["be:instance"].forEach((instance) => {
-          instance.users = response["_embedded"]["be:user"];
-        });
-        return response["_embedded"]["be:instance"];
-      } else {
-        return [];
-      }
-    });
-  }
-
-  /**
-   * Retrieves exhibition instances.
-   * @param  {String} instanceId      The id of the instance.
-   * @param  {Object} options         The options object.
-   * @return {Promise<Object, Error>}
-   */
-  getPublishedInstance(instanceId, options = {}) {
-    return this.tenant.execute(
-      {
-        path: endpoint("exhibitionInstance", this.exhibitionId, instanceId)
-      },
-      options
-    ).then((response) => {
-      response.users = response["_embedded"]["be:user"];
-      return response;
-    });
+  getContentRoot(options = {}) {
+    return this.tenant.execute({path: endpoint("exhibitionContentRoot", this.exhibitionId)}, options)
+      .then((response) => {
+        return response;
+      });
   }
 }
 
