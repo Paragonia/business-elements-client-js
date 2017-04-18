@@ -55,7 +55,7 @@ export default class ResumableEventSource {
       const eventCallback = this.listeners.get(eventName);
       // invoke the listener
       if (eventCallback && typeof(eventCallback) === "function") {
-        eventCallback(data.data);
+        eventCallback(data);
       }
       // in case of "connected" events process the timeout coming from server.
       if(eventName === ProjectContextEvent.CONNECTED.value) {
