@@ -95,6 +95,8 @@ const ENDPOINTS = {
   valuesProject:                     (projectId) => `/values/project/${projectId}`,
   valuesHistory:                       (valueId) => `/values/${valueId}/history`,
   valueHistoryRevision:      (valueId, revision) => `/values/${valueId}/history/${revision}`,
+  valuesSearch:                      (projectId) => `/values/search/project/${projectId}`,
+  valuesSuggestions:                 (projectId) => `/values/suggestions/project/${projectId}`,
 
   // Cells
   cells:                               (valueId) => `/values/${valueId}/cells`,
