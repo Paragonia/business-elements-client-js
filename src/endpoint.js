@@ -164,6 +164,7 @@ const ENDPOINTS = {
   exhibitionProjectContext:         (exhibitionId) => `/exhibitions/${exhibitionId}/projectContext`,
   exhibitionProjectContexts:        (exhibitionId) => `/projects/contexts/exhibitions/${exhibitionId}`,
   exhibitionContentRoot:            (exhibitionId) => `/content/${exhibitionId}/root`,
+  exhibitionContentRootNoCache:     (exhibitionId) => `/content/${exhibitionId}/root/nocache`,
 
   // Applications
   applications:                                                                         () => "/applications",

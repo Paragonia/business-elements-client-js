@@ -179,6 +179,18 @@ export default class Exhibition {
         return response;
       });
   }
+
+  /**
+   * Retrieve exhibition content without root.
+   * @param  {Object} options         The options object.
+   * @return {Promise<Object, Error>}
+   */
+  getContentRootNoCache(options = {}) {
+    return this.tenant.execute({path: endpoint("exhibitionContentRootNoCache", this.exhibitionId)}, options)
+      .then((response) => {
+        return response;
+      });
+  }
 }
 
 
