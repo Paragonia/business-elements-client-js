@@ -128,4 +128,24 @@ export default class ProjectInstances {
       options
     );
   }
+
+  /**
+   * Free-text search on instances and on the content of its linked resource
+   *
+   * @param  {String}  searchText       The free-text search
+   * @param  {Object}  options          The options object.
+   * @return {Promise<Object, Error>}   The promise, containing the found instances
+   */
+  search(searchText, options = {}) {
+    return this.tenant.execute({
+      method: "POST",
+      path: endpoint("instancesSearchByText", this.projectId),
+      body: {
+        searchText
+      }
+    }, options)
+      .then((response) => {
+        return response;
+      });
+  }
 }
