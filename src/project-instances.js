@@ -2,6 +2,7 @@
 
 import ProjectInstance from "./project-instance";
 import * as requests from "./requests";
+import endpoint from "./endpoint";
 
 /**
  * Abstract representation of ProjectInstances.
