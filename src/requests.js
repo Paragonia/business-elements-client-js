@@ -709,14 +709,15 @@ export function deleteCaptureMedia(captureId, captureMediaId) {
 }
 
 //Values
-export function createValue(projectId, attributeHandle, data) {
+export function createValue(projectId, attributeHandle, data, copiedFromValueId) {
   return {
     method: "POST",
     path: endpoint("values"),
     body: {
       projectId,
       attributeHandle,
-      data
+      data,
+      copiedFromValueId
     }
   };
 }
