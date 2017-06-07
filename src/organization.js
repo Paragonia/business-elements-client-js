@@ -5,6 +5,7 @@ import Teams from "./teams";
 import * as requests from "./requests";
 import OrganizationProjects from "./organization-projects";
 import OrganizationExhibitions from "./organization-exhibitions";
+import ContactMethod from "./contact-method";
 
 /**
  * Abstract representation of a selected organization.
@@ -82,6 +83,43 @@ export default class Organization {
   changeLogo(pictureUri, options = {}) {
     return this.tenant.execute(
       requests.changeOrganizationLogo(this.organizationId, pictureUri),
+      options
+    );
+  }
+
+  /**
+   * Request touches
+   * 
+   * @param methodType    {String}  the method of contact.
+   * @param methodValue   {String}  the contact detail.
+   * @param options       {Object}  the options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  requestTouches(methodType, methodValue, options = {}) {
+    let data, type;
+    if (ContactMethod.EMAIL.name === methodType) {
+      data = { emailAddress: methodValue };
+      type = methodType;
+    } else {
+      throw new Error("The provided methodType " + methodType + " is unknown.");
+    }
+    if (!methodValue) {
+      throw new Error("The methodValue is required.");
+    }
+
+    const contactMethod = {
+      "type": type,
+      "data": data
+    };
+    
+    return this.tenant.execute(
+      {
+        method: "POST",
+        path: endpoint("organizationTouches", this.organizationId),
+        body: {
+          contactMethod
+        }
+      },
       options
     );
   }
