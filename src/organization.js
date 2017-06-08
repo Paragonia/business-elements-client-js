@@ -90,12 +90,13 @@ export default class Organization {
   /**
    * Request touches
    * 
-   * @param methodType    {String}  the method of contact.
-   * @param methodValue   {String}  the contact detail.
-   * @param options       {Object}  the options object.
-   * @returns {Promise.<Object, Error>}
+   * @param methodType      {String}  the method of contact.
+   * @param methodValue     {String}  the contact detail.
+   * @param requestMessage  {String}  the request message.
+   * @param options         {Object}  the options object.
+   * @returns {Promise.<Object, Error>} 
    */
-  requestTouches(methodType, methodValue, options = {}) {
+  requestTouches(methodType, methodValue, requestMessage, options = {}) {
     let data, type;
     if (ContactMethod.EMAIL.name === methodType) {
       data = { emailAddress: methodValue };
@@ -117,7 +118,8 @@ export default class Organization {
         method: "POST",
         path: endpoint("organizationTouches", this.organizationId),
         body: {
-          contactMethod
+          contactMethod,
+          requestMessage
         }
       },
       options

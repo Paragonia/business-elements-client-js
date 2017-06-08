@@ -50,10 +50,12 @@ describe("Organization", () => {
 
   /** @test {Organization#requestTouches} */
   describe("#requestTouches()", () => {
-    const data = {id: organizationId};
+    const returnValue = {};
+    const message = "request message";
+
 
     beforeEach(() => {
-      sandbox.stub(client, "execute").returns(Promise.resolve(data));
+      sandbox.stub(client, "execute").returns(Promise.resolve(returnValue));
     });
 
     it("should request touches by a known contact-method", () => {
@@ -65,11 +67,11 @@ describe("Organization", () => {
     });
 
     it("should fail when requesting touches with unknown contact-method", () => {
-      expect(() => organization.requestTouches("Fax", "user@bla.bla")).to.Throw(Error, /The provided methodType Fax is unknown./);
+      expect(() => organization.requestTouches("Fax", "user@bla.bla", message)).to.Throw(Error, /The provided methodType Fax is unknown./);
     });
 
     it("should fail when requesting touches with an empty method-value", () => {
-      expect(() => organization.requestTouches("Email", "")).to.Throw(Error, /The methodValue is required./);
+      expect(() => organization.requestTouches("Email", "", message)).to.Throw(Error, /The methodValue is required./);
     });
   });
 
