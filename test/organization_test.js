@@ -1,6 +1,6 @@
 "use strict";
 
-import chai from "chai";
+import chai, {expect} from "chai";
 import chaiAsPromised from "chai-as-promised";
 import sinon from "sinon";
 import BusinessElementsClient from "../src";
@@ -45,6 +45,33 @@ describe("Organization", () => {
 
     it("should return organization data", () => {
       return organization.get().should.become(data);
+    });
+  });
+
+  /** @test {Organization#requestTouches} */
+  describe("#requestTouches()", () => {
+    const returnValue = {};
+    const message = "request message";
+
+
+    beforeEach(() => {
+      sandbox.stub(client, "execute").returns(Promise.resolve(returnValue));
+    });
+
+    it("should request touches by a known contact-method", () => {
+      organization.requestTouches("Email", "user@bla.bla");
+
+      sinon.assert.calledWithMatch(client.execute, {
+        path: `/organizations/${organizationId}/touches`
+      });
+    });
+
+    it("should fail when requesting touches with unknown contact-method", () => {
+      expect(() => organization.requestTouches("Fax", "user@bla.bla", message)).to.Throw(Error, /The provided methodType Fax is unknown./);
+    });
+
+    it("should fail when requesting touches with an empty method-value", () => {
+      expect(() => organization.requestTouches("Email", "", message)).to.Throw(Error, /The methodValue is required./);
     });
   });
 
