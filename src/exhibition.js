@@ -181,7 +181,31 @@ export default class Exhibition {
   }
 
   /**
-   * Retrieve exhibition content without root.
+   * Retrieve exhibition content TOC.
+   * @param  {Object} options         The options object.
+   * @return {Promise<Object, Error>}
+   */
+  getContentToc(options = {}) {
+    return this.tenant.execute({path: endpoint("exhibitionContentToc", this.exhibitionId)}, options)
+      .then((response) => {
+        return response;
+      });
+  }
+
+  /**
+   * Retrieve exhibition content menu.
+   * @param  {Object} options         The options object.
+   * @return {Promise<Object, Error>}
+   */
+  getContentMenu(organizationId, options = {}) {
+    return this.tenant.execute({path: endpoint("exhibitionContentMenu", organizationId)}, options)
+      .then((response) => {
+        return response;
+      });
+  }
+
+  /**
+   * Retrieve exhibition content, the non-cached version.
    * @param  {Object} options         The options object.
    * @return {Promise<Object, Error>}
    */
