@@ -61,9 +61,9 @@ export default class Team {
    * @param  {Object} options             The options object.
    * @returns {Promise.<Object, Error>}
    */
-  edit(name, options = {}) {
+  edit(name, description, visibility, options = {}) {
     return this.tenant.execute(
-      requests.updateTeam(this.organizationId, this.teamId, name),
+      requests.updateTeam(this.organizationId, this.teamId, name, description, visibility),
       options
     );
   }

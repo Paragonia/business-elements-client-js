@@ -60,13 +60,13 @@ describe("Teams", () => {
     });
 
     it("should edit the team", () => {
-      team.edit("name", {});
+      team.edit("name", "description", "visibility", {});
 
-      sinon.assert.calledWithMatch(requests.updateTeam, orgId, teamId, "name");
+      sinon.assert.calledWithMatch(requests.updateTeam, orgId, teamId, "name", "description", "visibility");
     });
 
     it("should return success", () => {
-      return team.edit("name", {}).should.eventually.become(response);
+      return team.edit("name", "description", "visibility", {}).should.eventually.become(response);
     });
   });
 
