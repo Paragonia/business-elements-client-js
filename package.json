@@ -1,6 +1,6 @@
 {
   "name": "business-elements",
-  "version": "0.0.107",
+  "version": "0.0.1088888888",
   "description": "JavaScript HTTP client for the Business Elements API.",
   "main": "lib/index.js",
   "scripts": {
