@@ -285,4 +285,54 @@ describe("Exhibition", () => {
     });
 
   });
+
+  /** @test {Exhibition#getContentToc} */
+  describe("#getContentToc()", () => {
+    const response = {
+      "content": {}
+    };
+
+    beforeEach(() => {
+      sandbox.stub(client, "execute").returns(Promise.resolve(response));
+    });
+
+    it("should call get content-toc from exhibition", () => {
+      exhibition.getContentToc({});
+
+      sinon.assert.calledWithMatch(client.execute, {
+        path: `/content/${exhibitionId}/toc`
+      });
+    });
+
+    it("should return content-toc from exhibition", () => {
+      return exhibition.getContentToc({}).should.eventually.become(response);
+    });
+
+  });
+
+  /** @test {Exhibition#getContentMenu} */
+  describe("#getContentMenu()", () => {
+    const response = {
+      "content": {}
+    };
+
+    const organizationId = uuid.v4();
+
+    beforeEach(() => {
+      sandbox.stub(client, "execute").returns(Promise.resolve(response));
+    });
+
+    it("should call get content-menu from exhibition", () => {
+      exhibition.getContentMenu(organizationId, {});
+
+      sinon.assert.calledWithMatch(client.execute, {
+        path: `/content/${organizationId}/menu`
+      });
+    });
+
+    it("should return content-menu from exhibition", () => {
+      return exhibition.getContentMenu(organizationId, {}).should.eventually.become(response);
+    });
+
+  });
 });
