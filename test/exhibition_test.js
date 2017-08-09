@@ -335,4 +335,56 @@ describe("Exhibition", () => {
     });
 
   });
+
+  /** @test {Exhibition#getContentItems} */
+  describe("#getContentItems()", () => {
+    const response = {
+      "content": {}
+    };
+
+    beforeEach(() => {
+      sandbox.stub(client, "execute").returns(Promise.resolve(response));
+    });
+
+    it("should call get content-items from exhibition", () => {
+      exhibition.getContentItems({});
+
+      sinon.assert.calledWithMatch(client.execute, {
+        path: `/content/${exhibitionId}/items`
+      });
+    });
+  });
+
+  /** @test {Exhibition#setContentItems} */
+  describe("#setContentItems()", () => {
+    const response = {};
+
+    const items = [{
+      "contentId": "123",
+      "template": "template-a"
+    }, {
+      "contentId": "456",
+      "template": "template-b"
+    }, {
+      "contentId": "789",
+      "template": "template-c"
+    }];
+
+    beforeEach(() => {
+      sandbox.stub(client, "execute").returns(Promise.resolve(response));
+    });
+
+    it("should call setting content-items to the exhibition", () => {
+      exhibition.setContentItems(items, {});
+
+      sinon.assert.calledWithMatch(client.execute, {
+        method: "PUT",
+        path: `/content/${exhibitionId}/items`,
+        body: {
+          items : items
+        }
+      });
+
+    });
+  });
 });

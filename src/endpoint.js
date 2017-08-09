@@ -169,6 +169,7 @@ const ENDPOINTS = {
   exhibitionContentRootNoCache:     (exhibitionId) => `/content/${exhibitionId}/root/nocache`,
   exhibitionContentToc:             (exhibitionId) => `/content/${exhibitionId}/toc`,
   exhibitionContentMenu:            (organizationId) => `/content/${organizationId}/menu`,
+  exhibitionContentItems:           (exhibitionId) => `/content/${exhibitionId}/items`,
 
   // Applications
   applications:                                                                         () => "/applications",

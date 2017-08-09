@@ -215,6 +215,34 @@ export default class Exhibition {
         return response;
       });
   }
+
+  /**
+   * Retrieve the content-items configured for the exhibition.
+   * @param  {Object} options         The options object.
+   * @returns {Promise.<TResult>}
+   */
+  getContentItems(options = {}) {
+    return this.tenant.execute({path: endpoint("exhibitionContentItems", this.exhibitionId)}, options)
+      .then((response) => {
+        return response;
+      });
+  }
+
+  /**
+   * Store the provided content-items
+   * @param items                     The content-items to store.
+   * @param  {Object} options         The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  setContentItems(items, options = {}) {
+    return this.tenant.execute({
+      method: "PUT",
+      path: endpoint("exhibitionContentItems", this.exhibitionId),
+      body: {
+        items
+      }
+    }, options);
+  }
 }
 
 
