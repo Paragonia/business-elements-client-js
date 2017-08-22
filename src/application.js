@@ -77,6 +77,19 @@ export default class Application {
   }
 
   /**
+   * Retrieves the list of publication purposes.
+   *
+   * @param  {Object} options         The options object.
+   * @return {Promise<Array<Object>, Error>}
+   */
+  listPublicationPurposes(options = {}) {
+    return this.tenant.execute({path: endpoint("applicationPublicationPurposes", this.applicationHandle)}, options)
+      .then((response) => {
+        return response;
+      });
+  }
+
+  /**
    * Provides access to application forms
    *
    * @returns {ApplicationForms}

@@ -180,6 +180,7 @@ const ENDPOINTS = {
   applicationForm:                              (applicationHandle, applicationFormHandle) => `/applications/${applicationHandle}/forms/${applicationFormHandle}`,
   applicationConceptForm:            (applicationHandle, conceptId, applicationFormHandle) => `/applications/${applicationHandle}/concepts/${conceptId}/form/${applicationFormHandle}`,
   applicationAttributeForm:        (applicationHandle, attributeId, applicationFormHandle) => `/applications/${applicationHandle}/attributes/${attributeId}/form/${applicationFormHandle}`,
+  applicationPublicationPurposes:                                      (applicationHandle) => `/applications/${applicationHandle}/publication/purposes`,
 
   // Queries
   queries:                        () => "/queries",
