@@ -164,12 +164,13 @@ const ENDPOINTS = {
   exhibitionPicture:                (exhibitionId) => `/exhibitions/${exhibitionId}/pictureUri`,
   exhibitionProject:                (exhibitionId) => `/exhibitions/${exhibitionId}/project`,
   exhibitionProjectContext:         (exhibitionId) => `/exhibitions/${exhibitionId}/projectContext`,
+  exhibitionContentRootNoCache:     (exhibitionId) => `/exhibitions/${exhibitionId}/root/nocache`,
+  exhibitionContentTocNoCache:      (exhibitionId) => `/exhibitions/${exhibitionId}/toc/nocache`,
+  exhibitionContentAssembly:        (exhibitionId) => `/exhibitions/${exhibitionId}/assembly`,
   exhibitionProjectContexts:        (exhibitionId) => `/projects/contexts/exhibitions/${exhibitionId}`,
   exhibitionContentRoot:            (exhibitionId) => `/content/${exhibitionId}/root`,
-  exhibitionContentRootNoCache:     (exhibitionId) => `/content/${exhibitionId}/root/nocache`,
   exhibitionContentToc:             (exhibitionId) => `/content/${exhibitionId}/toc`,
   exhibitionContentMenu:            (organizationId) => `/content/${organizationId}/menu`,
-  exhibitionContentItems:           (exhibitionId) => `/content/${exhibitionId}/items`,
 
   // Applications
   applications:                                                                         () => "/applications",

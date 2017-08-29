@@ -194,6 +194,7 @@ export default class Exhibition {
 
   /**
    * Retrieve exhibition content menu.
+   * @param organizationId            The organizationId from organization of which the content menu is returned
    * @param  {Object} options         The options object.
    * @return {Promise<Object, Error>}
    */
@@ -217,27 +218,27 @@ export default class Exhibition {
   }
 
   /**
-   * Retrieve the content-items configured for the exhibition.
+   * Retrieve exhibition toc, the non-cached version.
    * @param  {Object} options         The options object.
-   * @returns {Promise.<TResult>}
+   * @return {Promise<Object, Error>}
    */
-  getContentItems(options = {}) {
-    return this.tenant.execute({path: endpoint("exhibitionContentItems", this.exhibitionId)}, options)
+  getContentTocNoCache(options = {}) {
+    return this.tenant.execute({path: endpoint("exhibitionContentTocNoCache", this.exhibitionId)}, options)
       .then((response) => {
         return response;
       });
   }
 
   /**
-   * Store the provided content-items
-   * @param items                     The content-items to store.
+   * Store the provided content-assembly
+   * @param items                     The content-assembly to store.
    * @param  {Object} options         The options object.
    * @returns {Promise.<Object, Error>}
    */
-  setContentItems(items, options = {}) {
+  setContentAssembly(items, options = {}) {
     return this.tenant.execute({
       method: "PUT",
-      path: endpoint("exhibitionContentItems", this.exhibitionId),
+      path: endpoint("exhibitionContentAssembly", this.exhibitionId),
       body: {
         items
       }
