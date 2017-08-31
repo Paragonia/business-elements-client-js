@@ -164,9 +164,11 @@ const ENDPOINTS = {
   exhibitionPicture:                (exhibitionId) => `/exhibitions/${exhibitionId}/pictureUri`,
   exhibitionProject:                (exhibitionId) => `/exhibitions/${exhibitionId}/project`,
   exhibitionProjectContext:         (exhibitionId) => `/exhibitions/${exhibitionId}/projectContext`,
+  exhibitionContentRootNoCache:     (exhibitionId) => `/exhibitions/${exhibitionId}/root/nocache`,
+  exhibitionContentTocNoCache:      (exhibitionId) => `/exhibitions/${exhibitionId}/toc/nocache`,
+  exhibitionContentAssembly:        (exhibitionId) => `/exhibitions/${exhibitionId}/assembly`,
   exhibitionProjectContexts:        (exhibitionId) => `/projects/contexts/exhibitions/${exhibitionId}`,
   exhibitionContentRoot:            (exhibitionId) => `/content/${exhibitionId}/root`,
-  exhibitionContentRootNoCache:     (exhibitionId) => `/content/${exhibitionId}/root/nocache`,
   exhibitionContentToc:             (exhibitionId) => `/content/${exhibitionId}/toc`,
   exhibitionContentMenu:            (organizationId) => `/content/${organizationId}/menu`,
 
@@ -179,6 +181,7 @@ const ENDPOINTS = {
   applicationForm:                              (applicationHandle, applicationFormHandle) => `/applications/${applicationHandle}/forms/${applicationFormHandle}`,
   applicationConceptForm:            (applicationHandle, conceptId, applicationFormHandle) => `/applications/${applicationHandle}/concepts/${conceptId}/form/${applicationFormHandle}`,
   applicationAttributeForm:        (applicationHandle, attributeId, applicationFormHandle) => `/applications/${applicationHandle}/attributes/${attributeId}/form/${applicationFormHandle}`,
+  applicationPublicationPurposes:                                      (applicationHandle) => `/applications/${applicationHandle}/publication/purposes`,
 
   // Queries
   queries:                        () => "/queries",

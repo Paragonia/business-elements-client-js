@@ -194,6 +194,7 @@ export default class Exhibition {
 
   /**
    * Retrieve exhibition content menu.
+   * @param organizationId            The organizationId from organization of which the content menu is returned
    * @param  {Object} options         The options object.
    * @return {Promise<Object, Error>}
    */
@@ -214,6 +215,34 @@ export default class Exhibition {
       .then((response) => {
         return response;
       });
+  }
+
+  /**
+   * Retrieve exhibition toc, the non-cached version.
+   * @param  {Object} options         The options object.
+   * @return {Promise<Object, Error>}
+   */
+  getContentTocNoCache(options = {}) {
+    return this.tenant.execute({path: endpoint("exhibitionContentTocNoCache", this.exhibitionId)}, options)
+      .then((response) => {
+        return response;
+      });
+  }
+
+  /**
+   * Store the provided content-assembly
+   * @param items                     The content-assembly to store.
+   * @param  {Object} options         The options object.
+   * @returns {Promise.<Object, Error>}
+   */
+  setContentAssembly(items, options = {}) {
+    return this.tenant.execute({
+      method: "PUT",
+      path: endpoint("exhibitionContentAssembly", this.exhibitionId),
+      body: {
+        items
+      }
+    }, options);
   }
 }
 

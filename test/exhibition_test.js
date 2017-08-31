@@ -335,4 +335,37 @@ describe("Exhibition", () => {
     });
 
   });
+
+  /** @test {Exhibition#setContentAssembly} */
+  describe("#setContentAssembly()", () => {
+    const response = {};
+
+    const items = [{
+      "contentId": "123",
+      "template": "template-a"
+    }, {
+      "contentId": "456",
+      "template": "template-b"
+    }, {
+      "contentId": "789",
+      "template": "template-c"
+    }];
+
+    beforeEach(() => {
+      sandbox.stub(client, "execute").returns(Promise.resolve(response));
+    });
+
+    it("should call setting content-items to the exhibition", () => {
+      exhibition.setContentAssembly(items, {});
+
+      sinon.assert.calledWithMatch(client.execute, {
+        method: "PUT",
+        path: `/exhibitions/${exhibitionId}/assembly`,
+        body: {
+          items : items
+        }
+      });
+
+    });
+  });
 });
