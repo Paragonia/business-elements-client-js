@@ -71,6 +71,7 @@ const ENDPOINTS = {
   instanceCell:                  (instanceId, instanceCellId) => `/instances/${instanceId}/cells/${instanceCellId}`,
   projectInstanceTags:                (projectId, instanceId) => `/projects/${projectId}/instances/${instanceId}/tag`,
   searchTags:                                     (projectId) => "/search/tags",
+  instancesSearchByText:                          (projectId) => `/projects/${projectId}/instances/search`,
 
 
   // Resources
@@ -95,6 +96,8 @@ const ENDPOINTS = {
   valuesProject:                     (projectId) => `/values/project/${projectId}`,
   valuesHistory:                       (valueId) => `/values/${valueId}/history`,
   valueHistoryRevision:      (valueId, revision) => `/values/${valueId}/history/${revision}`,
+  valuesSearch:                      (projectId) => `/values/search/project/${projectId}`,
+  valuesSuggestions:                 (projectId) => `/values/suggestions/project/${projectId}`,
 
   // Cells
   cells:                               (valueId) => `/values/${valueId}/cells`,
@@ -132,6 +135,7 @@ const ENDPOINTS = {
   organizationExhibition:             (orgId, exhibitionId) => `/organizations/${orgId}/exhibitions/${exhibitionId}`,
   organizationExhibitionTeams:        (orgId, exhibitionId) => `/organizations/${orgId}/exhibitions/${exhibitionId}/teams`,
   organizationExhibitionTeam: (orgId, exhibitionId, teamId) => `/organizations/${orgId}/exhibitions/${exhibitionId}/teams/${teamId}`,
+  organizationTouches:                              (orgId) => `/organizations/${orgId}/touches`,
 
 
   // Teams
@@ -158,10 +162,15 @@ const ENDPOINTS = {
   exhibitionVisibility:             (exhibitionId) => `/exhibitions/${exhibitionId}/visibility`,
   exhibitionDescription:            (exhibitionId) => `/exhibitions/${exhibitionId}/description`,
   exhibitionPicture:                (exhibitionId) => `/exhibitions/${exhibitionId}/pictureUri`,
-  exhibitionInstances:              (exhibitionId) => `/exhibitions/${exhibitionId}/published/instances`,
-  exhibitionInstance:   (exhibitionId, instanceId) => `/exhibitions/${exhibitionId}/published/instances/${instanceId}`,
-  exhibitionClusters:               (exhibitionId) => `/exhibitions/${exhibitionId}/published/clusters`,
-  exhibitionCluster: (exhibitionId, clusterHeadId) => `/exhibitions/${exhibitionId}/published/clusters/${clusterHeadId}`,
+  exhibitionProject:                (exhibitionId) => `/exhibitions/${exhibitionId}/project`,
+  exhibitionProjectContext:         (exhibitionId) => `/exhibitions/${exhibitionId}/projectContext`,
+  exhibitionContentRootNoCache:     (exhibitionId) => `/exhibitions/${exhibitionId}/root/nocache`,
+  exhibitionContentTocNoCache:      (exhibitionId) => `/exhibitions/${exhibitionId}/toc/nocache`,
+  exhibitionContentAssembly:        (exhibitionId) => `/exhibitions/${exhibitionId}/assembly`,
+  exhibitionProjectContexts:        (exhibitionId) => `/projects/contexts/exhibitions/${exhibitionId}`,
+  exhibitionContentRoot:            (exhibitionId) => `/content/${exhibitionId}/root`,
+  exhibitionContentToc:             (exhibitionId) => `/content/${exhibitionId}/toc`,
+  exhibitionContentMenu:            (organizationId) => `/content/${organizationId}/menu`,
 
   // Applications
   applications:                                                                         () => "/applications",
@@ -172,6 +181,7 @@ const ENDPOINTS = {
   applicationForm:                              (applicationHandle, applicationFormHandle) => `/applications/${applicationHandle}/forms/${applicationFormHandle}`,
   applicationConceptForm:            (applicationHandle, conceptId, applicationFormHandle) => `/applications/${applicationHandle}/concepts/${conceptId}/form/${applicationFormHandle}`,
   applicationAttributeForm:        (applicationHandle, attributeId, applicationFormHandle) => `/applications/${applicationHandle}/attributes/${attributeId}/form/${applicationFormHandle}`,
+  applicationPublicationPurposes:                                      (applicationHandle) => `/applications/${applicationHandle}/publication/purposes`,
 
   // Queries
   queries:                        () => "/queries",
