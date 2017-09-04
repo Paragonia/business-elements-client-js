@@ -113,7 +113,8 @@ const ENDPOINTS = {
   // Projects
 
   projects:                                       () => "/projects",
-  project:                                      (id) => `/projects/${id}`,
+  project:                               (projectId) => `/projects/${projectId}`,
+  projectSearch:                         (projectId) => `/projects/${projectId}/search`,
   projectContexts:                       (projectId) => `/projects/${projectId}/contexts`,
   projectContext:             (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}`,
   projectContextEvents:       (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/events`,

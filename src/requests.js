@@ -540,6 +540,17 @@ export function createProject(name, description) {
   };
 }
 
+export function searchProject(id, searchText, searchOptions) {
+  return {
+    method: "POST",
+    path: endpoint("projectSearch", id),
+    body: {
+      searchText: searchText,
+      ...searchOptions
+    }
+  };
+}
+
 export function editProject(id, name, description) {
   return {
     method: "PUT",
@@ -1174,7 +1185,7 @@ export function updateInstanceCell(instanceId, instanceCellId, position) {
   };
 }
 
-export function deleteInstanceCell(instanceId, instanceCellId, position) {
+export function deleteInstanceCell(instanceId, instanceCellId) {
   return {
     method: "DELETE",
     path: endpoint("instanceCell", instanceId, instanceCellId)

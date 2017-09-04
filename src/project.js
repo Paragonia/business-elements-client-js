@@ -96,4 +96,17 @@ export default class Project {
   instances() {
     return new ProjectInstances(this.tenant, this);
   }
+
+  /**
+   * Search the project using the specified criteria
+   * @param {String} searchText text to search project for.
+   * @param {Object} searchOptions search options
+   * @param {Object} options             The options object.
+   */
+  search(searchText, searchOptions = {}, options = {}) {
+    return this.tenant.execute(
+      requests.searchProject(this.projectId, searchText, searchOptions),
+      options
+    );
+  }
 }
