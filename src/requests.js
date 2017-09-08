@@ -375,20 +375,21 @@ export function createTeam(orgId, name, description, isOwnerTeam, visibility) {
   };
 }
 
-export function updateTeam(orgId, teamId, name) {
+export function updateTeam(orgId, teamId, name, description, visibility) {
   if (!orgId) {
     throw new Error("An Organization Id where the team belongs is required.");
   }
   if (!teamId) {
     throw new Error("An Team Id is required in order to perform updates on it.");
   }
-  if (!name) {
-    throw new Error("An team name is required.");
-  }
   return {
     method: "PUT",
     path: endpoint("team", orgId, teamId),
-    body: {name}
+    body: {
+      name,
+      description,
+      visibility
+    }
   };
 }
 

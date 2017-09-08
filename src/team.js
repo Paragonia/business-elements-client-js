@@ -45,7 +45,7 @@ export default class Team {
    * @param  {Object} options         The options object.
    * @return {Promise<Object, Error>}
    */
-  get(options={}) {
+  get(options = {}) {
     return this.tenant.execute(
       {
         path: endpoint("team", this.organizationId, this.teamId)
@@ -58,12 +58,17 @@ export default class Team {
    * Updates current team
    *
    * @param {String} name                 Team name
+   * @param {String} description          Team description
+   * @param {String} visibility           Team visibility.
    * @param  {Object} options             The options object.
    * @returns {Promise.<Object, Error>}
    */
-  edit(name, options = {}) {
+  edit(name,
+       description,
+       visibility,
+       options = {}) {
     return this.tenant.execute(
-      requests.updateTeam(this.organizationId, this.teamId, name),
+      requests.updateTeam(this.organizationId, this.teamId, name, description, visibility),
       options
     );
   }
