@@ -7,9 +7,9 @@ export default class BoutEvent {
    * Creates a new bout event.
    *
    * @param {String} name to use for the event.
-   * @param {String} bout emitted in the event.
+   * @param {String} value emitted in the event.
    */
-  constructor(name, bout) {
+  constructor(name, value) {
 
     /**
      * @type {String} Stores the name.
@@ -19,10 +19,10 @@ export default class BoutEvent {
 
 
     /**
-     * @type {String} Stores the bout.
+     * @type {String} Stores the value.
      * @private
      */
-    this._bout = bout;
+    this._value = value;
   }
 
   /**
@@ -33,10 +33,10 @@ export default class BoutEvent {
   }
 
   /**
-   * @returns {String} bout of the event.
+   * @returns {String} value of the event.
    */
-  get bout() {
-    return this._bout;
+  get value() {
+    return this._value;
   }
 
   /**
