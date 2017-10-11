@@ -137,6 +137,9 @@ const ENDPOINTS = {
   organizationExhibitionTeams:        (orgId, exhibitionId) => `/organizations/${orgId}/exhibitions/${exhibitionId}/teams`,
   organizationExhibitionTeam: (orgId, exhibitionId, teamId) => `/organizations/${orgId}/exhibitions/${exhibitionId}/teams/${teamId}`,
   organizationTouches:                              (orgId) => `/organizations/${orgId}/touches`,
+  organizationActivityStreamEvents:                 (orgId) => `/organizations/${orgId}/activitystreams`,
+  organizationActivityStreamLimitedEvents:          (orgId) => `/activitystreams/organizations/${orgId}`,
+
 
 
   // Teams
