@@ -40,7 +40,7 @@ export default class Organization {
    * @param  {Object} options         The options object.
    * @return {Promise<Object, Error>}
    */
-  get(options={}) {
+  get(options = {}) {
     return this.tenant.execute(
       {
         path: endpoint("organization", this.organizationId)
@@ -90,17 +90,17 @@ export default class Organization {
 
   /**
    * Request touches
-   * 
+   *
    * @param methodType      {String}  the method of contact.
    * @param methodValue     {String}  the contact detail.
    * @param requestMessage  {String}  the request message.
    * @param options         {Object}  the options object.
-   * @returns {Promise.<Object, Error>} 
+   * @returns {Promise.<Object, Error>}
    */
   requestTouches(methodType, methodValue, requestMessage, options = {}) {
     let data, type;
     if (ContactMethod.EMAIL.name === methodType) {
-      data = { emailAddress: methodValue };
+      data = {emailAddress: methodValue};
       type = methodType;
     } else {
       throw new Error("The provided methodType " + methodType + " is unknown.");
@@ -113,7 +113,7 @@ export default class Organization {
       "type": type,
       "data": data
     };
-    
+
     return this.tenant.execute(
       {
         method: "POST",

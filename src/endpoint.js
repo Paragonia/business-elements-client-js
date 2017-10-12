@@ -112,16 +112,18 @@ const ENDPOINTS = {
 
   // Projects
 
-  projects:                                       () => "/projects",
-  project:                               (projectId) => `/projects/${projectId}`,
-  projectSearch:                         (projectId) => `/projects/${projectId}/search`,
-  projectContexts:                       (projectId) => `/projects/${projectId}/contexts`,
-  projectContext:             (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}`,
-  projectContextEvents:       (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/events`,
-  projectContextClusters:     (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/clusters`,
-  projectContextPositions:    (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/positions`,
-  projectContextInteractions: (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/interactions`,
-  projectExport:                         (projectId) => `/exports/projects/${projectId}`,
+  projects:                                                       () => "/projects",
+  project:                                               (projectId) => `/projects/${projectId}`,
+  projectSearch:                                         (projectId) => `/projects/${projectId}/search`,
+  projectContexts:                                       (projectId) => `/projects/${projectId}/contexts`,
+  projectContext:                             (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}`,
+  projectContextEvents:                       (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/events`,
+  projectContextClusters:                     (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/clusters`,
+  projectContextPositions:                    (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/positions`,
+  projectContextInteractions:                 (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/interactions`,
+  projectContextActivityStreamEvents:         (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/activitystreams`,
+  projectContextActivityStreamLimitedEvents:  (projectId, contextId) => `/activitystreams/contexts/${contextId}`,
+  projectExport:                                         (projectId) => `/exports/projects/${projectId}`,
 
   // Organizations
 
