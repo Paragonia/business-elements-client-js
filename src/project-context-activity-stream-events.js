@@ -16,7 +16,7 @@ export default class ProjectContextActivityStreamEvents extends ResumableEventSo
    * @param  {ProjectContext} projectContext  The projectContext instance.
    */
   constructor(tenant, projectContext) {
-    super(tenant.client.remote + endpoint("projectContextActivityStreamEvents", projectContext.contextId));
+    super(tenant.client.remote + endpoint("projectContextActivityStreamEvents", projectContext.project.projectId, projectContext.contextId));
 
     /**
      * The tenant.

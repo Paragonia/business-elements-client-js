@@ -133,7 +133,7 @@ export default class ProjectContext {
   }
 
   limitedActivityStreams(fromTime, options = {}) {
-    let path = endpoint("projectContextActivityStreamLimitedEvents", this.contextId);
+    let path = endpoint("projectContextActivityStreamLimitedEvents", this.project.projectId, this.contextId);
     if (fromTime) {
       path = `${path}?from=${fromTime}`;
     }
