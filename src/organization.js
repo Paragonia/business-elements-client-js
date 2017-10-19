@@ -166,4 +166,9 @@ export default class Organization {
         return [];
       });
   }
+
+  activityStreamsSummary(options = {}) {
+    let path = endpoint("organizationActivityStreamSummary", this.organizationId);
+    return this.tenant.execute({path: path}, options);
+  }
 }

@@ -150,4 +150,9 @@ export default class ProjectContext {
         return [];
       });
   }
+
+  activityStreamsSummary(options = {}) {
+    let path = endpoint("projectContextActivityStreamSummary", this.project.projectId, this.contextId);
+    return this.tenant.execute({path: path}, options);
+  }
 }
