@@ -247,7 +247,7 @@ export default class Tenant {
    * @return {String} Download uri.
    */
   getDownloadUri(resourceUri, qualifier = null, includeCredentials = true) {
-    return this._getDirectUri(endpoint("download", resourceUri), { qualifier }, includeCredentials);
+    return this.getDirectUri(endpoint("download", resourceUri), { qualifier }, includeCredentials);
   }
 
   /**
@@ -258,7 +258,7 @@ export default class Tenant {
    * @return {String} Public download uri.
    */
   getPublicDownloadUri(resourceUri, qualifier = null) {
-    return this._getDirectUri(endpoint("downloadPublic", this.domainName, resourceUri), { qualifier }, false);
+    return this.getDirectUri(endpoint("downloadPublic", this.domainName, resourceUri), { qualifier }, false);
   }
 
   /**
@@ -268,10 +268,10 @@ export default class Tenant {
    * @return {String} Project export uri.
    */
   getProjectExportUri(projectId) {
-    return this._getDirectUri(endpoint("projectExport", projectId), { }, true);
+    return this.getDirectUri(endpoint("projectExport", projectId));
   }
 
-  _getDirectUri(endpointString, params = {}, includeCredentials) {
+  getDirectUri(endpointString, params = {}, includeCredentials = true) {
     const baseUri = this.client.remote + endpointString;
 
     if (includeCredentials) {

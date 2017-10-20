@@ -1,6 +1,6 @@
 import ProjectContextEvent from "./project-context-event";
 
-const KEEP_ALIVE_TIMER_DEFAULT_TIMEOUT = 35000; // the keep alive timout in seconds
+const KEEP_ALIVE_TIMER_DEFAULT_TIMEOUT = 35000; // the keep alive timeout in seconds
 
 export default class ResumableEventSource {
   constructor(url) {

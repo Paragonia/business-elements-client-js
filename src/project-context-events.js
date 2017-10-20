@@ -17,7 +17,7 @@ export default class ProjectContextEvents extends ResumableEventSource {
    * @param  {String}  contextId  The context id.
    */
   constructor(tenant, project, contextId) {
-    super(tenant.client.remote + endpoint("projectContextEvents", project.projectId, contextId));
+    super(tenant.getDirectUri(endpoint("projectContextEvents", project.projectId, contextId)));
 
     /**
      * The tenant.

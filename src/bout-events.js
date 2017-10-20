@@ -15,7 +15,7 @@ export default class BoutEvents extends ResumableEventSource {
    * @param  {Tenant}  tenant     The tenant instance.
    */
   constructor(tenant) {
-    super(tenant.client.remote + endpoint("boutsEvents"));
+    super(tenant.getDirectUri(endpoint("boutsEvents")));
 
     /**
      * The tenant.
