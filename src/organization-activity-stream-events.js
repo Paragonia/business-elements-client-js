@@ -16,7 +16,7 @@ export default class OrganizationActivityStreamEvents extends ResumableEventSour
    * @param  {Organization} organization    The organization instance.
    */
   constructor(tenant, organization) {
-    super(tenant.client.remote + endpoint("organizationActivityStreamEvents", organization.organizationId));
+    super(tenant.getDirectUri(endpoint("organizationActivityStreamEvents", organization.organizationId)));
 
     /**
      * The tenant.
