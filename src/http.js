@@ -26,7 +26,7 @@ export default class HTTP extends EventEmitter {
    */
   static get defaultOptions() {
     return {
-      timeout: 5000,
+      timeout: 30000,
       requestMode: "cors",
       credentials: "include"
     };
