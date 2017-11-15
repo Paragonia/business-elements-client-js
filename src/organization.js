@@ -167,8 +167,11 @@ export default class Organization {
       });
   }
 
-  activityStreamsSummary(options = {}) {
+  activityStreamsSummary(fromTime, options = {}) {
     let path = endpoint("organizationActivityStreamSummary", this.organizationId);
+    if (fromTime) {
+      path = `${path}?from=${fromTime}`;
+    }
     return this.tenant.execute({path: path}, options);
   }
 }
