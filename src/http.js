@@ -113,13 +113,18 @@ export default class HTTP extends EventEmitter {
    * @return {Promise}
    */
   request(url, options = {headers: {}}) {
-    let response, status, statusText, headers, isTimeout;
+    let response, status, statusText, headers, isTimeout, timeout;
 
     // Ensure default request headers are always set
     options.headers = Object.assign({}, HTTP.DEFAULT_REQUEST_HEADERS, options.headers);
     if (options.body) {
       // Add Content-Type when request body is present
       options.headers = Object.assign({}, {"Content-Type": "application/json"}, options.headers);
+    }
+    timeout = this.timeout;
+    if (options.timeout) {
+      // Enable timeout to be overridden when timeout is passed in options.
+      timeout = options.timeout;
     }
     options.mode = this.requestMode;
     options.credentials = this.credentials;
@@ -130,7 +135,7 @@ export default class HTTP extends EventEmitter {
         isTimeout = true;
         this.emit(this.httpEvents.TIMEOUT_ERROR);
         reject(new Error("Request timeout."));
-      }, this.timeout);
+      }, timeout);
       fetch(url, options) .then(res => {
         if (!isTimeout) {
           clearTimeout(_timeoutId);
