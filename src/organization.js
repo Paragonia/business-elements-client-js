@@ -6,7 +6,6 @@ import * as requests from "./requests";
 import OrganizationProjects from "./organization-projects";
 import OrganizationExhibitions from "./organization-exhibitions";
 import ContactMethod from "./contact-method";
-import OrganizationActivityStreamEvents from "./organization-activity-stream-events";
 
 /**
  * Abstract representation of a selected organization.
@@ -142,36 +141,5 @@ export default class Organization {
 
   exhibitions() {
     return new OrganizationExhibitions(this.tenant, this);
-  }
-
-  activityStreams() {
-    return new OrganizationActivityStreamEvents(this.tenant, this);
-  }
-
-  limitedActivityStreams(fromTime, options = {}) {
-    let path = endpoint("organizationActivityStreamLimitedEvents", this.organizationId);
-    if (fromTime) {
-      path = `${path}?from=${fromTime}`;
-    }
-
-    return this.tenant.execute({path: path}, options)
-      .then((response) => {
-        const embedded = response["_embedded"];
-        if (embedded) {
-          const activitystreams = embedded["be:activitystream"];
-          if (activitystreams) {
-            return activitystreams;
-          }
-        }
-        return [];
-      });
-  }
-
-  activityStreamsSummary(fromTime, options = {}) {
-    let path = endpoint("organizationActivityStreamSummary", this.organizationId);
-    if (fromTime) {
-      path = `${path}?from=${fromTime}`;
-    }
-    return this.tenant.execute({path: path}, options);
   }
 }

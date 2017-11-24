@@ -4,7 +4,6 @@ import endpoint from "./endpoint";
 import ProjectContextEvents from "./project-context-events";
 import * as requests from "./requests";
 import InteractionContent from "./interaction-content";
-import ProjectContextActivityStreamEvents from "./project-context-activity-stream-events";
 
 /**
  * Abstract representation of a project.
@@ -126,36 +125,5 @@ export default class ProjectContext {
       requests.sendInteraction(this.project.projectId, this.contextId, textContent),
       options
     );
-  }
-
-  activityStreams() {
-    return new ProjectContextActivityStreamEvents(this.tenant, this);
-  }
-
-  limitedActivityStreams(fromTime, options = {}) {
-    let path = endpoint("projectContextActivityStreamLimitedEvents", this.project.projectId, this.contextId);
-    if (fromTime) {
-      path = `${path}?from=${fromTime}`;
-    }
-
-    return this.tenant.execute({path: path}, options)
-      .then((response) => {
-        const embedded = response["_embedded"];
-        if (embedded) {
-          const activitystreams = embedded["be:activitystream"];
-          if (activitystreams) {
-            return activitystreams;
-          }
-        }
-        return [];
-      });
-  }
-
-  activityStreamsSummary(fromTime, options = {}) {
-    let path = endpoint("projectContextActivityStreamSummary", this.project.projectId, this.contextId);
-    if (fromTime) {
-      path = `${path}?from=${fromTime}`;
-    }
-    return this.tenant.execute({path: path}, options);
   }
 }

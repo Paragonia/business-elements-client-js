@@ -121,9 +121,6 @@ const ENDPOINTS = {
   projectContextClusters:                     (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/clusters`,
   projectContextPositions:                    (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/positions`,
   projectContextInteractions:                 (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/interactions`,
-  projectContextActivityStreamEvents:         (projectId, contextId) => `/projects/${projectId}/contexts/${contextId}/activitystreams`,
-  projectContextActivityStreamLimitedEvents:  (projectId, contextId) => `/activitystreams/contexts/${contextId}`,
-  projectContextActivityStreamSummary:        (projectId, contextId) => `/activitystreams/contexts/${contextId}/summary`,
   projectExport:                                         (projectId) => `/exports/projects/${projectId}`,
 
   // Organizations
@@ -140,10 +137,6 @@ const ENDPOINTS = {
   organizationExhibitionTeams:        (orgId, exhibitionId) => `/organizations/${orgId}/exhibitions/${exhibitionId}/teams`,
   organizationExhibitionTeam: (orgId, exhibitionId, teamId) => `/organizations/${orgId}/exhibitions/${exhibitionId}/teams/${teamId}`,
   organizationTouches:                              (orgId) => `/organizations/${orgId}/touches`,
-  organizationActivityStreamEvents:                 (orgId) => `/organizations/${orgId}/activitystreams`,
-  organizationActivityStreamLimitedEvents:          (orgId) => `/activitystreams/organizations/${orgId}`,
-  organizationActivityStreamSummary:                (orgId) => `/activitystreams/organizations/${orgId}/summary`,
-
 
 
   // Teams
