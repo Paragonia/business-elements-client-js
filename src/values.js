@@ -83,12 +83,13 @@ export default class Values {
    * @param {String}  attributeHandle   The selected attribute
    * @param {Object}  value             The form data object
    * @param {String}  copiedFromValueId The valueId from which the current value is copied from
+   * @param {String}  comment           Optional save comment.
    * @param  {Object} options           The options object.
    * @return {Promise<Object, Error>}
    */
-  create(projectId, attributeHandle, value, copiedFromValueId, options = {}) {
+  create(projectId, attributeHandle, value, copiedFromValueId, comment, options = {}) {
     return this.tenant.execute(
-      requests.createValue(projectId, attributeHandle, value, copiedFromValueId),
+      requests.createValue(projectId, attributeHandle, value, copiedFromValueId, comment),
       options
     );
   }

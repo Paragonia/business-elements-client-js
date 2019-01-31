@@ -48,15 +48,16 @@ export default class Value {
   /**
    * Updates the value with the specified properties.
    *
-   * @param  {String}  projectId        The project id.
+   * @param {String} projectId          The project id.
    * @param {String} attributeHandle    The selected attribute
-   * @param {Object} value    The form data object
-   * @param  {Object} options       The options object.
+   * @param {Object} value              The form data object
+   * @param {String} comment            Optional save comment.
+   * @param {Object} options            The options object.
    * @return {Promise<Object, Error>}
    */
-  edit(projectId, attributeHandle, value, options = {}) {
+  edit(projectId, attributeHandle, value, comment, options = {}) {
     return this.tenant.execute(
-      requests.editValue(this.valueId, projectId, attributeHandle, value),
+      requests.editValue(this.valueId, projectId, attributeHandle, value, comment),
       options
     );
   }
@@ -64,7 +65,7 @@ export default class Value {
   /**
    * Updates the value with the specified properties.
    *
-   * @param {String}  projectId         The project id.
+   * @param {String} projectId          The project id.
    * @param {String} attributeHandle    The selected attribute
    * @param {Object} languageCode       The selected language code
    * @param {Object} value              The form data object

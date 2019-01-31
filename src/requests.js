@@ -721,7 +721,7 @@ export function deleteCaptureMedia(captureId, captureMediaId) {
 }
 
 //Values
-export function createValue(projectId, attributeHandle, data, copiedFromValueId) {
+export function createValue(projectId, attributeHandle, data, copiedFromValueId, comment) {
   return {
     method: "POST",
     path: endpoint("values"),
@@ -729,19 +729,21 @@ export function createValue(projectId, attributeHandle, data, copiedFromValueId)
       projectId,
       attributeHandle,
       data,
-      copiedFromValueId
+      copiedFromValueId,
+      comment
     }
   };
 }
 
-export function editValue(valueId, projectId, attributeHandle, data) {
+export function editValue(valueId, projectId, attributeHandle, data, comment) {
   return {
     method: "PUT",
     path: endpoint("value", valueId),
     body: {
       projectId,
       attributeHandle,
-      data
+      data,
+      comment
     }
   };
 
