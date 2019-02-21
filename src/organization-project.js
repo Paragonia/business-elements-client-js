@@ -53,6 +53,21 @@ export default class OrganizationProject {
   }
 
   /**
+   * Retrieves project changes.
+   *
+   * @param  {Object} options         The options object.
+   * @return {Promise<Object, Error>}
+   */
+  changes(options = {}) {
+    return this.tenant.execute(
+      {
+        path: endpoint("organizationProjectChanges", this.organization.organizationId, this.projectId)
+      },
+      options
+    );
+  }
+
+  /**
    * Updates current project
    *
    * @param {String} name                 Project name

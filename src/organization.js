@@ -49,6 +49,21 @@ export default class Organization {
   }
 
   /**
+   * Retrieves organization changes.
+   *
+   * @param  {Object} options         The options object.
+   * @return {Promise<Object, Error>}
+   */
+  changes(options = {}) {
+    return this.tenant.execute(
+      {
+        path: endpoint("organizationChanges", this.organizationId)
+      },
+      options
+    );
+  }
+
+  /**
    * Delete current organization
    *
    * @param  {Object} options             The options object.
