@@ -7,8 +7,6 @@ import * as optionUtils from "./options";
 import Tenant from "./tenant";
 import Admin from "./admin/admin";
 
-import LocationService from "./location";
-
 /**
  * HTTP client for the Business Elements API.
  *
@@ -65,8 +63,6 @@ export default class BusinessElementsClientBase {
      * @type {HTTP}
      */
     this.http = new HTTP({requestMode: options.requestMode});
-
-    this.locationService = new LocationService();
   }
 
   /**
@@ -177,31 +173,24 @@ export default class BusinessElementsClientBase {
 
     const requestOptions = this.getRequestOptions(options);
 
-    const locationPromise = this.authenticationToken ? this.locationService.currentLocation : Promise.resolve(null);
+    const completeRequest = {
+      ...request,
+      body: JSON.stringify(request.body),
+      ...requestOptions,
+      headers: {
+        ...request.headers,
+        ...requestOptions.headers
+      }
+    };
 
-    const responsePromise = locationPromise.then(location => {
-      const locationHeaders = (location !== null && typeof location === "object") ? {"BE-Geolocation": `(${location.latitude}, ${location.longitude})`} : {};
+    const promise = this.http.request(`${this.remote}${completeRequest.path}`, completeRequest);
 
-      const completeRequest = {
-        ...request,
-        body: JSON.stringify(request.body),
-        ...requestOptions,
-        headers: {
-          ...request.headers,
-          ...requestOptions.headers,
-          ...locationHeaders
-        }
-      };
-
-      return this.http.request(`${this.remote}${completeRequest.path}`, completeRequest);
-    });
-
-    return raw ? responsePromise : responsePromise.then(({json}) => json);
+    return raw ? promise : promise.then(({json}) => json);
   }
 
   /**
    * Listen to http event and execute function
-   * 
+   *
    * @param {String}   event     the event to listen to
    * @param {Function} callBack  the function to execute when the event is fired
      */
@@ -285,7 +274,7 @@ export default class BusinessElementsClientBase {
 
   /**
    * Retrieve event names emitted in the request flow
-   * 
+   *
    * @returns {string[]}
      */
   httpEvents(){
